@@ -1,0 +1,2880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NVIDIA GSI Interview Prep — Haroon Khan 10 Questions</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #FFF8F2;
+    --surface: #FFFFFF;
+    --surface-alt: #F8F4EF;
+    --border: #E8E0D8;
+    --text-primary: #1A1612;
+    --text-secondary: #6B6058;
+    --text-muted: #9A8F85;
+    --accent: #76B900;
+    --accent-dark: #5A8E00;
+    --accent-light: #EFF7D6;
+    --red: #CC4B2C;
+    --red-light: #FDF0EC;
+    --blue: #0D7680;
+    --blue-light: #EAF5F6;
+    --gold: #C47D1A;
+    --gold-light: #FDF4E7;
+    --heading: 'Lora', Georgia, serif;
+    --body: 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--body);
+    background: var(--bg);
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: #0A0A0A;
+    color: white;
+    padding: 40px 48px 36px;
+    border-bottom: 3px solid var(--accent);
+  }
+  .site-header .eyebrow {
+    font-family: var(--body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .site-header h1 {
+    font-family: var(--heading);
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .site-header .subtitle {
+    font-size: 14px;
+    color: #AAAAAA;
+    font-weight: 300;
+  }
+  .site-header .meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .site-header .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #888;
+  }
+  .site-header .meta-item strong {
+    color: #DDD;
+    font-weight: 500;
+  }
+
+  /* ── LAYOUT ── */
+  .layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: calc(100vh - 140px);
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    background: #0F0F0F;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 24px 0;
+    border-right: 1px solid #222;
+  }
+  .sidebar-section {
+    padding: 0 16px 16px;
+    border-bottom: 1px solid #222;
+    margin-bottom: 8px;
+  }
+  .sidebar-title {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #555;
+    padding: 12px 16px 8px;
+  }
+  .nav-item {
+    display: block;
+    padding: 7px 16px;
+    font-size: 12.5px;
+    color: #888;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 1px 4px;
+    transition: all 0.15s;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: calc(100% - 8px);
+    text-align: left;
+  }
+  .nav-item:hover {
+    background: #1A1A1A;
+    color: #EEE;
+  }
+  .nav-item.active {
+    background: #1A2A0A;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .nav-item .q-num {
+    display: inline-block;
+    width: 22px;
+    height: 18px;
+    background: #222;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 18px;
+    margin-right: 8px;
+    color: #666;
+  }
+  .nav-item.active .q-num {
+    background: var(--accent);
+    color: #000;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    padding: 0;
+    overflow-y: auto;
+  }
+
+  /* ── QUESTION PANEL ── */
+  .q-panel {
+    display: none;
+    padding: 40px 48px 64px;
+    max-width: 920px;
+  }
+  .q-panel.active {
+    display: block;
+  }
+
+  /* ── OVERVIEW PANEL ── */
+  .overview-panel {
+    padding: 40px 48px 64px;
+    max-width: 960px;
+  }
+
+  /* ── QUESTION HEADER ── */
+  .q-header {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--border);
+  }
+  .q-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #000;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+  }
+  .q-header h2 {
+    font-family: var(--heading);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+  .q-verbatim {
+    background: var(--surface-alt);
+    border-left: 3px solid var(--accent);
+    padding: 14px 18px;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    border-radius: 0 6px 6px 0;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  /* ── SECTION BLOCKS ── */
+  .section {
+    margin-bottom: 32px;
+  }
+  .section-title {
+    font-family: var(--body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── CONCEPT BOX ── */
+  .concept-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+
+  /* ── ANALOGY BOX ── */
+  .analogy-box {
+    background: var(--gold-light);
+    border: 1px solid #E8C882;
+    border-radius: 8px;
+    padding: 20px 24px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* ── STORY BOX ── */
+  .story-box {
+    background: var(--accent-light);
+    border: 1px solid #B8D870;
+    border-radius: 8px;
+    padding: 20px 24px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .story-box .story-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin-bottom: 8px;
+  }
+
+  /* ── TABLES ── */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    background: var(--surface);
+  }
+  thead tr {
+    background: var(--surface-alt);
+  }
+  th {
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 10px 16px;
+    border-bottom: 1px solid #F0EAE3;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #FAFAF8; }
+
+  /* ── NUMBERS BAR ── */
+  .numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .number-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .number-card .num {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .number-card .num-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  /* ── FOLLOWUP ITEMS ── */
+  .followup-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .followup-item {
+    background: var(--blue-light);
+    border: 1px solid #B8DEE2;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 13.5px;
+  }
+  .followup-item .fq {
+    font-weight: 600;
+    color: var(--blue);
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .followup-item .fa {
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ── CODE BLOCK ── */
+  pre {
+    background: #0F0F0F;
+    color: #E0E0E0;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.6;
+    padding: 20px 24px;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+  code {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    background: var(--surface-alt);
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: var(--red);
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  /* ── PILL TAGS ── */
+  .pill {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent-dark);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 20px;
+    margin: 2px;
+    letter-spacing: 0.3px;
+  }
+  .pill-blue {
+    background: var(--blue-light);
+    color: var(--blue);
+  }
+  .pill-red {
+    background: var(--red-light);
+    color: var(--red);
+  }
+  .pill-gold {
+    background: var(--gold-light);
+    color: var(--gold);
+  }
+
+  /* ── ALERT BOX ── */
+  .alert {
+    background: var(--red-light);
+    border: 1px solid #F0C4B8;
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 13.5px;
+    line-height: 1.65;
+  }
+  .alert-title {
+    font-weight: 600;
+    color: var(--red);
+    margin-bottom: 6px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ── ARCHITECTURE BLOCK ── */
+  .arch-block {
+    background: #0A0A0A;
+    color: #D0D0D0;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.7;
+    padding: 20px 24px;
+    border-radius: 8px;
+    overflow-x: auto;
+    border: 1px solid #222;
+  }
+
+  /* ── OVERVIEW CARDS ── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .overview-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 22px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .overview-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 2px 12px rgba(118, 185, 0, 0.1);
+    transform: translateY(-1px);
+  }
+  .ov-q-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+  .ov-title {
+    font-family: var(--heading);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+  }
+  .ov-answer {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+  .ov-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  /* ── CHEAT SHEET TABLE ── */
+  .cheat-table { font-size: 13px; }
+  .cheat-table td:first-child {
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    width: 160px;
+  }
+  .cheat-table td:nth-child(2) {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--blue);
+  }
+
+  /* ── Q10 SPECIAL ── */
+  .q10-badge { background: var(--red); }
+  .q10-header { border-bottom-color: var(--red); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .q-panel, .overview-panel { padding: 24px 20px 48px; }
+  }
+
+  /* ── MATERIAL ICONS ── */
+  .material-icons { font-size: 18px; vertical-align: middle; }
+
+  /* ── PLAYING CARD TOOLTIPS ── */
+  .term {
+    border-bottom: 1.5px dotted var(--accent);
+    cursor: pointer;
+    transition: color 0.12s, border-color 0.12s;
+  }
+  .term:hover { color: var(--accent-dark); border-bottom-color: var(--accent-dark); }
+
+  #term-card {
+    position: fixed;
+    z-index: 9999;
+    width: 290px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+    transition: opacity 0.15s, transform 0.15s;
+    font-family: var(--body);
+  }
+  #term-card.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .tc-header {
+    padding: 11px 15px 9px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .tc-header.green  { background: var(--accent); }
+  .tc-header.blue   { background: var(--blue); }
+  .tc-header.gold   { background: var(--gold); }
+  .tc-header.red    { background: var(--red); }
+  .tc-header.dark   { background: #1A1A1A; }
+  .tc-title { font-family: var(--mono); font-size: 14px; font-weight: 700; color: #fff; line-height:1.2; }
+  .tc-cat   { font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.72); margin-top:3px; }
+  .tc-icon  { font-size: 22px; color: rgba(255,255,255,0.55); }
+  .tc-body  { padding: 12px 15px 14px; }
+  .tc-label { font-weight: 700; color: var(--text-secondary); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .tc-def   { font-size: 12.5px; color: #2A2420; line-height: 1.62; margin-bottom: 9px; }
+  .tc-nvidia {
+    background: var(--accent-light);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 11px;
+    color: var(--accent-dark);
+    font-weight: 600;
+    margin-bottom: 7px;
+  }
+  .tc-nvidia::before { content: '⬡ NVIDIA: '; font-weight: 700; }
+  .tc-example { font-size: 11px; color: var(--text-muted); font-style: italic; line-height: 1.5; }
+  .tc-layer { background: var(--gold-light); border-radius: 6px; padding: 5px 10px; font-size: 11px; color: var(--gold); font-weight: 600; }
+  .tc-layer::before { content: '◈ Layer: '; }
+
+  /* ── ACCORDION / DROPDOWN ── */
+  .accordion {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    background: var(--surface);
+  }
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    background: var(--surface-alt);
+    cursor: pointer;
+    user-select: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  .accordion-header:hover { background: #E8E0D8; }
+  .accordion-icon { color: var(--text-muted); transition: transform 0.2s; font-size: 20px; }
+  .accordion.open .accordion-icon { transform: rotate(180deg); }
+  .accordion-body { display: none; padding: 16px 18px; font-size: 13.5px; line-height: 1.65; }
+  .accordion.open .accordion-body { display: block; }
+  .accordion-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin-right: 8px;
+  }
+
+  /* ── SVG DIAGRAM CONTAINER ── */
+  .svg-wrap {
+    background: #0A0A0A;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 6px;
+    border: 1px solid #222;
+  }
+  .svg-wrap svg { display: block; width: 100%; height: auto; }
+  .diagram-caption {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 6px 0 2px;
+    font-style: italic;
+  }
+
+  /* ── ORCHESTRATION EXPLAINER BOXES ── */
+  .orch-step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 12px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+  .orch-step-num {
+    min-width: 28px;
+    height: 28px;
+    background: var(--accent);
+    color: #000;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .orch-step-content strong { color: var(--text-primary); }
+  .orch-step-content p { font-size: 13.5px; margin-bottom: 0; color: var(--text-secondary); }
+
+  /* ── ISV GRID ── */
+  .isv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 8px;
+  }
+  .isv-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    cursor: default;
+    transition: border-color 0.15s;
+  }
+  .isv-card:hover { border-color: var(--accent); }
+  .isv-card .isv-domain { font-size: 9.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px; }
+  .isv-card .isv-name  { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+  .isv-card .isv-opp   { font-size: 11.5px; color: var(--text-secondary); line-height: 1.45; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #CCC; border-radius: 3px; }
+
+  /* ── UTILITIES ── */
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+  strong { font-weight: 600; color: var(--text-primary); }
+  em { color: var(--text-secondary); font-style: italic; }
+  ul { padding-left: 20px; margin-bottom: 12px; }
+  li { margin-bottom: 5px; }
+  h3 {
+    font-family: var(--heading);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    margin-top: 4px;
+  }
+  h4 {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .mt-16 { margin-top: 16px; }
+  .mt-24 { margin-top: 24px; }
+  .divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+  /* ── STACK LAYER BAR ── */
+  .stack-layer-bar {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    padding: 10px 16px; margin: 16px 0 20px;
+    background: #F5F0EB; border: 1px solid var(--border);
+    border-radius: 8px; font-size: 11px;
+  }
+  .slb-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase;
+    color: var(--text-muted); margin-right: 4px; flex-shrink: 0;
+  }
+  .slb-chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 9px; border-radius: 12px; font-size: 11px; font-weight: 500;
+    background: #E8E4DF; border: 1px solid #D0C8C0; color: #B0A8A0;
+    transition: all 0.15s;
+  }
+  .slb-chip.active { font-weight: 700; }
+  .slb-chip .slb-layer-id {
+    font-family: var(--mono); font-size: 9px; font-weight: 800;
+    background: rgba(0,0,0,0.08); padding: 0 4px; border-radius: 3px;
+  }
+  .slb-where {
+    margin-left: auto; font-size: 11px; color: var(--text-muted); font-style: italic;
+    border-left: 1px solid var(--border); padding-left: 12px; flex-shrink: 0;
+    max-width: 300px;
+  }
+
+  /* ── STACK MAP (overview) ── */
+  .stack-map { margin-bottom: 32px; }
+  .stack-map-row {
+    display: grid; grid-template-columns: 80px 1fr 200px;
+    gap: 0; border: 1px solid var(--border); border-bottom: none;
+    transition: background 0.15s; cursor: default;
+  }
+  .stack-map-row:first-child { border-radius: 8px 8px 0 0; }
+  .stack-map-row:last-child { border-bottom: 1px solid var(--border); border-radius: 0 0 8px 8px; }
+  .stack-map-row:hover { background: var(--surface-alt); }
+  .sm-layer { padding: 10px 14px; font-family: var(--mono); font-size: 11px; font-weight: 700; border-right: 1px solid var(--border); display: flex; align-items: center; }
+  .sm-name { padding: 10px 14px; font-size: 13px; font-weight: 600; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
+  .sm-name span { font-size: 11px; font-weight: 400; color: var(--text-muted); margin-top: 2px; }
+  .sm-products { padding: 10px 14px; font-size: 11px; color: var(--text-secondary); display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+
+  /* ── MY PROJECTS PANEL ── */
+  .projects-section-title {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text-muted); margin: 28px 0 12px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px; margin-bottom: 8px;
+  }
+  .project-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 18px 20px; display: flex; flex-direction: column; gap: 8px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    text-decoration: none; color: inherit;
+  }
+  .project-card:hover { border-color: var(--accent); box-shadow: 0 2px 12px rgba(118,185,0,0.1); }
+  .project-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .project-card-icon { font-size: 22px; flex-shrink: 0; }
+  .project-card-status {
+    font-size: 9px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 3px;
+  }
+  .status-live { background: #D1FAE5; color: #065F46; }
+  .status-planned { background: #FEF3C7; color: #92400E; }
+  .status-github { background: #EDE9FE; color: #5B21B6; }
+  .project-card-domain { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text-primary); }
+  .project-card-desc { font-size: 12.5px; color: var(--text-secondary); line-height: 1.55; }
+  .project-card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .project-card-tag {
+    font-size: 10px; font-weight: 500; padding: 2px 7px; border-radius: 4px;
+    background: var(--surface-alt); border: 1px solid var(--border); color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="eyebrow">NVIDIA GSI — JR1995349 — Interview Prep System</div>
+  <h1>Haroon Khan — 10 Questions</h1>
+  <div class="subtitle">A complete learning system for the NVIDIA Developer Relations Manager, GSI panel interview</div>
+  <div class="meta">
+    <div class="meta-item"><strong>Candidate:</strong> Waseem Habib</div>
+    <div class="meta-item"><strong>Date:</strong> 2026-03-28</div>
+    <div class="meta-item"><strong>Panel:</strong> Haroon Khan (Sponsor) + Team</div>
+    <div class="meta-item"><strong>Portfolio:</strong> github.com/QbitLoop · w.qbitloop.com</div>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ── SIDEBAR ── -->
+  <nav class="sidebar">
+    <div class="sidebar-title">Navigation</div>
+    <a class="nav-item active" onclick="showPanel('overview')">
+      <span class="q-num">→</span>Overview & Cheat Sheet
+    </a>
+    <div class="sidebar-title">10 Questions</div>
+    <a class="nav-item" onclick="showPanel('q1')">
+      <span class="q-num">1</span>The 5-Layer Cake
+    </a>
+    <a class="nav-item" onclick="showPanel('q2')">
+      <span class="q-num">2</span>How a Model Is Built
+    </a>
+    <a class="nav-item" onclick="showPanel('q3')">
+      <span class="q-num">3</span>How Agents Are Built
+    </a>
+    <a class="nav-item" onclick="showPanel('q4')">
+      <span class="q-num">4</span>Tokenomics &amp; Energy
+    </a>
+    <a class="nav-item" onclick="showPanel('q5')">
+      <span class="q-num">5</span>AI Infrastructure Layer
+    </a>
+    <a class="nav-item" onclick="showPanel('q6')">
+      <span class="q-num">6</span>Agentic AI Skills &amp; ISVs
+    </a>
+    <a class="nav-item" onclick="showPanel('q7')">
+      <span class="q-num">7</span>Influencing a Customer
+    </a>
+    <a class="nav-item" onclick="showPanel('q8')">
+      <span class="q-num">8</span>Synthetic Data
+    </a>
+    <a class="nav-item" onclick="showPanel('q9')">
+      <span class="q-num">9</span>OpenClaw / OpenShift / MLOps
+    </a>
+    <a class="nav-item" onclick="showPanel('q10')">
+      <span class="q-num" style="background:#CC4B2C;color:white;">10</span>Trust &amp; Governance
+    </a>
+    <div class="sidebar-title" style="margin-top:8px;">Deep Dives</div>
+    <a class="nav-item" onclick="showPanel('agent-eng')">
+      <span class="q-num" style="background:#0D7680;color:white;">A</span>Agent Engineering
+    </a>
+    <a class="nav-item" onclick="showPanel('context-eng')">
+      <span class="q-num" style="background:#0D7680;color:white;">C</span>Context Engineering
+    </a>
+    <a class="nav-item" onclick="showPanel('memory')">
+      <span class="q-num" style="background:#0D7680;color:white;">M</span>Memory Systems
+    </a>
+    <a class="nav-item" onclick="showPanel('loops')">
+      <span class="q-num" style="background:#0D7680;color:white;">L</span>Agentic Loops
+    </a>
+    <a class="nav-item" onclick="showPanel('evals')">
+      <span class="q-num" style="background:#0D7680;color:white;">E</span>Eval & RAG Bench
+    </a>
+    <a class="nav-item" onclick="showPanel('voice')">
+      <span class="q-num" style="background:#0D7680;color:white;">V</span>Voice AI / Multimodal
+    </a>
+    <a class="nav-item" onclick="showPanel('aiio')">
+      <span class="q-num" style="background:#76B900;color:black;font-size:9px;font-weight:900;">AIIO</span>Cert Exam Prep
+    </a>
+    <div class="sidebar-title" style="margin-top:8px;">Reference</div>
+    <a class="nav-item" onclick="showPanel('stories')">
+      <span class="q-num">S</span>Story Bank
+    </a>
+    <a class="nav-item" onclick="showPanel('products')">
+      <span class="q-num">P</span>Product Cheat Sheet
+    </a>
+    <div class="sidebar-title" style="margin-top:8px;">Portfolio</div>
+    <a class="nav-item" onclick="showPanel('projects')">
+      <span class="q-num" style="background:#1A1A2E;color:#76B900;font-size:9px;font-weight:900;">&#9646;&#9646;</span>My Live Projects
+    </a>
+  </nav>
+
+  <!-- ── MAIN ── -->
+  <main class="main">
+
+    <!-- OVERVIEW -->
+    <div id="panel-overview" class="overview-panel">
+      <h2 style="font-family:var(--heading);font-size:26px;font-weight:700;margin-bottom:8px;">Interview Prep System</h2>
+      <p style="color:var(--text-secondary);margin-bottom:24px;">Click any question card to open its full learning module — concept, analogy, NVIDIA stack, your story, key numbers, and likely follow-ups.</p>
+
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">NVIDIA FULL STACK — WHERE EVERY TOPIC LIVES</div>
+      <div class="stack-map">
+        <div class="stack-map-row"><div class="sm-layer" style="color:#F59E0B;">L6</div><div class="sm-name">Platform &amp; Cloud<span>DGX Cloud, NPN, Sovereign AI, NIM Operator on K8s</span></div><div class="sm-products"><span class="pill">DGX Cloud</span><span class="pill">NPN</span><span class="pill">Sovereign AI</span></div></div>
+        <div class="stack-map-row"><div class="sm-layer" style="color:#76B900;">L5</div><div class="sm-name">Apps &amp; Microservices<span>NIM, AIQ Toolkit, NVIDIA AI Enterprise, Omniverse Replicator</span></div><div class="sm-products"><span class="pill">NIM</span><span class="pill">AIQ Toolkit</span><span class="pill">Omniverse</span></div></div>
+        <div class="stack-map-row"><div class="sm-layer" style="color:#10B981;">L4</div><div class="sm-name">Frameworks &amp; Runtimes<span>TensorRT-LLM, Triton, NeMo, NeMo Guardrails, NeMo Retriever</span></div><div class="sm-products"><span class="pill">TRT-LLM</span><span class="pill">Triton</span><span class="pill">NeMo</span></div></div>
+        <div class="stack-map-row"><div class="sm-layer" style="color:#0D7680;">L3</div><div class="sm-name">System Software<span>GPU Operator, DCGM, MIG, Container Toolkit, Confidential Computing</span></div><div class="sm-products"><span class="pill">GPU Operator</span><span class="pill">DCGM</span><span class="pill">MIG</span></div></div>
+        <div class="stack-map-row"><div class="sm-layer" style="color:#3B82F6;">L2</div><div class="sm-name">Networking<span>NVLink, NVSwitch, InfiniBand NDR, RDMA, RoCE, BlueField DPU</span></div><div class="sm-products"><span class="pill">NVLink</span><span class="pill">InfiniBand</span><span class="pill">BlueField</span></div></div>
+        <div class="stack-map-row"><div class="sm-layer" style="color:#8B5CF6;">L1</div><div class="sm-name">Hardware<span>Blackwell B200/GB200, Hopper H100, Ada L40S/L4, Grace CPU, NVIDIA Certified Systems</span></div><div class="sm-products"><span class="pill">B200</span><span class="pill">H100</span><span class="pill">L40S</span></div></div>
+      </div>
+
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">ONE-LINE ANSWER MAP</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Q</th><th>Topic</th><th>One-Line Answer</th></tr></thead>
+          <tbody>
+            <tr><td onclick="showPanel('q1')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q1</td><td>5-Layer Cake</td><td>Energy → Chips → Infra → Models → Apps; NVIDIA plays all 5</td></tr>
+            <tr><td onclick="showPanel('q2')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q2</td><td>Model Building</td><td>Curate → Train → Customize → Deploy; RAG adds knowledge without retraining</td></tr>
+            <tr><td onclick="showPanel('q3')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q3</td><td>Agents</td><td>LLM + loop + tools; specialization + orchestration solves the reliability problem</td></tr>
+            <tr><td onclick="showPanel('q4')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q4</td><td>Tokenomics/Energy</td><td>Tokens/watt = new miles/gallon; B200 is 4x H100; on-prem wins &gt;60% utilization</td></tr>
+            <tr><td onclick="showPanel('q5')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q5</td><td>Infrastructure</td><td>GPU = parallel math at scale; InfiniBand for training; NVMe local cache</td></tr>
+            <tr><td onclick="showPanel('q6')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q6</td><td>Skills &amp; ISVs</td><td>The gap is the bridge between existing ISV systems and AI orchestration layers</td></tr>
+            <tr><td onclick="showPanel('q7')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q7</td><td>Influence to Buy</td><td>Pain → Proof → Path → Partner; never pitch features before finding the failure</td></tr>
+            <tr><td onclick="showPanel('q8')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q8</td><td>Synthetic Data</td><td>Rare events + privacy + bias — the flight simulator principle</td></tr>
+            <tr><td onclick="showPanel('q9')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q9</td><td>OpenClaw/OpenShift</td><td>VoIP displacement repeating; OpenShift + GPU Operator = NVIDIA's enterprise K8s play</td></tr>
+            <tr><td onclick="showPanel('q10')" style="cursor:pointer;color:var(--red);font-weight:600;">Q10</td><td>Trust &amp; Governance</td><td>Explainability + Audit + Compliance + Safety + Data Gov; CJIS is my proof</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="overview-grid">
+        <div class="overview-card" onclick="showPanel('q1')">
+          <div class="ov-q-num">Q01</div>
+          <div class="ov-title">The AI 5-Layer Cake</div>
+          <div class="ov-answer">Energy, chips, infrastructure, models, applications — NVIDIA is the only company at all 5 layers simultaneously.</div>
+          <div class="ov-tags"><span class="pill">NIM</span><span class="pill">DGX</span><span class="pill">Blackwell</span><span class="pill">NeMo</span></div>
+        </div>
+        <div class="overview-card" onclick="showPanel('q2')">
+          <div class="ov-q-num">Q02</div>
+          <div class="ov-title">How a Model Is Built</div>
+          <div class="ov-answer">Curate → Train → Customize → Deploy. RAG, SFT, LoRA, KV Cache, Vector DB — all explained with one-liners and NVIDIA solutions.</div>
+          <div class="ov-tags"><span class="pill">NeMo</span><span class="pill">RAG</span><span class="pill">TensorRT</span><span class="pill">Guardrails</span></div>
+        </div>
+        <div class="overview-card" onclick="showPanel('q3')">
+          <div class="ov-q-num">Q03</div>
+          <div class="ov-title">How Agents Are Built</div>
+          <div class="ov-answer">LLM + loop + tools. Multi-agent frameworks, A2A communication, failure modes, and a complete email agent design.</div>
+          <div class="ov-tags"><span class="pill">AIQ Toolkit</span><span class="pill">CrewAI</span><span class="pill">LangGraph</span><span class="pill">ASSIST AI</span></div>
+        </div>
+        <div class="overview-card" onclick="showPanel('q4')">
+          <div class="ov-q-num">Q04</div>
+          <div class="ov-title">Tokenomics &amp; Energy</div>
+          <div class="ov-answer">Tokens per watt = the new miles per gallon. On-prem vs cloud TCO decision framework. The ai-infra-advisor tool.</div>
+          <div class="ov-tags"><span class="pill">DGX Cloud</span><span class="pill">TCO</span><span class="pill">B200</span><span class="pill">Sovereign AI</span></div>
+        </div>
+        <div class="overview-card" onclick="showPanel('q5')">
+          <div class="ov-q-num">Q05</div>
+          <div class="ov-title">AI Infrastructure Layer</div>
+          <div class="ov-answer">CPU vs GPU, storage types, NVLink/InfiniBand, GPU selection guide, NVIDIA reference architectures.</div>
+          <div class="ov-tags"><span class="pill">H100</span><span class="pill">InfiniBand</span><span class="pill">NVMe</span><span class="pill">BasePOD</span></div>
+        </div>
+        <div class="overview-card" onclick="showPanel('q6')">
+          <div class="ov-q-num">Q06</div>
+          <div class="ov-title">Agentic AI Skills &amp; ISVs</div>
+          <div class="ov-answer">Skills taxonomy, enterprise ISV landscape, vertical use cases. The bridge between existing systems and AI orchestration.</div>
+          <div class="ov-tags"><span class="pill">LangGraph</span><span class="pill">ServiceNow</span><span class="pill">K8s</span><span class="pill">Observability</span></div>
+        </div>
+        <div class="overview-card" onclick="showPanel('q7')">
+          <div class="ov-q-num">Q07</div>
+          <div class="ov-title">Influencing a Customer</div>
+          <div class="ov-answer">Pain → Proof → Path → Partner. Stakeholder map, ROI tools, 40% faster sales cycles. Never pitch before finding the failure.</div>
+          <div class="ov-tags"><span class="pill">ROI Calculator</span><span class="pill">POC</span><span class="pill">Enablement</span><span class="pill">$50M+</span></div>
+        </div>
+        <div class="overview-card" onclick="showPanel('q8')">
+          <div class="ov-q-num">Q08</div>
+          <div class="ov-title">Synthetic Data</div>
+          <div class="ov-answer">Rare events, privacy, bias correction. Flight simulator principle. Nemotron 4 340B trained on synthetic data. Omniverse Replicator.</div>
+          <div class="ov-tags"><span class="pill">NeMo Curator</span><span class="pill">Omniverse</span><span class="pill">CJIS</span><span class="pill">DDaaS</span></div>
+        </div>
+        <div class="overview-card" onclick="showPanel('q9')">
+          <div class="ov-q-num">Q09</div>
+          <div class="ov-title">OpenClaw / OpenShift / MLOps</div>
+          <div class="ov-answer">176K GitHub stars, VoIP displacement pattern. OpenShift + NVIDIA GPU Operator. MLOps stack: Slurm + K8s + Triton + DCGM.</div>
+          <div class="ov-tags"><span class="pill">OpenClaw</span><span class="pill">Red Hat AI</span><span class="pill">Slurm</span><span class="pill">DCGM</span></div>
+        </div>
+        <div class="overview-card" onclick="showPanel('q10')" style="border-color:#F0C4B8;">
+          <div class="ov-q-num" style="color:var(--red);">Q10 — CRAFTED</div>
+          <div class="ov-title">Trust &amp; Governance Layer</div>
+          <div class="ov-answer">Explainability, audit, compliance, safety. CJIS v6.0 = 1,414 controls. FedRAMP High in 9 months. NeMo Guardrails + Confidential Computing.</div>
+          <div class="ov-tags"><span class="pill-red pill">CJIS</span><span class="pill-red pill">FedRAMP</span><span class="pill-red pill">Guardrails</span><span class="pill-red pill">EU AI Act</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q1 -->
+    <div id="panel-q1" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge">Question 1</div>
+        <h2>The AI 5-Layer Cake</h2>
+        <div class="q-verbatim">How does an AI pipeline work? What are the different layers? Explain in simple analogy how these work to your elderly mother — Energy, Chips, AI Infrastructure, Models, Applications. What NVIDIA solutions exist at each layer?</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">The Stack — End-to-End Flow</div>
+        <div class="svg-wrap">
+          <svg viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="aG" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="#76B900"/></marker>
+              <marker id="aD" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="#5A9000"/></marker>
+            </defs>
+            <!-- L1 Energy -->
+            <rect x="10" y="308" width="590" height="62" rx="6" fill="#111" stroke="#333" stroke-width="1.5"/>
+            <text x="22" y="328" fill="#555" font-size="10" font-family="monospace" font-weight="700">L1</text>
+            <text x="44" y="328" fill="#999" font-size="13" font-weight="700" font-family="Inter,sans-serif">ENERGY</text>
+            <text x="44" y="346" fill="#666" font-size="10" font-family="Inter,sans-serif">Data center power · Direct liquid cooling · Sovereign AI (national AI infrastructure)</text>
+            <text x="44" y="362" fill="#555" font-size="9.5" font-family="Inter,sans-serif" font-style="italic">DGX-Ready DC Program · Co-location partners · Nuclear energy partnerships (2025)</text>
+            <!-- L2 Chips -->
+            <rect x="10" y="238" width="590" height="60" rx="6" fill="#0E0E18" stroke="#446" stroke-width="1.5"/>
+            <text x="22" y="258" fill="#5577BB" font-size="10" font-family="monospace" font-weight="700">L2</text>
+            <text x="44" y="258" fill="#99AADD" font-size="13" font-weight="700" font-family="Inter,sans-serif">CHIPS</text>
+            <text x="44" y="275" fill="#7788AA" font-size="10" font-family="Inter,sans-serif">GPU (massive parallel) · CPU (sequential logic) · DPU (networking offload) · ARM Grace</text>
+            <text x="44" y="291" fill="#5566AA" font-size="9.5" font-family="Inter,sans-serif" font-style="italic">Blackwell B200 (208B transistors) · H100 · L40S · Grace CPU · BlueField DPU</text>
+            <!-- L3 Infrastructure -->
+            <rect x="10" y="167" width="590" height="62" rx="6" fill="#0A0E18" stroke="#448" stroke-width="1.5"/>
+            <text x="22" y="187" fill="#5588CC" font-size="10" font-family="monospace" font-weight="700">L3</text>
+            <text x="44" y="187" fill="#88AAEE" font-size="13" font-weight="700" font-family="Inter,sans-serif">INFRASTRUCTURE</text>
+            <text x="44" y="205" fill="#7799CC" font-size="10" font-family="Inter,sans-serif">DGX systems · NVLink (1.8 TB/s GPU-GPU) · InfiniBand (multi-node) · NVMe storage · K8s</text>
+            <text x="44" y="221" fill="#5577BB" font-size="9.5" font-family="Inter,sans-serif" font-style="italic">DGX BasePOD · DGX SuperPOD · GB200 NVL72 (1 Exaflop) · Base Command Manager</text>
+            <!-- L4 Models -->
+            <rect x="10" y="96" width="590" height="62" rx="6" fill="#080E1A" stroke="#44A" stroke-width="1.5"/>
+            <text x="22" y="116" fill="#66AADD" font-size="10" font-family="monospace" font-weight="700">L4</text>
+            <text x="44" y="116" fill="#AACCFF" font-size="13" font-weight="700" font-family="Inter,sans-serif">MODELS</text>
+            <text x="44" y="134" fill="#88AACC" font-size="10" font-family="Inter,sans-serif">Foundation models · Fine-tuning (SFT/LoRA) · RAG · Inference optimization · Guardrails</text>
+            <text x="44" y="150" fill="#6688BB" font-size="9.5" font-family="Inter,sans-serif" font-style="italic">NeMo Framework · Nemotron family · AI Foundry · NGC Catalog · NeMo Retriever</text>
+            <!-- L5 Applications -->
+            <rect x="10" y="24" width="590" height="62" rx="6" fill="#0A1A08" stroke="#76B900" stroke-width="2"/>
+            <text x="22" y="44" fill="#76B900" font-size="10" font-family="monospace" font-weight="700">L5</text>
+            <text x="44" y="44" fill="#AADDAA" font-size="13" font-weight="700" font-family="Inter,sans-serif">APPLICATIONS</text>
+            <text x="44" y="62" fill="#88BB88" font-size="10" font-family="Inter,sans-serif">NIM APIs · RAG copilots · Multi-agent pipelines · Blueprints · Enterprise AI products</text>
+            <text x="44" y="78" fill="#669966" font-size="9.5" font-family="Inter,sans-serif" font-style="italic">NIM · AI Enterprise · Triton · NeMo Guardrails · AIQ Toolkit · Blueprints</text>
+            <!-- Inference loop annotation (right side) -->
+            <text x="618" y="18" fill="#76B900" font-size="9.5" font-family="Inter,sans-serif" font-weight="700">INFERENCE</text>
+            <text x="618" y="31" fill="#76B900" font-size="9.5" font-family="Inter,sans-serif" font-weight="700">LOOP</text>
+            <!-- Down arrow (request flows down from L5→L2) -->
+            <line x1="635" y1="40" x2="635" y2="294" stroke="#76B900" stroke-width="2" marker-end="url(#aG)"/>
+            <text x="640" y="175" fill="#76B900" font-size="9" font-family="Inter,sans-serif" font-weight="600">request</text>
+            <text x="640" y="188" fill="#555" font-size="8.5" font-family="Inter,sans-serif">(compute</text>
+            <text x="640" y="200" fill="#555" font-size="8.5" font-family="Inter,sans-serif">flows down)</text>
+            <!-- Up arrow (response flows back up) -->
+            <line x1="700" y1="296" x2="700" y2="42" stroke="#3A8000" stroke-width="2" marker-end="url(#aD)"/>
+            <text x="705" y="175" fill="#5A9A00" font-size="9" font-family="Inter,sans-serif" font-weight="600">response</text>
+            <text x="705" y="188" fill="#555" font-size="8.5" font-family="Inter,sans-serif">(tokens flow</text>
+            <text x="705" y="200" fill="#555" font-size="8.5" font-family="Inter,sans-serif">back up)</text>
+            <!-- NVIDIA unique label -->
+            <text x="618" y="330" fill="#444" font-size="9" font-family="Inter,sans-serif">NVIDIA plays</text>
+            <text x="618" y="344" fill="#76B900" font-size="9.5" font-family="Inter,sans-serif" font-weight="700">all 5 layers.</text>
+            <text x="618" y="358" fill="#444" font-size="8.5" font-family="Inter,sans-serif">Hyperscalers:</text>
+            <text x="618" y="371" fill="#666" font-size="8.5" font-family="Inter,sans-serif">L1–L3 only.</text>
+          </svg>
+        </div>
+        <div class="diagram-caption">L1 (bottom) = foundation. L5 (top) = what users see. Every query flows down the stack and the answer flows back up.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Core Concept</div>
+        <div class="concept-box">
+          The AI stack is <strong>interdependent — you cannot skip layers</strong>. Every application running today (ChatGPT, Copilot, <span class="term" data-key="viqi">ViQi ASSIST</span>) rests on all five layers simultaneously. The value of understanding this is knowing <em>where</em> a bottleneck lives when something breaks or costs too much. <span class="term" data-key="nvidia_unique">NVIDIA is unique</span> in playing at all 5 layers; hyperscalers only play L1–L3 well.
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Simple Analogy — The Birthday Bakery</div>
+        <div class="analogy-box">
+          <strong>Imagine a bakery that needs to bake 10,000 cakes every hour.</strong>
+        </div>
+        <div class="table-wrap mt-16">
+          <table>
+            <thead><tr><th>#</th><th>Layer</th><th>Bakery Analogy</th><th>AI Reality</th><th>NVIDIA</th></tr></thead>
+            <tbody>
+              <tr><td style="font-family:var(--mono);font-weight:700;color:var(--text-muted);font-size:13px;">L1</td><td><span class="pill">Energy</span></td><td>Electricity powering the ovens</td><td>Data center power + cooling. H100 = 700W. Sovereign AI = your own power plant.</td><td>DGX-Ready DC Program, liquid cooling</td></tr>
+              <tr><td style="font-family:var(--mono);font-weight:700;color:var(--text-muted);font-size:13px;">L2</td><td><span class="pill">Chips</span></td><td>The industrial ovens — faster = more cakes</td><td>GPU (parallel) vs CPU (sequential). GPU bakes 10,000 at once.</td><td>Blackwell B200, H100, L40S, Grace</td></tr>
+              <tr><td style="font-family:var(--mono);font-weight:700;color:var(--text-muted);font-size:13px;">L3</td><td><span class="pill">Infrastructure</span></td><td>Kitchen layout — ovens, fridges, conveyors, staff network</td><td>DGX systems, NVLink, InfiniBand, NVMe storage, K8s clusters</td><td>DGX BasePOD, SuperPOD, GB200 NVL72</td></tr>
+              <tr><td style="font-family:var(--mono);font-weight:700;color:var(--text-muted);font-size:13px;">L4</td><td><span class="pill">Models</span></td><td>Master recipe + trained head baker</td><td>Foundation Models (Llama, Nemotron). Weights = recipe. Training = teaching the baker.</td><td>NeMo, AI Foundry, Nemotron family</td></tr>
+              <tr><td style="font-family:var(--mono);font-weight:700;color:var(--text-muted);font-size:13px;">L5</td><td><span class="pill">Applications</span></td><td>Finished cake on the customer's table</td><td>ChatGPT, Copilot, ViQi ASSIST, enterprise RAG copilot</td><td>NIM, AI Enterprise, Blueprints, Triton</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Your Story</div>
+        <div class="story-box">
+          <div class="story-label">Waseem's First-Person Answer</div>
+          "I've operated at all 5 layers in production. ViQi ASSIST runs on Azure Government Cloud (Layers 1–2 rented), uses NVIDIA Nemotron for ASR (Layer 4), served via NIM-compatible APIs through Triton (Layer 5), all within CJIS v6.0 compliance. DDaaS required thinking about GPU selection, network latency, and power constraints simultaneously. You can't optimize the application if you don't understand the oven."
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Key Numbers</div>
+        <div class="numbers-grid">
+          <div class="number-card"><div class="num">208B</div><div class="num-label">B200 transistors — Blackwell flagship</div></div>
+          <div class="number-card"><div class="num">1.8 TB/s</div><div class="num-label">NVLink 5 bidirectional bandwidth</div></div>
+          <div class="number-card"><div class="num">1 Exaflop</div><div class="num-label">GB200 NVL72 in a single rack</div></div>
+          <div class="number-card"><div class="num">54%</div><div class="num-label">YoY performance gain on same H100 (software optimization)</div></div>
+          <div class="number-card"><div class="num">5×</div><div class="num-label">TensorRT inference speedup vs baseline</div></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Likely Follow-ups</div>
+        <div class="followup-list">
+          <div class="followup-item">
+            <div class="fq">"Where do hyperscalers (AWS/Azure/Google) fit?"</div>
+            <div class="fa">They're chip-and-infrastructure resellers at layers 1–3. They add model APIs at layer 4. NVIDIA sits beneath all of them AND competes at layers 3–5 directly. No hyperscaler has a GPU architecture, a training framework (NeMo), AND inference microservices (NIM).</div>
+          </div>
+          <div class="followup-item">
+            <div class="fq">"Where is the margin for a GSI?"</div>
+            <div class="fa">Layers 4–5: customization, integration, industry-specific Blueprints. The generic infra is commoditizing; the vertical expertise is not. A GSI that deep-customizes an AIQ Blueprint for financial compliance is far harder to displace than one reselling raw NIM deployments.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div id="panel-q2" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge">Question 2</div>
+        <h2>How a Model Like GPT Is Built</h2>
+        <div class="q-verbatim">Data → Training → Inference → Reasoning. Explain RAG, Fine-tuning, SFT, MoE, Mamba, KV Cache, Vector DB, Tokens, Context lengths, Chunking, Hallucinations, Privacy, Governance. Challenges at each stage. NVIDIA/CSP/OSS solutions.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">The 4-Stage Pipeline</div>
+        <div class="concept-box">Most enterprise AI projects <strong>don't train from scratch</strong> — they enter at Customize or Deploy. Knowing where to enter the pipeline is a core GSI advisory skill.</div>
+        <pre>Data Curation → NeMo Data Curator
+Pre-training   → NeMo Framework + DGX Cloud
+Fine-tuning    → NeMo SFT, PEFT (LoRA), RLHF
+Inference      → Triton + TensorRT-LLM
+Deployment     → NIM (OpenAI-compatible API)
+RAG            → NeMo Retriever + Milvus/pgvector
+Safety         → NeMo Guardrails</pre>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Key Term Glossary — One Line Each</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Term</th><th>One-Line Definition</th><th>NVIDIA Solution</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Tokens</strong></td><td>~0.75 words; the unit everything is measured in</td><td>—</td></tr>
+              <tr><td><strong>Context Length</strong></td><td>How much text the model holds "in mind" (e.g., 128K tokens)</td><td>NeMo long-context training</td></tr>
+              <tr><td><strong>Training</strong></td><td>Model learns by adjusting billions of parameters to minimize prediction error</td><td>NeMo + DGX Cloud</td></tr>
+              <tr><td><strong>Inference</strong></td><td>Frozen model generates output — milliseconds</td><td>Triton + TensorRT + NIM</td></tr>
+              <tr><td><strong>Reasoning</strong></td><td>Model "thinks step by step" before answering (Chain-of-Thought)</td><td>Nemotron Reasoning models</td></tr>
+              <tr><td><strong>RAG</strong></td><td>Retrieve relevant context from knowledge base; inject before generating</td><td>NeMo Retriever + NIM</td></tr>
+              <tr><td><strong>SFT</strong></td><td>Supervised Fine-Tuning — labeled input/output pairs teach a task</td><td>NeMo SFT</td></tr>
+              <tr><td><strong>LoRA / PEFT</strong></td><td>Fine-tune &lt;1% of parameters — same result, 10× less compute</td><td>NeMo PEFT</td></tr>
+              <tr><td><strong>MoE</strong></td><td>Mixture of Experts — only activate relevant "specialist" neurons per token</td><td>Mixtral, Nemotron MoE</td></tr>
+              <tr><td><strong>Mamba</strong></td><td>State Space Model alternative to Transformer — better for very long sequences</td><td>Research/emerging</td></tr>
+              <tr><td><strong>KV Cache</strong></td><td>Store previous token computations — avoid recomputing per query</td><td>TensorRT-LLM optimization</td></tr>
+              <tr><td><strong>Vector DB</strong></td><td>Store embeddings (meaning), not text — semantic similarity search</td><td>Milvus, pgvector, NeMo Retriever</td></tr>
+              <tr><td><strong>Chunking</strong></td><td>Break large documents into smaller pieces for RAG retrieval</td><td>Preprocessing pipeline</td></tr>
+              <tr><td><strong>Hallucination</strong></td><td>Model generates plausible but incorrect output</td><td>NeMo Guardrails, RAG grounding</td></tr>
+              <tr><td><strong>Quantization</strong></td><td>Reduce model precision (FP32→INT8/FP4) — smaller, faster</td><td>TensorRT, NIM optimizations</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Your Story</div>
+        <div class="story-box">
+          <div class="story-label">ASSIST AI — Entered at Deploy + RAG</div>
+          "In ASSIST AI, I didn't train a model — I entered at deployment and customization. The real engineering challenge was RAG: chunking 400+ CJIS policy documents correctly so the Policy Search Agent retrieved the right section in under 10 seconds. VirtualPartner 1.0 had a 98% failure rate — not because the model was wrong, but because the retrieval was wrong. Fixed it with better chunking + reranking. NIM RAG on the NVIDIA stack uses the same principles."
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Key Numbers</div>
+        <div class="numbers-grid">
+          <div class="number-card"><div class="num">43ms</div><div class="num-label">Nemotron ASR latency on L40S (RealtimeVoice)</div></div>
+          <div class="number-card"><div class="num">21×</div><div class="num-label">Faster than Whisper on same hardware</div></div>
+          <div class="number-card"><div class="num">0.1%</div><div class="num-label">Parameters trained with LoRA vs full fine-tune</div></div>
+          <div class="number-card"><div class="num">4.7s</div><div class="num-label">E2E RAG latency (NIM demo: embed 502ms + search 5.7ms + gen 4.2s)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div id="panel-q3" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge">Question 3</div>
+        <h2>How Agents Are Built</h2>
+        <div class="q-verbatim">What frameworks exist — LlamaIndex, CrewAI, custom agents? How do agents talk to each other and to LLMs? What happens when agents hallucinate? Design an email agent for your system.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Framework Comparison</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Framework</th><th>Best For</th><th>Key Feature</th><th>NVIDIA Integration</th></tr></thead>
+            <tbody>
+              <tr><td><strong>LlamaIndex</strong></td><td>RAG-heavy doc pipelines</td><td>Deep retrieval primitives</td><td>NeMo Retriever compatible</td></tr>
+              <tr><td><strong>CrewAI</strong></td><td>Role-based multi-agent teams</td><td>Agent personas, task delegation</td><td>NIM as LLM backend</td></tr>
+              <tr><td><strong>LangGraph</strong></td><td>Complex state machines</td><td>Graph-based, supports cycles</td><td>NIM as LLM backend</td></tr>
+              <tr><td><strong>AutoGen</strong></td><td>Human-in-the-loop conversational agents</td><td>Chat-based coordination</td><td>NIM as LLM backend</td></tr>
+              <tr><td><strong style="color:var(--accent);">NVIDIA AIQ Toolkit</strong></td><td>Production NVIDIA-native agents</td><td>Blueprints, NIM-native, observability</td><td><strong>Native</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Agent Communication Loop</div>
+        <pre>User Input
+    ↓
+Orchestrator Agent (LLM: "what tool do I call next?")
+    ↓
+Tool Call (JSON schema → API / code / DB / sub-agent)
+    ↓
+Tool Result → back to Orchestrator
+    ↓
+Next decision → repeat until task complete
+    ↓
+Final Response (+ NeMo Guardrails check)</pre>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Email Agent Design (Haroon's Specific Ask)</div>
+        <pre>Trigger: New email arrives (IMAP / Graph API webhook)
+    ↓
+[Classifier Agent]  LLM classifies: urgent/routine/spam/action-required
+                    Extracts: sender, intent, deadline, entities
+    ↓
+[Router] ──branches──▶  [Draft Reply Agent]   RAG on email history → human review
+                    ├──▶ [Calendar Agent]      parse meetings → check availability
+                    ├──▶ [Task Agent]          extract actions → push to Jira/Asana
+                    └──▶ [Escalation Agent]    flag VIP/time-critical → notify human
+    ↓
+[Review Gate]  human approval for any outbound action
+    ↓
+[Execution]    send reply / create event / create task</pre>
+        <div class="concept-box mt-16">
+          <strong>NVIDIA Stack:</strong> NIM (Llama/Nemotron) as backbone · AIQ Toolkit for orchestration · NeMo Guardrails for output safety · Triton for low-latency inference · DCGM for monitoring
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Your Story — ASSIST AI (4 Agents in Production)</div>
+        <div class="story-box">
+          <div class="story-label">Multi-Agent in a CJIS Environment</div>
+          "ASSIST AI is 4 agents in production: Policy Search, Federated Query, Document Writing, Translation. VirtualPartner 1.0 tried to do everything in one LLM call — 98% failure rate. When I redesigned as a multi-agent system with specialized agents and explicit input/output contracts, success rate went to 90%+. Each agent has a single, well-defined responsibility. That's the principle I'd teach GSI partners."
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">When Agents Fail — and How to Fix It</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Failure Mode</th><th>Cause</th><th>Fix</th></tr></thead>
+            <tbody>
+              <tr><td>Wrong tool called</td><td>Ambiguous tool description</td><td>Better docstrings, few-shot examples</td></tr>
+              <tr><td>Infinite loop</td><td>No termination condition</td><td>Max iterations + circuit breakers</td></tr>
+              <tr><td>Hallucinated tool args</td><td>Model invents parameters</td><td>Structured output (JSON schema enforcement)</td></tr>
+              <tr><td>Compounding errors</td><td>Each step amplifies upstream mistake</td><td>Checkpoint validation, human-in-loop gates</td></tr>
+              <tr><td>Context overflow</td><td>History exceeds window</td><td>Summarization, sliding window, memory compression</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div id="panel-q4" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge">Question 4</div>
+        <h2>Tokenomics &amp; Energy</h2>
+        <div class="q-verbatim">Can you explain tokenomics with respect to energy (Tokens/Watt)? Why is this important for investment decisions? How does this look for on-prem vs cloud deployments?</div>
+      </div>
+      <div class="section">
+        <div class="section-title">Simple Analogy — Miles Per Gallon</div>
+        <div class="analogy-box">If your car gets 10 MPG at $5/gallon, a 100-mile trip costs $50. Upgrade to 40 MPG — same trip costs $12.50. Same destination. 4× cheaper. <strong>That's what each GPU generation does for AI inference.</strong> Tokens per watt = miles per gallon. Every new NVIDIA GPU generation roughly doubles this number.</div>
+      </div>
+      <div class="section">
+        <div class="section-title">On-Prem vs Cloud Decision Framework</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Factor</th><th>Prefer Cloud</th><th>Prefer On-Prem</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Utilization</strong></td><td>&lt;40% (bursty)</td><td>&gt;60% (sustained production)</td></tr>
+              <tr><td><strong>Data Sovereignty</strong></td><td>No restrictions</td><td>CJIS, FedRAMP, GDPR, healthcare</td></tr>
+              <tr><td><strong>Time to start</strong></td><td>Hours</td><td>Months (hardware procurement)</td></tr>
+              <tr><td><strong>Model size</strong></td><td>Small to medium</td><td>Largest (trillion params)</td></tr>
+              <tr><td><strong>3-year TCO</strong></td><td>Higher at scale</td><td>Lower at scale (&gt;60% utilization)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">Your Story</div>
+        <div class="story-box">
+          <div class="story-label">The Tool I Built for This Decision</div>
+          "I built the <strong>ai-infra-advisor ROI calculator</strong> (github.com/QbitLoop/ai-infra-advisor) specifically to answer this question for customers. For ViQi ASSIST, we went 100% Azure Government Cloud because data sovereignty (CJIS) required a FedRAMP High environment — Azure had it pre-certified, building on-prem would have taken 2+ years. That's the governance layer driving the infrastructure decision, not pure economics."
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">Key Numbers</div>
+        <div class="numbers-grid">
+          <div class="number-card"><div class="num">4×</div><div class="num-label">B200 improvement in tokens/watt vs H100</div></div>
+          <div class="number-card"><div class="num">700W</div><div class="num-label">H100 peak TDP</div></div>
+          <div class="number-card"><div class="num">~$8–10</div><div class="num-label">Per H100 GPU-hour on DGX Cloud</div></div>
+          <div class="number-card"><div class="num">60%</div><div class="num-label">Utilization threshold where on-prem TCO wins</div></div>
+          <div class="number-card"><div class="num">54%</div><div class="num-label">YoY performance gain on same H100 (software only)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div id="panel-q5" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge">Question 5</div>
+        <h2>AI Infrastructure Layer</h2>
+        <div class="q-verbatim">Difference between CPU/GPU (ARM/x86). Storage, DB, filesystems, RAM. Network and compute. GPU classes and when to use which. Energy dependence. Build vs rent decisions.</div>
+      </div>
+      <div class="section">
+        <div class="section-title">CPU vs GPU</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Dimension</th><th>CPU</th><th>GPU</th></tr></thead>
+            <tbody>
+              <tr><td>Cores</td><td>8–128 large complex cores</td><td>Thousands of small parallel cores</td></tr>
+              <tr><td>Strength</td><td>Complex sequential logic, OS, branching</td><td>Parallel math (matrix multiply = AI)</td></tr>
+              <tr><td>Memory BW</td><td>~100–500 GB/s</td><td>3.35 TB/s (H100 SXM)</td></tr>
+              <tr><td>AI training</td><td>1 epoch = hours</td><td>1 epoch = minutes</td></tr>
+              <tr><td>NVIDIA product</td><td>Grace (ARM-based, HPC-optimized)</td><td>H100, B200, L40S, Jetson</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">Storage for AI</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Type</th><th>Speed</th><th>AI Use Case</th><th>When</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Local NVMe</strong></td><td>Highest</td><td>Data cache, checkpoints</td><td>Hot data, single-node training</td></tr>
+              <tr><td><strong>Parallel FS (Lustre/Weka)</strong></td><td>High</td><td>Training datasets (shared)</td><td>Multi-node training clusters</td></tr>
+              <tr><td><strong>NFS</strong></td><td>Medium</td><td>Home dirs, model repos</td><td>Dev environments</td></tr>
+              <tr><td><strong>Object Storage (S3)</strong></td><td>Low latency</td><td>Data lakes, archival</td><td>Ingestion, cold storage</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">GPU Selection Guide</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>GPU</th><th>Architecture</th><th>VRAM</th><th>Best For</th></tr></thead>
+            <tbody>
+              <tr><td><strong>B200</strong></td><td>Blackwell</td><td>192 GB HBM3e</td><td>Trillion-param training, large model inference</td></tr>
+              <tr><td><strong>H100 SXM</strong></td><td>Hopper</td><td>80 GB HBM3</td><td>Enterprise training, mid-size LLMs</td></tr>
+              <tr><td><strong>L40S</strong></td><td>Ada Lovelace</td><td>48 GB GDDR6</td><td>Inference + visualization + video (I used this on Brev)</td></tr>
+              <tr><td><strong>Jetson Orin</strong></td><td>Ampere</td><td>16–64 GB unified</td><td>Edge AI, robotics, real-time inference</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">Your Story — DDaaS</div>
+        <div class="story-box">
+          <div class="story-label">Infrastructure Design from the Edge Inward</div>
+          "DDaaS taught me to think about GPU selection from the edge inward. At the sensor fusion layer — RF + radar + optical — we needed real-time inference under 5 seconds. That constraint drove Jetson-class hardware at the edge, with heavier analytics offloaded to cloud. Same architectural reasoning I'd apply when a GSI asks 'what hardware should our client buy for a factory floor AI deployment?' — start with the latency constraint, work backwards to GPU class, then design the network around data movement."
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div id="panel-q6" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge">Question 6</div>
+        <h2>Agentic AI Skills &amp; ISV Solutions</h2>
+        <div class="q-verbatim">What skills are required for agentic AI solutions? What existing ISV solutions does an enterprise IT team typically use? Where are the opportunities to build, and what are the typical use cases?</div>
+      </div>
+
+      <!-- WHAT IS AN ISV? -->
+      <div class="section">
+        <div class="section-title">What Is an ISV?</div>
+        <div class="concept-box">
+          <strong><span class="term" data-key="isv">ISV</span> = Independent Software Vendor.</strong> A company that builds and sells software but doesn't make the hardware it runs on. They are <em>independent</em> because they write their own product and sell it to many customers.<br><br>
+          Examples you already know: <strong>Salesforce</strong> (CRM) · <strong>SAP</strong> (ERP) · <strong>ServiceNow</strong> (IT ticketing) · <strong>Splunk</strong> (log analytics) · <strong>Snowflake</strong> (data warehouse).<br><br>
+          <strong>The key insight:</strong> Enterprises already have 300–400 ISV apps deployed. They are <em>not</em> replacing them. The AI opportunity is building the <span class="term" data-key="orchestration">orchestration layer</span> that sits <em>on top</em> — reading from and writing to these systems via their existing REST APIs, without touching the underlying data or replacing the UI.
+        </div>
+      </div>
+
+      <!-- WHAT IS THE ORCHESTRATION LAYER? -->
+      <div class="section">
+        <div class="section-title">What Is the Orchestration Layer?</div>
+        <div class="concept-box" style="margin-bottom:14px;">
+          The <strong>orchestration layer</strong> is the "traffic controller" between a user's intent and the ISV systems that hold the data and take the actions. It is made of <span class="term" data-key="agent">agents</span> — each specializing in one task — coordinated by an <strong>Orchestrator</strong> that decides what to do next, who to call, and what to do with the result.<br><br>
+          Think of it like a hospital: the patient (user) speaks to the triage nurse (orchestrator), who routes them to the right specialist (agent), who uses the hospital's existing IT systems (ISVs) to look up records and order tests (tools).
+        </div>
+
+        <!-- ORCHESTRATION SVG -->
+        <div class="svg-wrap">
+          <svg viewBox="0 0 760 415" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="aGq6" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="#76B900"/></marker>
+              <marker id="aBq6" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="#0D7680"/></marker>
+              <marker id="aOq6" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="#C47D1A"/></marker>
+            </defs>
+
+            <!-- USER INTERFACE -->
+            <rect x="175" y="10" width="290" height="48" rx="8" fill="#1A1A1A" stroke="#76B900" stroke-width="1.5"/>
+            <text x="320" y="31" text-anchor="middle" fill="#76B900" font-size="10.5" font-weight="700" font-family="Inter,sans-serif" letter-spacing="1">USER INTERFACE</text>
+            <text x="320" y="48" text-anchor="middle" fill="#777" font-size="9.5" font-family="Inter,sans-serif">Chat · Email · API · Dashboard · Voice</text>
+            <!-- Arrow down -->
+            <line x1="320" y1="58" x2="320" y2="78" stroke="#76B900" stroke-width="1.5" marker-end="url(#aGq6)"/>
+            <text x="328" y="72" fill="#555" font-size="8.5" font-family="Inter,sans-serif">intent</text>
+
+            <!-- ORCHESTRATOR -->
+            <rect x="60" y="80" width="480" height="62" rx="8" fill="#0B1C07" stroke="#76B900" stroke-width="2"/>
+            <text x="300" y="103" text-anchor="middle" fill="#76B900" font-size="13" font-weight="700" font-family="Inter,sans-serif">ORCHESTRATOR AGENT</text>
+            <text x="300" y="119" text-anchor="middle" fill="#AAA" font-size="10" font-family="Inter,sans-serif">AIQ Toolkit · LangGraph · CrewAI · AutoGen</text>
+            <text x="300" y="134" text-anchor="middle" fill="#666" font-size="9" font-family="Inter,sans-serif">Plans steps · Routes to specialist agents · Manages shared memory · Handles retries &amp; loops</text>
+
+            <!-- NIM Box (right) -->
+            <rect x="580" y="80" width="165" height="155" rx="8" fill="#180F00" stroke="#C47D1A" stroke-width="2"/>
+            <text x="662" y="104" text-anchor="middle" fill="#C47D1A" font-size="12" font-weight="700" font-family="Inter,sans-serif">NIM / LLM</text>
+            <text x="662" y="119" text-anchor="middle" fill="#888" font-size="9.5" font-family="Inter,sans-serif">Shared Reasoning Engine</text>
+            <rect x="591" y="128" width="143" height="16" rx="3" fill="#251800"/>
+            <text x="662" y="139" text-anchor="middle" fill="#C47D1A" font-size="9" font-family="Inter,sans-serif">Nemotron · Llama 3.3 70B</text>
+            <rect x="591" y="148" width="143" height="16" rx="3" fill="#251800"/>
+            <text x="662" y="159" text-anchor="middle" fill="#C47D1A" font-size="9" font-family="Inter,sans-serif">Mistral · Gemma · Custom</text>
+            <text x="662" y="179" text-anchor="middle" fill="#666" font-size="8.5" font-family="Inter,sans-serif">OpenAI-compatible API</text>
+            <text x="662" y="192" text-anchor="middle" fill="#555" font-size="8.5" font-family="Inter,sans-serif">on L40S / H100 / DGX Cloud</text>
+            <text x="662" y="210" text-anchor="middle" fill="#555" font-size="8.5" font-family="Inter,sans-serif">via NIM microservices</text>
+            <text x="662" y="225" text-anchor="middle" fill="#444" font-size="8" font-family="Inter,sans-serif" font-style="italic">NeMo Guardrails wrap all calls</text>
+
+            <!-- Orchestrator → NIM arrow -->
+            <line x1="540" y1="111" x2="578" y2="111" stroke="#C47D1A" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#aOq6)"/>
+            <text x="543" y="108" fill="#665" font-size="7.5" font-family="Inter,sans-serif">calls LLM</text>
+
+            <!-- Branch to 3 agents -->
+            <line x1="160" y1="142" x2="480" y2="142" stroke="#76B900" stroke-width="1" opacity="0.35"/>
+            <line x1="170" y1="142" x2="170" y2="162" stroke="#76B900" stroke-width="1.5" marker-end="url(#aGq6)"/>
+            <line x1="300" y1="142" x2="300" y2="162" stroke="#76B900" stroke-width="1.5" marker-end="url(#aGq6)"/>
+            <line x1="440" y1="142" x2="440" y2="162" stroke="#76B900" stroke-width="1.5" marker-end="url(#aGq6)"/>
+
+            <!-- Agent 1: Search -->
+            <rect x="60" y="164" width="215" height="72" rx="7" fill="#111" stroke="#76B900" stroke-width="1"/>
+            <text x="167" y="184" text-anchor="middle" fill="#76B900" font-size="11.5" font-weight="600" font-family="Inter,sans-serif">Search Agent</text>
+            <text x="167" y="199" text-anchor="middle" fill="#888" font-size="9.5" font-family="Inter,sans-serif">Web · Knowledge Base</text>
+            <text x="167" y="213" text-anchor="middle" fill="#888" font-size="9.5" font-family="Inter,sans-serif">NeMo Retriever · Semantic</text>
+            <text x="167" y="228" text-anchor="middle" fill="#555" font-size="8.5" font-family="Inter,sans-serif" font-style="italic">→ NIM for query rewrite</text>
+
+            <!-- Agent 2: RAG -->
+            <rect x="192" y="164" width="215" height="72" rx="7" fill="#111" stroke="#76B900" stroke-width="1"/>
+            <text x="300" y="184" text-anchor="middle" fill="#76B900" font-size="11.5" font-weight="600" font-family="Inter,sans-serif">RAG Agent</text>
+            <text x="300" y="199" text-anchor="middle" fill="#888" font-size="9.5" font-family="Inter,sans-serif">Vector DB · Retrieve</text>
+            <text x="300" y="213" text-anchor="middle" fill="#888" font-size="9.5" font-family="Inter,sans-serif">Rerank · Generate</text>
+            <text x="300" y="228" text-anchor="middle" fill="#555" font-size="8.5" font-family="Inter,sans-serif" font-style="italic">→ NIM for generation</text>
+
+            <!-- Agent 3: Action -->
+            <rect x="323" y="164" width="215" height="72" rx="7" fill="#111" stroke="#76B900" stroke-width="1"/>
+            <text x="430" y="184" text-anchor="middle" fill="#76B900" font-size="11.5" font-weight="600" font-family="Inter,sans-serif">Action Agent</text>
+            <text x="430" y="199" text-anchor="middle" fill="#888" font-size="9.5" font-family="Inter,sans-serif">API calls · Write</text>
+            <text x="430" y="213" text-anchor="middle" fill="#888" font-size="9.5" font-family="Inter,sans-serif">Execute · Notify · Schedule</text>
+            <text x="430" y="228" text-anchor="middle" fill="#555" font-size="8.5" font-family="Inter,sans-serif" font-style="italic">→ NIM for drafting</text>
+
+            <!-- Agents → NIM dashed arrows -->
+            <line x1="275" y1="188" x2="578" y2="148" stroke="#C47D1A" stroke-width="1" stroke-dasharray="3,4" marker-end="url(#aOq6)" opacity="0.55"/>
+            <line x1="407" y1="193" x2="578" y2="170" stroke="#C47D1A" stroke-width="1" stroke-dasharray="3,4" marker-end="url(#aOq6)" opacity="0.55"/>
+            <line x1="538" y1="200" x2="578" y2="195" stroke="#C47D1A" stroke-width="1" stroke-dasharray="3,4" marker-end="url(#aOq6)" opacity="0.55"/>
+
+            <!-- Down to Tool Layer -->
+            <line x1="170" y1="236" x2="170" y2="258" stroke="#0D7680" stroke-width="1.5" marker-end="url(#aBq6)"/>
+            <line x1="300" y1="236" x2="300" y2="258" stroke="#0D7680" stroke-width="1.5" marker-end="url(#aBq6)"/>
+            <line x1="440" y1="236" x2="440" y2="258" stroke="#0D7680" stroke-width="1.5" marker-end="url(#aBq6)"/>
+
+            <!-- TOOL ADAPTER LAYER -->
+            <rect x="60" y="260" width="480" height="55" rx="8" fill="#061616" stroke="#0D7680" stroke-width="1.5"/>
+            <text x="300" y="281" text-anchor="middle" fill="#0D7680" font-size="12" font-weight="700" font-family="Inter,sans-serif">TOOL / API ADAPTER LAYER</text>
+            <text x="300" y="297" text-anchor="middle" fill="#557" font-size="9.5" font-family="Inter,sans-serif">NeMo Retriever · Milvus Vector DB · Web APIs · Code Executor · File I/O</text>
+            <text x="300" y="310" text-anchor="middle" fill="#445" font-size="9" font-family="Inter,sans-serif">NeMo Guardrails (safety-checks all tool outputs) · Auth · Rate-limiting · Audit logging</text>
+
+            <!-- Down to ISV -->
+            <line x1="300" y1="315" x2="300" y2="338" stroke="#3A5A8A" stroke-width="1.5" marker-end="url(#aBq6)"/>
+            <text x="308" y="330" fill="#445" font-size="8.5" font-family="Inter,sans-serif">REST/GraphQL</text>
+
+            <!-- ISV SYSTEMS -->
+            <rect x="60" y="340" width="480" height="62" rx="8" fill="#080812" stroke="#3A5A8A" stroke-width="1.5"/>
+            <text x="300" y="362" text-anchor="middle" fill="#7A9FDD" font-size="12" font-weight="700" font-family="Inter,sans-serif">ISV SYSTEMS — not replaced, extended</text>
+            <text x="300" y="379" text-anchor="middle" fill="#556" font-size="9.5" font-family="Inter,sans-serif">Salesforce · SAP · ServiceNow · Splunk · Snowflake · Microsoft 365 · Oracle · Workday</text>
+            <text x="300" y="394" text-anchor="middle" fill="#445" font-size="9" font-family="Inter,sans-serif">AI reads/writes via existing REST APIs. No rip-and-replace. Fastest time to value.</text>
+
+            <!-- Response loop right side -->
+            <line x1="548" y1="400" x2="570" y2="400" stroke="#76B900" stroke-width="1.5" opacity="0.45"/>
+            <line x1="570" y1="400" x2="570" y2="35" stroke="#76B900" stroke-width="1.5" opacity="0.45"/>
+            <line x1="570" y1="35" x2="466" y2="35" stroke="#76B900" stroke-width="1.5" opacity="0.45" marker-end="url(#aGq6)"/>
+            <text x="574" y="225" fill="#4A8A00" font-size="8.5" font-family="Inter,sans-serif" writing-mode="vertical-rl" text-anchor="middle" opacity="0.65">RESPONSE → USER</text>
+          </svg>
+        </div>
+        <div class="diagram-caption">The orchestration layer is the bridge — it sits between users and ISV systems, adding AI reasoning without touching what's already deployed.</div>
+      </div>
+
+      <!-- THE LOOP EXPLAINED -->
+      <div class="section">
+        <div class="section-title">The Agentic Loop — Step by Step</div>
+        <div class="orch-step">
+          <div class="orch-step-num">1</div>
+          <div class="orch-step-content">
+            <strong>User sends intent</strong>
+            <p>"Summarize all open P1 incidents from the last 7 days and draft a Slack message to the on-call team."</p>
+          </div>
+        </div>
+        <div class="orch-step">
+          <div class="orch-step-num">2</div>
+          <div class="orch-step-content">
+            <strong>Orchestrator calls <span class="term" data-key="nim">NIM</span> to plan</strong>
+            <p>LLM breaks the task: (a) query ServiceNow for P1 tickets, (b) summarize with RAG Agent, (c) Action Agent drafts + sends Slack message.</p>
+          </div>
+        </div>
+        <div class="orch-step">
+          <div class="orch-step-num">3</div>
+          <div class="orch-step-content">
+            <strong>Search Agent queries ServiceNow API (ISV)</strong>
+            <p>Tool call: <code>GET /api/now/table/incident?priority=1&amp;opened_at&gt;7d</code> → returns 14 tickets.</p>
+          </div>
+        </div>
+        <div class="orch-step">
+          <div class="orch-step-num">4</div>
+          <div class="orch-step-content">
+            <strong><span class="term" data-key="rag">RAG</span> Agent finds relevant runbooks</strong>
+            <p>Queries <span class="term" data-key="vector_db">Vector DB</span> for incident patterns → retrieves 3 most relevant historical runbooks → passes to NIM for synthesis.</p>
+          </div>
+        </div>
+        <div class="orch-step">
+          <div class="orch-step-num">5</div>
+          <div class="orch-step-content">
+            <strong>Action Agent drafts &amp; sends Slack message</strong>
+            <p>NIM generates the message → <span class="term" data-key="guardrails">NeMo Guardrails</span> checks for sensitive data → Action Agent calls Slack API → message delivered. Full audit log written.</p>
+          </div>
+        </div>
+        <div class="orch-step">
+          <div class="orch-step-num">6</div>
+          <div class="orch-step-content">
+            <strong>Orchestrator returns result to user</strong>
+            <p>"Done. 14 P1 incidents summarized. Message sent to #oncall. Top pattern: database connection timeouts (8 of 14 incidents)." Total time: ~8 seconds.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ISV LANDSCAPE -->
+      <div class="section">
+        <div class="section-title">The ISV Landscape — Where the Data Lives</div>
+        <div class="isv-grid">
+          <div class="isv-card"><div class="isv-domain">CRM</div><div class="isv-name">Salesforce · HubSpot</div><div class="isv-opp">AI copilot for reps, deal intelligence, auto-follow-up agents</div></div>
+          <div class="isv-card"><div class="isv-domain">ITSM</div><div class="isv-name">ServiceNow · Jira</div><div class="isv-opp">Incident triage agent, auto-resolution, change risk scoring</div></div>
+          <div class="isv-card"><div class="isv-domain">ERP</div><div class="isv-name">SAP · Oracle · Workday</div><div class="isv-opp">Procurement automation, anomaly detection, report generation</div></div>
+          <div class="isv-card"><div class="isv-domain">Productivity</div><div class="isv-name">Microsoft 365 · Google</div><div class="isv-opp">Document agents, meeting summarization, email agents</div></div>
+          <div class="isv-card"><div class="isv-domain">SIEM / Security</div><div class="isv-name">Splunk · CrowdStrike</div><div class="isv-opp">Threat intel agents, alert triage, SOC automation</div></div>
+          <div class="isv-card"><div class="isv-domain">Data Platform</div><div class="isv-name">Snowflake · Databricks</div><div class="isv-opp">Natural language to SQL, data quality agents</div></div>
+          <div class="isv-card"><div class="isv-domain">Communication</div><div class="isv-name">Slack · Teams · Zoom</div><div class="isv-opp">Meeting agents, action item extraction, context persistence</div></div>
+          <div class="isv-card"><div class="isv-domain">Public Safety</div><div class="isv-name">NCIC · DMV · State DBs</div><div class="isv-opp">ViQi ASSIST: 4 federated queries in &lt;3.3s (my production example)</div></div>
+        </div>
+      </div>
+
+      <!-- SKILLS DROPDOWN -->
+      <div class="section">
+        <div class="section-title">Skills Required for Agentic AI</div>
+
+        <div class="accordion open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span><span class="accordion-label">Foundation</span>LLM APIs &amp; Prompt Engineering</span>
+            <span class="material-icons accordion-icon">expand_more</span>
+          </div>
+          <div class="accordion-body">
+            How to call <span class="term" data-key="nim">NIM</span> / OpenAI / Anthropic APIs. How to write effective prompts. How to parse structured output (JSON schema). How to handle errors, timeouts, retries. <strong>This is the entry point — everything else builds on this.</strong>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span><span class="accordion-label">Core</span>RAG Pipelines &amp; Vector Databases</span>
+            <span class="material-icons accordion-icon">expand_more</span>
+          </div>
+          <div class="accordion-body">
+            <span class="term" data-key="vector_db">Vector DB</span> (Milvus, pgvector, Pinecone) · <span class="term" data-key="embedding">Embeddings</span> · <span class="term" data-key="chunking">Chunking</span> strategy · Reranking · Hybrid search (vector + BM25). <strong>NVIDIA stack:</strong> NeMo Retriever + Milvus. <strong>Why it matters:</strong> RAG is the #1 technique for reducing <span class="term" data-key="hallucination">hallucinations</span> in production.
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span><span class="accordion-label">Advanced</span>Orchestration Frameworks</span>
+            <span class="material-icons accordion-icon">expand_more</span>
+          </div>
+          <div class="accordion-body">
+            <span class="term" data-key="aiq">AIQ Toolkit</span> (NVIDIA-native) · LangGraph (graph-based state machines) · CrewAI (role-based teams) · AutoGen (conversational multi-agent). Know when to use each. Know how to design <span class="term" data-key="agent">agent</span> boundaries: single responsibility, typed inputs/outputs, error handling.
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span><span class="accordion-label">Production</span>DevOps for AI</span>
+            <span class="material-icons accordion-icon">expand_more</span>
+          </div>
+          <div class="accordion-body">
+            Docker · Kubernetes · Helm charts · CI/CD (GitHub Actions) · <span class="term" data-key="triton">Triton Inference Server</span> · <span class="term" data-key="dcgm">DCGM</span> monitoring · Prometheus/Grafana dashboards. <strong>Why it matters:</strong> 80% of AI projects fail not because the model is wrong, but because the deployment is fragile. This is where MSI-trained GSI architects often have gaps.
+          </div>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span><span class="accordion-label">Critical</span>Security, Compliance &amp; Observability</span>
+            <span class="material-icons accordion-icon">expand_more</span>
+          </div>
+          <div class="accordion-body">
+            RBAC/ABAC access control · Audit logging (immutable) · Data classification · <span class="term" data-key="guardrails">NeMo Guardrails</span> · Prompt injection defense · LLM observability (LangSmith, Arize). <strong>My proof:</strong> <span class="term" data-key="cjis">CJIS</span> v6.0 (1,414 controls) + <span class="term" data-key="fedramp">FedRAMP High</span> ATO in production. No one else in this room has deployed AI under those constraints.
+          </div>
+        </div>
+      </div>
+
+      <!-- YOUR STORY -->
+      <div class="section">
+        <div class="section-title">Your Story</div>
+        <div class="story-box">
+          <div class="story-label">100+ Architects → Confident Partners (No Hand-Holding)</div>
+          "At MSI, I built the enablement program for 100+ architects who had zero AI experience. The curriculum mirrored this skills stack exactly: start with APIs (call an LLM), add RAG (ground it in their data), introduce multi-agent patterns (automate a workflow), then production: Docker, K8s, monitoring. By the end, partners could position and demo solutions without me in the room. 40% shorter sales cycles. $50M+ in enabled deals. That's the train-the-trainer model I'd scale at NVIDIA across GSI partners globally."
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div id="panel-q7" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge">Question 7</div>
+        <h2>Influencing a Customer to Buy</h2>
+        <div class="q-verbatim">If you are an employee, how do you influence a customer to buy/consider the solution?</div>
+      </div>
+      <div class="section">
+        <div class="section-title">The Framework: Pain → Proof → Path → Partner</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Step</th><th>What You Do</th><th>Your Example</th></tr></thead>
+            <tbody>
+              <tr><td><span class="pill">Pain</span></td><td>Find the failure mode first. Never pitch features before understanding the problem.</td><td>VirtualPartner: 98% failure rate. I showed the data before saying a word about ASSIST AI.</td></tr>
+              <tr><td><span class="pill">Proof</span></td><td>Build something in their environment, not a canned demo.</td><td>AIQ GSI Research Assistant built before the NVIDIA interview — not after.</td></tr>
+              <tr><td><span class="pill">Path</span></td><td>Make the journey to production feel short. ROI calculators, reference architectures, customer references.</td><td>$1.2M–$1.6M annual savings per 100-officer agency. ai-infra-advisor TCO model.</td></tr>
+              <tr><td><span class="pill">Partner</span></td><td>Leave them more capable than before. Train their team, not just their exec.</td><td>100+ architects trained. Partners close deals without me in the room.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">Stakeholder Map</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Stakeholder</th><th>Primary Concern</th><th>Your Move</th></tr></thead>
+            <tbody>
+              <tr><td>CTO/CIO</td><td>Architecture fit, security, scalability</td><td>Reference architecture + security posture (NeMo Guardrails, CJIS, FedRAMP)</td></tr>
+              <tr><td>CFO</td><td>ROI, TCO, risk</td><td>ROI calculator + 3-year TCO model (ai-infra-advisor)</td></tr>
+              <tr><td>VP Business Unit</td><td>Time to value, competitive edge</td><td>POC timeline, quick win from similar vertical</td></tr>
+              <tr><td>Lead Developer</td><td>Real integration complexity</td><td>Working code, GitHub repo, deploy in 1 hour</td></tr>
+              <tr><td>Compliance Officer</td><td>Regulatory risk</td><td>Audit trail, data residency, model explainability, governance framework</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">Key Numbers</div>
+        <div class="numbers-grid">
+          <div class="number-card"><div class="num">40%</div><div class="num-label">Shorter sales cycles with enablement tools (measured)</div></div>
+          <div class="number-card"><div class="num">$50M+</div><div class="num-label">Partner-driven ecosystem revenue enabled</div></div>
+          <div class="number-card"><div class="num">3×</div><div class="num-label">POC-to-close conversion with working demo vs slides</div></div>
+          <div class="number-card"><div class="num">100+</div><div class="num-label">Architects trained → each becomes a deal multiplier</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div id="panel-q8" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge">Question 8</div>
+        <h2>Why Synthetic Data Is Critical</h2>
+        <div class="q-verbatim">Why is synthetic data generation so important in the world of AI?</div>
+      </div>
+      <div class="section">
+        <div class="section-title">Simple Analogy — Flight Simulators</div>
+        <div class="analogy-box">The FAA doesn't let pilots learn emergency procedures on real planes with real passengers. They use simulators — realistic enough to train on, safe to fail in. <strong>Synthetic data is the flight simulator for AI.</strong> You wouldn't train a rare disease detector on 12 real examples. Synthesize 10,000 realistic variants and suddenly you have enough.</div>
+      </div>
+      <div class="section">
+        <div class="section-title">Four Problems Solved</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Problem</th><th>Without Synthetic Data</th><th>With Synthetic Data</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Data scarcity</strong></td><td>Rare events have too few examples (fraud, rare diseases, edge cases)</td><td>Generate realistic variants at scale</td></tr>
+              <tr><td><strong>Privacy constraints</strong></td><td>Real patient records, criminal histories cannot be shared</td><td>Synthetic records preserve statistics, expose no real individuals</td></tr>
+              <tr><td><strong>Bias amplification</strong></td><td>Historical data encodes historical biases</td><td>Synthetically balanced datasets correct representation gaps</td></tr>
+              <tr><td><strong>Labeling cost</strong></td><td>Human annotation at scale costs millions</td><td>Synthetic data comes pre-labeled</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">NVIDIA's Play</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Product</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td><strong>NeMo Data Curator</strong></td><td>Data quality pipeline — filter, deduplicate, augment real data</td></tr>
+              <tr><td><strong>Nemotron 4 340B</strong></td><td>Trained substantially on synthetic instruction data — NVIDIA's landmark disclosure</td></tr>
+              <tr><td><strong>NeMo synthetic data gen</strong></td><td>Generate instruction-following datasets using teacher models</td></tr>
+              <tr><td><strong>Omniverse / Replicator</strong></td><td>Photorealistic synthetic data for computer vision (robots, defect detection, autonomous vehicles)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">Your Story</div>
+        <div class="story-box">
+          <div class="story-label">DDaaS + CJIS — Synthetic Data as Operational Necessity</div>
+          "In ViQi ASSIST and DDaaS, I hit the synthetic data wall directly. CJIS prohibits using real criminal justice data for AI training without strict controls. Real drone flight logs near airports are classified or legally restricted. DDaaS used Omniverse-style simulation to generate synthetic RF signatures and radar tracks for drone types we hadn't seen yet — training the classifier before the hardware existed. This is not a theoretical technique. It's how you build AI in regulated and constrained environments."
+        </div>
+      </div>
+    </div>
+
+    <!-- Q9 -->
+    <div id="panel-q9" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge">Question 9</div>
+        <h2>OpenClaw, Red Hat AI / OpenShift, Hermes MLOps</h2>
+        <div class="q-verbatim">Talk about OpenClaw, AI Red Hat Factory, OpenShift. Go through all MSI projects and see what we can build to prepare for these questions. What are ISV solutions?</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">OpenClaw — The Displacement Signal</div>
+        <div class="concept-box">
+          <strong>What it is:</strong> A complete personal AI assistant product (NOT a framework). Connects Claude/GPT/Llama to 16+ messaging platforms (WhatsApp, Telegram, Slack, Discord, Signal, iMessage) via a local daemon. Built by Austrian developer Peter Steinberger in a weekend.<br><br>
+          <strong>Why it matters:</strong> 176,000+ GitHub stars (fastest in history). One developer displaced a million-dollar enterprise category.
+        </div>
+        <div class="story-box mt-16">
+          <div class="story-label">First-Person Context — I Lived This Pattern in 1999</div>
+          "I published a 5,000-word case study on OpenClaw. In 1999, I was inside the Cisco partner channel while Lucent tried to buy Cisco's partners to slow VoIP displacement. Cisco won anyway — not because of better voice, but because it was general-purpose infrastructure that made dedicated voice infrastructure unnecessary. Lucent: $258B to pennies. NVIDIA is in the Cisco seat right now. OpenClaw is the signal that the application layer is commoditizing. The value will flow to whoever controls the infrastructure layer and the specialized vertical expertise."
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Red Hat AI / OpenShift</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Product</th><th>What It Is</th><th>NVIDIA Integration</th></tr></thead>
+            <tbody>
+              <tr><td><strong>OpenShift</strong></td><td>Red Hat's enterprise Kubernetes — dominant in regulated industries (government, finance, healthcare)</td><td>NVIDIA GPU Operator runs natively</td></tr>
+              <tr><td><strong>Red Hat OpenShift AI</strong></td><td>ML model serving on OpenShift (formerly RHODS)</td><td>NIM deployable as OpenShift workloads</td></tr>
+              <tr><td><strong>InstructLab</strong></td><td>Red Hat's open-source fine-tuning using synthetic data (LAB = Large-scale Alignment for chatBots)</td><td>NeMo-compatible pipeline</td></tr>
+              <tr><td><strong>Granite Models</strong></td><td>IBM/Red Hat open-source LLMs for enterprise tasks</td><td>NIM-deployable</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="concept-box mt-16"><strong>GSI Play:</strong> Accenture, Deloitte, IBM GBS all have OpenShift practices. Bridge: existing OpenShift → add NVIDIA GPU Operator → deploy NIM → build RAG pipeline. GSI provides integration + domain expertise.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Hermes / MLOps Stack</div>
+        <pre>Data Version Control  → DVC, Git-LFS
+Training Jobs         → Slurm + Enroot/Pyxis or Kubernetes
+Experiment Tracking   → MLflow, Weights &amp; Biases
+Model Registry        → NGC Catalog, MLflow
+CI/CD for ML          → GitHub Actions + Helm
+Deployment            → NIM / Triton Inference Server
+Infrastructure Mon.   → DCGM + Prometheus + Grafana
+Drift Detection       → Arize, NeMo Guardrails monitoring
+Cluster Management    → NVIDIA Base Command Manager</pre>
+      </div>
+
+      <div class="section">
+        <div class="section-title">What to Build — MSI Projects → NVIDIA Demos</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>MSI Project</th><th>NVIDIA Concept</th><th>Build/Extend</th></tr></thead>
+            <tbody>
+              <tr><td>ViQi ASSIST (ASR)</td><td>NIM inference, real-time, TensorRT</td><td>✅ RealtimeVoice repo (Nemotron vs Whisper benchmark done)</td></tr>
+              <tr><td>ASSIST AI (4 agents)</td><td>AIQ Toolkit, multi-agent, Guardrails</td><td>Rebuild one agent with AIQ v1.3 + NIM + Guardrails layer</td></tr>
+              <tr><td>DDaaS (sensor fusion)</td><td>Edge AI, Jetson, multi-modal</td><td>Architecture diagram mapping NVIDIA stack to each sensor</td></tr>
+              <tr><td>Policy RAG</td><td>NeMo Retriever, RAG, Vector DB</td><td>Add policy search mode to aiq-gsi-demo</td></tr>
+              <tr><td>ROI Calculator</td><td>DGX Cloud vs on-prem</td><td>Extend ai-infra-advisor with on-prem mode</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q10 -->
+    <div id="panel-q10" class="q-panel">
+      <div class="q-header q10-header">
+        <div class="q-badge q10-badge">Question 10 — Crafted</div>
+        <h2>The Trust &amp; Governance Layer</h2>
+        <div class="q-verbatim">As AI becomes critical infrastructure for enterprises and regulated industries, what does the Trust &amp; Governance layer look like? How do you ensure AI decisions are explainable, auditable, and compliant? What does NVIDIA provide, and what should GSIs be building for their enterprise clients?</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Simple Analogy — Nuclear Plant vs Generator</div>
+        <div class="analogy-box">A home generator can fail — you replace the batteries. A nuclear plant cannot fail catastrophically, so it has redundant cooling, independent monitoring, regulatory inspectors, and public accountability. <strong>AI in a law enforcement dispatch center is the nuclear plant.</strong> AI writing a marketing email is the home generator. The governance layer scales to the stakes.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">The 5 Dimensions of AI Trust</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Dimension</th><th>The Question</th><th>What Breaks Without It</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Explainability</strong></td><td>Why did the model produce this output?</td><td>Regulators reject black-box decisions; auditors can't investigate</td></tr>
+              <tr><td><strong>Auditability</strong></td><td>What was input, output, and reasoning for every decision?</td><td>No chain of evidence; unable to investigate failures; non-compliant</td></tr>
+              <tr><td><strong>Compliance</strong></td><td>Does the system meet regulatory requirements?</td><td>Legal liability, license revocation, agency defunding</td></tr>
+              <tr><td><strong>Safety</strong></td><td>Can harmful outputs be prevented?</td><td>Model says something illegal/dangerous; reputational damage</td></tr>
+              <tr><td><strong>Data Governance</strong></td><td>Who owns the data? How long retained? Who can access?</td><td>Privacy violations, GDPR/CJIS breach, data sovereignty failure</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">NVIDIA's Trust Stack</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Layer</th><th>NVIDIA Product</th><th>What It Does</th></tr></thead>
+            <tbody>
+              <tr><td>Safety / Guardrails</td><td><strong>NeMo Guardrails</strong></td><td>Topical, safety, security, factual rails — block harmful/off-topic outputs at inference</td></tr>
+              <tr><td>Confidential Compute</td><td><strong>H100 CC / NVIDIA CC SDK</strong></td><td>Encrypts model weights and data in-use — even cloud provider cannot see data</td></tr>
+              <tr><td>Secure supply chain</td><td><strong>AI Enterprise Prod/LTS branches</strong></td><td>CVE-monitored containers, 0 high vulnerabilities, monthly patches</td></tr>
+              <tr><td>Sovereign AI</td><td><strong>DGX SuperPOD + NIM on-prem</strong></td><td>Keep model, data, and inference within national/org boundaries</td></tr>
+              <tr><td>Data protection</td><td><strong>FIPS 140-2 containers</strong></td><td>Encryption at rest/transit in regulated deployments</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">The GSI Governance Architecture</div>
+        <div class="arch-block">┌─────────────────────────────────────────────────────────┐
+│                 GOVERNANCE CONTROL PLANE                 │
+│  Policy Engine    │  Audit Logger     │  Risk Classifier │
+│  (NeMo Guardrails)│  (immutable log)  │  (EU AI Act tiers│
+├─────────────────────────────────────────────────────────┤
+│                  AI INFERENCE LAYER                      │
+│  NIM microservice │  Triton server    │  Model Registry  │
+├─────────────────────────────────────────────────────────┤
+│               DATA GOVERNANCE LAYER                      │
+│  Access Control  │  Data Lineage     │  Retention Policy │
+│  (RBAC/ABAC)     │  (provenance)     │  (TTL, disposal)  │
+├─────────────────────────────────────────────────────────┤
+│             CONFIDENTIAL COMPUTE LAYER                   │
+│  H100 Confidential Computing (data + model encrypted     │
+│  in-use — not visible even to cloud provider)            │
+└─────────────────────────────────────────────────────────┘</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Regulatory Landscape</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Regulation</th><th>Industry</th><th>Key AI Requirement</th></tr></thead>
+            <tbody>
+              <tr><td><span class="pill-red pill">CJIS v6.0</span></td><td>Law enforcement</td><td>1,414 security controls, audit trail, encryption, access logging</td></tr>
+              <tr><td><span class="pill-red pill">FedRAMP High</span></td><td>US Government</td><td>Continuous monitoring, incident response, ATO authorization</td></tr>
+              <tr><td><span class="pill-red pill">EU AI Act</span></td><td>EU deployments</td><td>Risk classification, human oversight, transparency for high-risk AI</td></tr>
+              <tr><td><span class="pill-red pill">HIPAA</span></td><td>Healthcare</td><td>Data minimization, access controls, audit logging</td></tr>
+              <tr><td><span class="pill-red pill">NIST AI RMF</span></td><td>US Federal + voluntary</td><td>Govern, Map, Measure, Manage — AI risk framework</td></tr>
+              <tr><td><span class="pill-red pill">GDPR</span></td><td>EU / Global</td><td>Right to explanation for automated decisions, data residency</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Your Story — The Deepest Governance Proof in the Room</div>
+        <div class="story-box">
+          <div class="story-label">CJIS v6.0 + FedRAMP High — Real Production AI Under the Strictest Rules on Earth</div>
+          <p>"I've operated in the highest AI governance environment outside of nuclear and defense: CJIS v6.0. Every query ViQi ASSIST processes — a real-time check of NCIC, state, county, and DMV databases — generates an immutable audit record: who queried, what was queried, what was returned, and when. 1,414 security controls govern the system. FedRAMP High ATO took 9 months. FIPS 140-2 encryption end-to-end.</p>
+          <p>The CJIS audit is not a compliance checkbox — it's the evidentiary chain that determines whether a criminal prosecution holds up in court. When an officer queries a suspect's record and the AI gives the wrong answer, someone's life is at risk. That's not a hallucination problem. That's a governance failure.</p>
+          <p>The GSI opportunity is massive: 95% of enterprise AI projects have no governance layer. They're demos pretending to be production systems. A GSI that walks in with a governance framework, audit toolkit, and NVIDIA Confidential Computing reference architecture will close every deal that point-solution AI vendors can't."</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Key Numbers</div>
+        <div class="numbers-grid">
+          <div class="number-card"><div class="num">1,414</div><div class="num-label">CJIS v6.0 security controls (personal production experience)</div></div>
+          <div class="number-card"><div class="num">9 months</div><div class="num-label">FedRAMP High ATO (personal — fastest in this space)</div></div>
+          <div class="number-card"><div class="num">€35M</div><div class="num-label">EU AI Act max fine for prohibited AI</div></div>
+          <div class="number-card"><div class="num">7%</div><div class="num-label">Global turnover penalty — EU AI Act</div></div>
+          <div class="number-card"><div class="num">40%</div><div class="num-label">Enterprise AI deployments expected to face governance failures by 2026 (Gartner)</div></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">The Business Case for GSIs</div>
+        <div class="alert">
+          <div class="alert-title">Investment Thesis for Haroon</div>
+          Every enterprise that deployed AI in 2023–2024 without a governance layer is now retroactively building one. <strong>Governance retrofits are 3–5× more expensive than governance-first builds.</strong> A GSI that walks in with a framework, audit toolkit, and NVIDIA Confidential Computing reference architecture will close deals that point-solution AI vendors cannot.
+        </div>
+      </div>
+    </div>
+
+    <!-- STORY BANK -->
+    <div id="panel-stories" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge">Reference</div>
+        <h2>Story Bank</h2>
+        <div class="q-verbatim">Waseem's key stories mapped to Haroon's questions. For each story: the metric, the Q it answers, and how to deliver it.</div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Story</th><th>Questions</th><th>Key Metric</th><th>Opening Line</th></tr></thead>
+          <tbody>
+            <tr><td><strong>ViQi ASSIST — Nemotron ASR</strong></td><td>Q1, Q2, Q4</td><td>43ms / 21× faster than Whisper</td><td>"I benchmarked Nemotron against Whisper on an L40S GPU..."</td></tr>
+            <tr><td><strong>ASSIST AI — 98% → 90%</strong></td><td>Q3, Q7</td><td>4 agents fixed what 1 LLM call couldn't</td><td>"The original system had a 98% failure rate. Here's why — and how I redesigned it."</td></tr>
+            <tr><td><strong>DDaaS — sensor fusion</strong></td><td>Q1, Q5, Q8</td><td>0–5s detection; $500M federal funding; FIFA 2026</td><td>"We needed to detect a drone before it crossed a stadium boundary..."</td></tr>
+            <tr><td><strong>CJIS v6.0 compliance</strong></td><td>Q10</td><td>1,414 controls; FedRAMP High in 9 months</td><td>"Every query generates an immutable audit record. Here's what that architecture looks like."</td></tr>
+            <tr><td><strong>100+ architects trained</strong></td><td>Q6, Q7</td><td>40% shorter sales cycles; $50M+ deals</td><td>"I designed an enablement program for architects who'd never touched AI..."</td></tr>
+            <tr><td><strong>OpenClaw case study</strong></td><td>Q9</td><td>176K stars; VoIP pattern repeating</td><td>"In 1999 I was inside the Lucent partner channel when Cisco started the VoIP disruption. OpenClaw is the same pattern."</td></tr>
+            <tr><td><strong>ai-infra-advisor tool</strong></td><td>Q4, Q7</td><td>On-prem vs cloud TCO model (github.com/QbitLoop)</td><td>"I built the tool that answers this question — let me walk you through it."</td></tr>
+            <tr><td><strong>aiq-gsi-demo on Brev L40S</strong></td><td>Q1, Q2, Q3</td><td>NIM + AIQ Toolkit + 96 verified NVIDIA sources; $1.49/hr</td><td>"I deployed an NVIDIA Blueprint on an L40S instance this week to prove it works in practice..."</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- AGENT ENGINEERING -->
+    <div id="panel-agent-eng" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge" style="background:var(--blue-light);color:var(--blue);">Deep Dive</div>
+        <h2>Agent Engineering</h2>
+        <div class="q-verbatim">How to build reliable, production-grade AI agents from scratch</div>
+      </div>
+
+      <div class="concept-box">
+        <div class="concept-label">The Core Pattern</div>
+        <p>An agent is an <span class="term" data-term="orchestrator">LLM + a loop + tools</span>. The loop: Observe → Think → Act → Observe. Tools are functions the LLM can call. Reliability comes from the harness around the loop, not from the model itself.</p>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">ReAct Pattern (Reason + Act)</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Step</th><th>What happens</th><th>Implementation</th></tr></thead>
+          <tbody>
+            <tr><td>Thought</td><td>LLM reasons about what to do next</td><td>Structured output parsing (JSON mode)</td></tr>
+            <tr><td>Action</td><td>LLM selects a tool + arguments</td><td>Tool schema in system prompt; function calling API</td></tr>
+            <tr><td>Observation</td><td>Tool returns result back to context</td><td>Append tool result to conversation history</td></tr>
+            <tr><td>Repeat</td><td>LLM decides: done or next action?</td><td>Max iterations limit prevents infinite loops</td></tr>
+            <tr><td>Final</td><td>LLM synthesizes all observations</td><td>Structured final answer extraction</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">Agent Harness — What I Build Around Every Agent</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Component</th><th>Why it matters</th><th>My implementation</th></tr></thead>
+          <tbody>
+            <tr><td>Tool registry</td><td>Defines what the agent can do</td><td>Pydantic schemas; strict type validation on inputs/outputs</td></tr>
+            <tr><td>Retry logic</td><td>LLMs fail ~15% of tool calls on first attempt</td><td>3 retries with exponential backoff + error injection into context</td></tr>
+            <tr><td>Max iterations</td><td>Prevents infinite reasoning loops</td><td>Hard limit of 10; soft warning at 7 with progress summary</td></tr>
+            <tr><td>Structured output</td><td>Parse-safe final answers</td><td>Instructor library + Pydantic; fallback to regex extraction</td></tr>
+            <tr><td>Trace logging</td><td>Debug which tool was called, with what args, and why</td><td>Append each thought/action/observation to trace file</td></tr>
+            <tr><td>Guardrails hook</td><td>Block unsafe outputs before they leave</td><td>NeMo Guardrails colang rules on final response</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">Multi-Agent Architecture Patterns</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Pattern</th><th>When to use</th><th>NVIDIA tool</th></tr></thead>
+          <tbody>
+            <tr><td>Orchestrator + specialists</td><td>Complex tasks needing multiple domain experts</td><td><span class="term" data-term="aiq">AIQ Toolkit</span> + specialized NIM agents</td></tr>
+            <tr><td>Parallel fan-out</td><td>Independent sub-tasks that can run simultaneously</td><td>async tool dispatch; aggregate results before synthesis</td></tr>
+            <tr><td>Sequential pipeline</td><td>Each step depends on previous output</td><td>LangGraph stateful graph; node = agent, edge = condition</td></tr>
+            <tr><td>Critic / reviewer</td><td>High-stakes output that needs self-checking</td><td>Second NIM call with critic prompt; reject if score &lt; threshold</td></tr>
+            <tr><td>Human-in-the-loop</td><td>Irreversible actions (API writes, emails, payments)</td><td>Approval gate before any write tool; async webhook</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="story-box" style="margin-top:24px;">
+        <div class="story-label">My Story — ASSIST AI (4 Agents)</div>
+        <p>Built 4-agent system for Motorola Solutions: Orchestrator → [RAG Policy Agent | Case Lookup Agent | Form Gen Agent | Escalation Agent]. Key lesson: the hardest problem was not the LLM — it was tool reliability. NCIC APIs timeout; forms have 200+ fields. Built retry harness + confidence threshold routing (if RAG &lt;70% confident → escalate to human). Q1 2026 revenue generating.</p>
+      </div>
+    </div>
+
+    <!-- CONTEXT ENGINEERING -->
+    <div id="panel-context-eng" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge" style="background:var(--blue-light);color:var(--blue);">Deep Dive</div>
+        <h2>Context Engineering</h2>
+        <div class="q-verbatim">The art of fitting the right knowledge into 200K tokens — without RAG</div>
+      </div>
+
+      <div class="concept-box">
+        <div class="concept-label">The Core Insight</div>
+        <p>Context engineering is the discipline of deciding WHAT knowledge to put in the context window, HOW to compress it, and in WHAT ORDER. A well-engineered context window eliminates the need for RAG on many tasks. Distillation &gt; Retrieval when the knowledge set is bounded and known.</p>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">Context Budget Framework</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Layer</th><th>Token Budget</th><th>What goes here</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td>System identity</td><td>~2K</td><td>Role, persona, behavior rules, output format</td><td>P0 — always present</td></tr>
+            <tr><td>Core knowledge</td><td>~20K</td><td>Distilled domain facts (not raw docs)</td><td>P0 — always present</td></tr>
+            <tr><td>Task examples</td><td>~10K</td><td>Few-shot demonstrations, templates</td><td>P1 — include for complex tasks</td></tr>
+            <tr><td>Retrieved context</td><td>~30K</td><td>RAG chunks for this specific query</td><td>P1 — query-time only</td></tr>
+            <tr><td>Conversation history</td><td>~20K</td><td>Prior turns, compressed summaries</td><td>P2 — sliding window</td></tr>
+            <tr><td>Response buffer</td><td>~8K</td><td>Space for model to generate output</td><td>P0 — always reserve</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">Knowledge Distillation Techniques</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Technique</th><th>Compression ratio</th><th>When to use</th></tr></thead>
+          <tbody>
+            <tr><td>Extractive summarization</td><td>10:1</td><td>Structured docs (manuals, specs)</td></tr>
+            <tr><td>Abstractive distillation</td><td>20:1</td><td>Unstructured prose, research papers</td></tr>
+            <tr><td>Fact tables</td><td>50:1</td><td>Numerical data, product specs, comparisons</td></tr>
+            <tr><td>Decision trees (text)</td><td>30:1</td><td>Troubleshooting guides, workflows</td></tr>
+            <tr><td>Q&A pairs</td><td>15:1</td><td>FAQ content, support docs</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="story-box" style="margin-top:24px;">
+        <div class="story-label">My Project — GSI Expert Skill</div>
+        <p>Building a Claude Cowork connector that distills 4.8GB of NVIDIA knowledge into ~80K tokens. No RAG — pure context engineering. The 5 knowledge domains (AIIO training, interview team intel, technical manual, my experience, NVIDIA stack) are each distilled into optimized markdown with specific token budgets. The skill becomes an AI employee that knows everything I know about NVIDIA + GSI without any database.</p>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">System Prompt Design Patterns</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Pattern</th><th>Use case</th><th>Key principle</th></tr></thead>
+          <tbody>
+            <tr><td>Role + Goal + Constraints</td><td>Any agent/assistant</td><td>Tell the model WHO it is, WHAT it does, what it must NOT do</td></tr>
+            <tr><td>Chain-of-thought seeding</td><td>Reasoning tasks</td><td>"Think step by step" or structured thought template in system</td></tr>
+            <tr><td>Output format schema</td><td>Structured extraction</td><td>JSON schema in system prompt enforces parseable output</td></tr>
+            <tr><td>Persona + tone calibration</td><td>Customer-facing apps</td><td>Explicit persona description with 3 example turns</td></tr>
+            <tr><td>Safety anchors</td><td>Production systems</td><td>Explicit refusal list beats guardrails as first line of defense</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- MEMORY SYSTEMS -->
+    <div id="panel-memory" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge" style="background:var(--blue-light);color:var(--blue);">Deep Dive</div>
+        <h2>Memory Systems in AI Agents</h2>
+        <div class="q-verbatim">How agents remember — the 4 memory types and when to use each</div>
+      </div>
+
+      <div class="concept-box">
+        <div class="concept-label">The Analogy</div>
+        <p>Human memory: short-term (working memory), long-term (episodic + semantic), procedural (muscle memory). AI agent memory maps exactly: context window, vector DB, document store, fine-tuned weights. The architecture question is: which tier for which information?</p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Memory Type</th><th>Human Analogy</th><th>AI Implementation</th><th>NVIDIA Component</th><th>When to Use</th></tr></thead>
+          <tbody>
+            <tr><td>In-context (working)</td><td>Active thought</td><td>Conversation history in prompt</td><td>KV Cache (TRT-LLM)</td><td>Current session; immediate context</td></tr>
+            <tr><td>Episodic (short-term)</td><td>Yesterday's events</td><td>Session summaries in vector DB</td><td>NeMo Retriever + Milvus</td><td>Multi-session continuity; user preferences</td></tr>
+            <tr><td>Semantic (long-term)</td><td>Domain knowledge</td><td>Knowledge base in vector DB</td><td>NeMo Retriever + <span class="term" data-term="rag">RAG</span></td><td>Static facts; documentation; policies</td></tr>
+            <tr><td>Procedural (implicit)</td><td>Skill / habit</td><td>Fine-tuned model weights</td><td>NeMo Framework LoRA/SFT</td><td>Domain vocab, style, specialized reasoning</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">Memory Architecture Decision Tree</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Question</th><th>If YES</th><th>If NO</th></tr></thead>
+          <tbody>
+            <tr><td>Is the info needed only in this session?</td><td>In-context memory (append to prompt)</td><td>Needs persistence → vector DB</td></tr>
+            <tr><td>Does the info change frequently?</td><td>Vector DB (update embeddings)</td><td>Stable → consider fine-tuning</td></tr>
+            <tr><td>Is exact retrieval required?</td><td>Traditional DB + structured query</td><td>Semantic similarity → vector DB</td></tr>
+            <tr><td>Is it behavioral style/domain vocab?</td><td>Fine-tune (LoRA) the base model</td><td>Keep in external retrieval</td></tr>
+            <tr><td>Is it user-specific preferences?</td><td>User profile in episodic vector store</td><td>Global knowledge → semantic store</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">Context Window Management (Sliding Window)</h3>
+      <div class="concept-box" style="background:var(--gold-light);border-color:var(--gold);">
+        <div class="concept-label" style="color:var(--gold);">The Compaction Problem</div>
+        <p>Long conversations overflow the context window. Strategies: (1) Sliding window — keep last N turns. (2) Summarization — compress older turns into a summary. (3) Hierarchical — compress into layers (turn → session → user history). Claude Code uses compaction summaries — you see this every session reset.</p>
+      </div>
+
+      <div class="story-box" style="margin-top:24px;">
+        <div class="story-label">My Project — Claude Code Memory System</div>
+        <p>Built a file-based persistent memory system for this project: user.md (who Waseem is), feedback.md (what works), project.md (current goals), reference.md (where things are). Each file has structured frontmatter. MEMORY.md is an index loaded every session. This IS context engineering applied to agent memory — 200-line limit on index, semantic content in separate files. Zero vector DB needed.</p>
+      </div>
+    </div>
+
+    <!-- AGENTIC LOOPS -->
+    <div id="panel-loops" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge" style="background:var(--blue-light);color:var(--blue);">Deep Dive</div>
+        <h2>Agentic Loops</h2>
+        <div class="q-verbatim">The patterns that make agents actually work in production</div>
+      </div>
+
+      <div class="concept-box">
+        <div class="concept-label">Why Loops Matter</div>
+        <p>Single-shot LLM calls are not agents. Agents loop: perceive the environment, reason, act, observe the result, reason again. The loop design — how many iterations, when to stop, how to handle failure — determines whether an agent is reliable in production or a demo that breaks on Monday morning.</p>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">The Major Loop Patterns</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Pattern</th><th>Flow</th><th>Best for</th><th>Risk</th></tr></thead>
+          <tbody>
+            <tr><td>ReAct</td><td>Think → Act → Observe → Think...</td><td>Tool-using agents with uncertainty</td><td>Can spiral in reasoning loops</td></tr>
+            <tr><td>Plan-then-Execute</td><td>Plan all steps → Execute in order</td><td>Well-defined tasks with known steps</td><td>Plan goes stale if environment changes</td></tr>
+            <tr><td>Reflection / Critic</td><td>Generate → Critique → Revise</td><td>Quality-sensitive outputs (reports, code)</td><td>2x token cost; critic can be wrong</td></tr>
+            <tr><td>RLHF Loop</td><td>Generate → Human rates → Reward model learns → Fine-tune</td><td>Model behavior alignment</td><td>Reward hacking; expensive</td></tr>
+            <tr><td>RLAIF (AI feedback)</td><td>Generate → Stronger LLM rates → Reward model → Fine-tune</td><td>Scalable alignment without humans</td><td>Model collapse if teacher is weak</td></tr>
+            <tr><td>Self-play (synthetic data)</td><td>Model generates problems → solves them → trains on correct ones</td><td>Math, coding, reasoning skill improvement</td><td>Distribution shift from real data</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">Loop Failure Modes (and Fixes)</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Failure mode</th><th>Root cause</th><th>Production fix</th></tr></thead>
+          <tbody>
+            <tr><td>Infinite reasoning loop</td><td>No termination condition</td><td>Max iteration limit + progress check</td></tr>
+            <tr><td>Wrong tool called</td><td>Ambiguous tool description</td><td>Better docstrings; few-shot examples in tool schema</td></tr>
+            <tr><td>Hallucinated tool args</td><td>Model invents parameter values</td><td>Strict Pydantic validation; error fed back to context</td></tr>
+            <tr><td>Lost context mid-loop</td><td>Context window fills up</td><td>Compress intermediate observations; keep trace summary</td></tr>
+            <tr><td>Irreversible side effect</td><td>Action agent called write API</td><td>Human-in-the-loop gate for all write operations</td></tr>
+            <tr><td>Cost explosion</td><td>Too many LLM calls in loop</td><td>Cache repeated tool calls; use smaller model for sub-steps</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">Eval Loop — Closing the Quality Feedback Loop</h3>
+      <div class="concept-box" style="background:var(--accent-light);border-color:var(--accent);">
+        <div class="concept-label" style="color:var(--accent-dark);">The Production Secret</div>
+        <p>The loop that makes agents better over time: (1) Log every agent trace. (2) Sample failures. (3) Root-cause which loop step failed. (4) Fix: better prompt, better tool, add retry, add critic. (5) Re-run eval set. This loop, not the initial build, is what makes agents production-grade.</p>
+      </div>
+
+      <div class="story-box" style="margin-top:24px;">
+        <div class="story-label">My Story — ASSIST AI Loop Debugging</div>
+        <p>ASSIST AI had a 40% failure rate in week 1 of production. Loop analysis: 32% was wrong chunking in RAG retrieval (fixed: semantic chunking), 5% was NCIC API timeout not handled (fixed: retry + fallback message), 3% was hallucinated case numbers (fixed: guardrail on numeric patterns). Loop debugging reduced failure rate to &lt;8% in 3 weeks. The loop trace log was the only tool that made this diagnosable.</p>
+      </div>
+    </div>
+
+    <!-- EVAL & RAG BENCH -->
+    <div id="panel-evals" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge" style="background:var(--blue-light);color:var(--blue);">Deep Dive</div>
+        <h2>Evaluation &amp; RAG Bench</h2>
+        <div class="q-verbatim">How to prove your AI system works — before it hits production</div>
+      </div>
+
+      <div class="concept-box">
+        <div class="concept-label">The Eval Mindset</div>
+        <p>You cannot improve what you cannot measure. For RAG systems: answer correctness is not enough. You need retrieval quality + answer faithfulness + answer relevance — separately. For agents: you need per-step accuracy, not just final answer quality. RAGAS is the framework; LLM-as-judge is the scalable evaluation method.</p>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">RAGAS Metrics Framework</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Metric</th><th>What it measures</th><th>Target</th><th>How to improve</th></tr></thead>
+          <tbody>
+            <tr><td>Faithfulness</td><td>Is the answer grounded in retrieved context? (No hallucination)</td><td>&gt;0.90</td><td>Better guardrails; citation enforcement</td></tr>
+            <tr><td>Answer Relevancy</td><td>Does the answer actually address the question?</td><td>&gt;0.85</td><td>Better reranking; query expansion</td></tr>
+            <tr><td>Context Precision</td><td>Are retrieved chunks actually relevant?</td><td>&gt;0.80</td><td>Better chunking; reranker model</td></tr>
+            <tr><td>Context Recall</td><td>Did retrieval find all the relevant info?</td><td>&gt;0.75</td><td>Larger k; hybrid search</td></tr>
+            <tr><td>Answer Correctness</td><td>Is the answer factually correct?</td><td>&gt;0.85</td><td>Better source docs; fact verification</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">RAG Eval Bench — My GitHub Repo</h3>
+      <div class="concept-box" style="background:var(--gold-light);border-color:var(--gold);">
+        <div class="concept-label" style="color:var(--gold);">QbitLoop/RAG-Eval-Bench</div>
+        <p>Benchmarks 4 RAG approaches head-to-head: naive chunking, semantic chunking, hybrid search, and reranking. Runs RAGAS on all 4. Shows that adding a reranker (NV-RerankQA) improves context precision by ~20% with minimal latency cost. Used to justify the ASSIST AI architecture decisions.</p>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">LLM-as-Judge Pattern</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Step</th><th>What happens</th><th>Tool</th></tr></thead>
+          <tbody>
+            <tr><td>Generate golden set</td><td>Create 50-200 Q&A pairs from ground truth docs</td><td>Nemotron or Claude to generate; human spot-check</td></tr>
+            <tr><td>Run the system</td><td>Feed each Q through the RAG/agent pipeline</td><td>Automated test harness</td></tr>
+            <tr><td>Score with LLM judge</td><td>Stronger model rates: correct, partially correct, wrong</td><td>Claude claude-opus-4-6 or GPT-4 as judge; structured output</td></tr>
+            <tr><td>Compute RAGAS</td><td>Automated metric calculation</td><td>RAGAS library + Milvus + NIM embeddings</td></tr>
+            <tr><td>Root-cause failures</td><td>Cluster failing cases by failure mode</td><td>K-means on failure embeddings; manual review of top clusters</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="story-box" style="margin-top:24px;">
+        <div class="story-label">My Story — Chunking Was the Problem</div>
+        <p>RAG-Eval-Bench finding that changed ASSIST AI: naive 1000-char chunking scored 0.42 faithfulness. Semantic chunking (split on section boundaries) scored 0.87. The difference was that CJIS policy documents have cross-references — "as defined in Section 5.3.2" — which naive chunking split across chunk boundaries. Semantic chunking kept policy sections intact. One config change, 2x improvement.</p>
+      </div>
+    </div>
+
+    <!-- VOICE AI / MULTIMODAL -->
+    <div id="panel-voice" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge" style="background:var(--blue-light);color:var(--blue);">Deep Dive</div>
+        <h2>Voice AI &amp; Multimodal</h2>
+        <div class="q-verbatim">Real-time speech + vision — the latency and architecture challenges</div>
+      </div>
+
+      <div class="concept-box">
+        <div class="concept-label">The Latency Problem</div>
+        <p>Voice AI has a hard UX cliff: &lt;3s total round-trip feels responsive; &gt;5s feels broken. The pipeline: ASR (speech to text) + LLM inference + TTS (text to speech). Each step adds latency. Streaming is not optional — it is the only architecture that crosses the 3s threshold reliably.</p>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">Voice AI Pipeline — Components and Latencies</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Stage</th><th>Technology</th><th>Latency target</th><th>NVIDIA solution</th></tr></thead>
+          <tbody>
+            <tr><td>Wake word / VAD</td><td>Voice Activity Detection</td><td>&lt;50ms</td><td>NVIDIA Riva VAD (on-device)</td></tr>
+            <tr><td>ASR (speech to text)</td><td>Streaming whisper or Parakeet</td><td>&lt;200ms TTFT</td><td>Nemotron ASR: 43ms (21x faster than Whisper)</td></tr>
+            <tr><td>LLM inference</td><td>NIM + TRT-LLM</td><td>&lt;800ms TTFT</td><td>NIM streaming; first token in &lt;500ms</td></tr>
+            <tr><td>TTS (text to speech)</td><td>Streaming synthesis</td><td>First audio &lt;300ms</td><td>NVIDIA Riva TTS; ElevenLabs for quality</td></tr>
+            <tr><td>Total (streaming)</td><td>End-to-end streamed</td><td>&lt;3.3s perceived</td><td>ViQi ASSIST: 3.3s on Azure GPU nodes</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">Multimodal Architecture Patterns</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Modality combo</th><th>Architecture</th><th>Use case</th><th>My example</th></tr></thead>
+          <tbody>
+            <tr><td>Speech + Text</td><td>ASR → LLM → TTS pipeline</td><td>Voice assistants, dispatch, call centers</td><td>ViQi ASSIST — law enforcement dispatch AI</td></tr>
+            <tr><td>Vision + Text</td><td>Vision encoder + LLM (VLM)</td><td>Document OCR, scene understanding</td><td>DDaaS drone detection — camera + radar fusion</td></tr>
+            <tr><td>Video + Text</td><td>Frame sampling + VLM</td><td>Surveillance, body cam review, training</td><td>SmartVideo + SmartEvidence pipeline</td></tr>
+            <tr><td>Sensor + Text</td><td>Multi-modal encoder + LLM</td><td>IoT, robotics, physical AI</td><td>DDaaS: acoustic + radar + optical fusion</td></tr>
+            <tr><td>Voice + RAG</td><td>ASR → RAG → TTS</td><td>Voice-enabled knowledge search</td><td>SmartSearch / ASSIST AI voice mode</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="story-box" style="margin-top:24px;">
+        <div class="story-label">My Story — RealtimeVoice Benchmark</div>
+        <p>QbitLoop/RealtimeVoice GitHub repo: benchmarked NVIDIA Nemotron ASR at 43ms vs Whisper at 900ms on the same audio clips — 21x faster. Architecture: WebSocket streaming from browser → GPU inference → streaming response back. Key finding: Whisper's latency is not model inference time, it's the encoder's non-streaming architecture. Nemotron uses streaming CTC decoder — first token in 43ms regardless of utterance length.</p>
+      </div>
+
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">ViQi ASSIST — Full Architecture Story</h3>
+      <div class="concept-box" style="background:var(--red-light);border-color:var(--red);">
+        <div class="concept-label" style="color:var(--red);">Production Stats</div>
+        <p>Platform: APX Next radio (hardened Android) → ViQi Voice Gateway (Azure) → NLU → Intent Router → [NCIC agent | policy RAG agent | translation agent] → TTS → speaker. Latency: 3.3s 95th percentile. Compliance: CJIS v6.0 (1,414 controls), H100 Confidential Computing TEE. Scale: NTECC, CBP deployments. SmartSearch GA April 16, 2026.</p>
+      </div>
+    </div>
+
+    <!-- AIIO EXAM PREP -->
+    <div id="panel-aiio" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge" style="background:var(--accent-light);color:var(--accent-dark);">Certification</div>
+        <h2>AIIO Associate Exam Prep</h2>
+        <div class="q-verbatim">50 questions · 60 min · 70% pass · $135 — exam by end of March 2026</div>
+      </div>
+
+      <div class="concept-box" style="background:#0A1A08;color:#EFF7D6;border-color:var(--accent);">
+        <div class="concept-label" style="color:var(--accent);">Section Weights — Know These First</div>
+        <p style="color:#EFF7D6;margin-bottom:0;">
+          <strong style="color:var(--accent);">38%</strong> Essential AI Knowledge (Units 1–6) &nbsp;|&nbsp;
+          <strong style="color:var(--accent);">40%</strong> AI Infrastructure (Units 7–12) &nbsp;|&nbsp;
+          <strong style="color:var(--accent);">22%</strong> AI Operations (Units 13–14)
+        </p>
+        <p style="color:#aaa;font-size:12px;margin-top:6px;">Infrastructure is the biggest section. Focus there first.</p>
+      </div>
+
+      <!-- SECTION 1: AI WORKFLOW -->
+      <h3 style="font-family:var(--heading);margin:28px 0 12px;">1 — The 4-Step AI Workflow (always tested)</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Step</th><th>What happens</th><th>NVIDIA tool</th><th>Key detail</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--accent);font-weight:700;">1. Data Prep</td><td>Clean, label, augment datasets</td><td>RAPIDS, NeMo Data Curator</td><td>GPU-accelerated Python; most time-consuming in practice</td></tr>
+            <tr><td style="color:var(--accent);font-weight:700;">2. Training</td><td>Adjust model weights via gradient descent</td><td>PyTorch / TensorFlow / NeMo</td><td>Most compute-intensive step; uses FP8/FP16 mixed precision</td></tr>
+            <tr><td style="color:var(--accent);font-weight:700;">3. Optimization</td><td>Compress + optimize for target hardware</td><td>TensorRT (TRT)</td><td>Quantization, pruning, kernel fusion → 5x faster inference</td></tr>
+            <tr><td style="color:var(--accent);font-weight:700;">4. Inference / Deploy</td><td>Run model on new inputs in production</td><td>Triton Inference Server + NIM</td><td>Multi-GPU, multi-node, load balancing, multi-framework</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECTION 2: GPU ARCHITECTURES -->
+      <h3 style="font-family:var(--heading);margin:28px 0 12px;">2 — GPU Architectures (40% section, exam-critical)</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Architecture</th><th>GPU</th><th>Transistors</th><th>Key features</th><th>MIG?</th><th>Conf.Compute?</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--accent);font-weight:700;">Blackwell</td><td>B200</td><td>208B</td><td>2nd-gen Transformer Engine, FP8/FP4, 5th-gen NVLink (576 GPUs), RAS engine, decompression engine</td><td>Yes</td><td>Yes (built-in)</td></tr>
+            <tr><td style="color:var(--blue);font-weight:700;">Hopper</td><td>H100</td><td>80B</td><td>1st-gen Transformer Engine, FP8, 4th-gen NVLink (900GB/s), 4th-gen Tensor Cores</td><td>Yes (up to 7)</td><td>Yes (built-in)</td></tr>
+            <tr><td style="color:var(--gold);font-weight:700;">Ada Lovelace</td><td>L40S</td><td>—</td><td>4th-gen Tensor Cores, gaming+data center inference, advanced video accel, 2x power efficiency vs prior gen</td><td>No</td><td>No</td></tr>
+            <tr><td style="color:var(--text-secondary);font-weight:700;">Grace CPU</td><td>ARM CPU</td><td>—</td><td>NVIDIA's first data center CPU; ARM-based; large memory BW; HPC, genomics, quantum chemistry</td><td>N/A</td><td>N/A</td></tr>
+            <tr><td style="color:var(--text-secondary);font-weight:700;">Grace Hopper</td><td>GH200</td><td>—</td><td>Grace CPU + H100 GPU via NVLink-C2C; 900GB/s bidirectional; unified memory; recommender systems</td><td>Yes</td><td>Yes</td></tr>
+            <tr><td style="color:var(--text-secondary);font-weight:700;">Grace Blackwell</td><td>GB200</td><td>—</td><td>Grace CPU + 2x B200 via NVLink; 900GB/s; unified memory; trillion-parameter LLMs</td><td>Yes</td><td>Yes</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECTION 3: DGX SYSTEMS -->
+      <h3 style="font-family:var(--heading);margin:28px 0 12px;">3 — DGX Systems Specs (know the numbers)</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>System</th><th>GPUs</th><th>Key specs</th><th>Use case</th></tr></thead>
+          <tbody>
+            <tr><td><strong>DGX H100</strong></td><td>8x H100</td><td>4x NVSwitch, 10x ConnectX-7 (400Gbps each = 1TB/s peak), 2TB RAM, 30TB NVMe, 32 petaFLOPS FP8</td><td>Enterprise training + inference</td></tr>
+            <tr><td><strong>DGX B200</strong></td><td>8x B200</td><td>5th-gen NVLink, 72 petaFLOPS FP8 training, 144 petaFLOPS FP4 inference, 1.4TB GPU memory</td><td>Frontier LLM training + inference</td></tr>
+            <tr><td><strong>GB200 NVL72</strong></td><td>72x Blackwell</td><td>36 Grace CPUs + 72 B200s; liquid-cooled; 130TB/s compute fabric; "exaflop AI supercomputer in a rack"</td><td>Trillion-parameter model training</td></tr>
+            <tr><td><strong>DGX BasePOD</strong></td><td>2–16 nodes</td><td>DGX H100 or B200 nodes + QM9700 switch (compute) + SN5600 (GPU-to-GPU Ethernet) + SN4600 (storage/mgmt) + SN2201 (out-of-band)</td><td>On-prem integrated AI solution</td></tr>
+            <tr><td><strong>DGX SuperPOD</strong></td><td>Up to 127</td><td>Scalable units (SU); recommended for GPT-4 scale LLM training; deployed at customer DCs + CSPs</td><td>Hyperscale AI training</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECTION 4: INTERCONNECTS -->
+      <h3 style="font-family:var(--heading);margin:28px 0 12px;">4 — Interconnects: NVLink vs NVSwitch vs PCIe (multiple exam questions)</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Technology</th><th>What it does</th><th>Bandwidth</th><th>Exam key fact</th></tr></thead>
+          <tbody>
+            <tr><td><strong style="color:var(--accent);">NVLink</strong></td><td>High-speed chip-to-chip: GPU-to-GPU and GPU-to-CPU</td><td>H100: 900GB/s; B200: 5th gen → 576 GPUs</td><td>Overcomes PCIe bottleneck for scale-up multi-GPU</td></tr>
+            <tr><td><strong style="color:var(--blue);">NVSwitch</strong></td><td>Fabric switch enabling all-to-all GPU communication at full bandwidth</td><td>Full bisection bandwidth</td><td>Enables ALL GPUs to talk to each other simultaneously (no bottleneck)</td></tr>
+            <tr><td><strong style="color:var(--gold);">PCIe</strong></td><td>Traditional server bus, CPU-to-GPU</td><td>~128 GB/s (PCIe 5.0)</td><td>The bottleneck NVLink replaces for GPU-to-GPU communication</td></tr>
+            <tr><td><strong>InfiniBand</strong></td><td>Multi-node compute fabric (node-to-node)</td><td>NDR: 400Gbps per port</td><td>Lossless, RDMA-native, ultra-low latency; QM9700 switch = BasePOD compute</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECTION 5: NETWORKING -->
+      <h3 style="font-family:var(--heading);margin:28px 0 12px;">5 — Legacy Network vs AI Network (always on the exam)</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Characteristic</th><th>Legacy/Cloud Network</th><th>AI-Optimized Network</th></tr></thead>
+          <tbody>
+            <tr><td>Protocol</td><td>TCP</td><td>RDMA (Remote Direct Memory Access)</td></tr>
+            <tr><td>Jitter tolerance</td><td>High jitter tolerated</td><td>No jitter — every GPU waits for slowest</td></tr>
+            <tr><td>Oversubscription</td><td>Oversubscribed (shared bandwidth)</td><td>Nonblocking (full bisection bandwidth)</td></tr>
+            <tr><td>Traffic pattern</td><td>North-south (client ↔ server)</td><td>East-west (GPU ↔ GPU, all-to-all)</td></tr>
+            <tr><td>NVIDIA product</td><td>Spectrum-4 (Ethernet)</td><td>QM9700 InfiniBand or Spectrum-4 AI</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="concept-box" style="background:var(--blue-light);border-color:var(--blue);">
+        <div class="concept-label" style="color:var(--blue);">RoCE = RDMA over Ethernet</div>
+        <p>RoCE (RDMA over Converged Ethernet) encapsulates InfiniBand transport packets inside Ethernet frames. Enables RDMA performance on Ethernet infrastructure. Key when a customer has Ethernet investment but needs RDMA for AI training.</p>
+      </div>
+
+      <!-- SECTION 6: MANAGEMENT TOOLS MAPPING -->
+      <h3 style="font-family:var(--heading);margin:28px 0 12px;">6 — Management Tools Mapping (Exam question: match tool to function)</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Tool</th><th>Function</th><th>Layer</th><th>Key detail</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Ansible</strong></td><td>Provisioning automation</td><td>Infrastructure</td><td>Install OS, configure servers — automation layer</td></tr>
+            <tr><td><strong>Terraform</strong></td><td>Infrastructure as code</td><td>Infrastructure</td><td>Define data center resources declaratively</td></tr>
+            <tr><td><strong>Foreman</strong></td><td>Server lifecycle management</td><td>Infrastructure</td><td>Provisioning + OS deployment + reporting</td></tr>
+            <tr><td><strong><span class="term" data-term="dcgm">DCGM</span></strong></td><td>GPU health monitoring</td><td>Resource monitoring</td><td>Telemetry → DCGM Exporter → Prometheus → Grafana</td></tr>
+            <tr><td><strong>Prometheus</strong></td><td>Metrics collection/storage</td><td>Resource monitoring</td><td>Scrapes DCGM Exporter; time-series DB</td></tr>
+            <tr><td><strong>Grafana</strong></td><td>Visualization dashboards</td><td>Resource monitoring</td><td>Connects to Prometheus; GPU dashboards</td></tr>
+            <tr><td><strong>Slurm</strong></td><td>Job scheduling (HPC/bare metal)</td><td>Workload management</td><td>Open source; batch + interactive; priority/preemption; no kernel mods</td></tr>
+            <tr><td><strong>Kubernetes</strong></td><td>Container orchestration</td><td>Workload management</td><td>Microservices; scale up/down; advanced features built-in</td></tr>
+            <tr><td><strong>Base Command Manager</strong></td><td>On-prem cluster management</td><td>All three layers</td><td>Deploys K8s + Slurm + Jupyter; job monitoring + GPU metrics</td></tr>
+            <tr><td><strong>Base Command Platform</strong></td><td>DGX Cloud web interface</td><td>Workload management</td><td>Submit/monitor AI training jobs in browser; web GUI for DGX Cloud</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECTION 7: KUBERNETES vs SLURM -->
+      <h3 style="font-family:var(--heading);margin:28px 0 12px;">7 — Kubernetes vs Slurm (Key exam distinction)</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Dimension</th><th>Kubernetes</th><th>Slurm</th></tr></thead>
+          <tbody>
+            <tr><td>Workload type</td><td>Containers / microservices</td><td>Bare metal HPC / batch jobs</td></tr>
+            <tr><td>Scaling</td><td>Scale up and down dynamically</td><td>No dynamic scale-down (HPC cluster)</td></tr>
+            <tr><td>Advanced features</td><td>Via MLOps plugins</td><td>Built-in (priority, preemption, QoS)</td></tr>
+            <tr><td>Inferencing support</td><td>Yes (scales to demand)</td><td>No (not designed for inference serving)</td></tr>
+            <tr><td>NVIDIA integration</td><td>GPU Operator + Network Operator</td><td>enroot + Pyxis for containers</td></tr>
+            <tr><td>When to use</td><td>Inference serving, MLOps, microservices</td><td>Model training, simulation, HPC workloads</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECTION 8: MIG -->
+      <h3 style="font-family:var(--heading);margin:28px 0 12px;">8 — MIG Deep Dive (22% operations section)</h3>
+      <div class="concept-box" style="background:var(--gold-light);border-color:var(--gold);">
+        <div class="concept-label" style="color:var(--gold);">What is MIG?</div>
+        <p>Multi-Instance GPU — partition one H100 or B200 into up to 7 fully isolated instances. Each instance gets its own HBM (memory), cache, and compute cores — hardware-enforced isolation, not virtualization. Does NOT increase power consumption. MIG Manager handles this in Kubernetes clusters.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Exam question</th><th>Answer</th></tr></thead>
+          <tbody>
+            <tr><td>Max MIG instances per GPU?</td><td>7 (on H100 or B200)</td></tr>
+            <tr><td>Does MIG increase power consumption?</td><td>No — key exam trap</td></tr>
+            <tr><td>Which GPUs support MIG?</td><td>H100 (Hopper), B200 (Blackwell). NOT A100 Ada Lovelace/L40S</td></tr>
+            <tr><td>MIG vs NVSwitch — what's the difference?</td><td>MIG = GPU partitioning; NVSwitch = multi-GPU all-to-all communication fabric</td></tr>
+            <tr><td>What manages MIG in Kubernetes?</td><td>MIG Manager (separate from Network Operator)</td></tr>
+            <tr><td>Why use MIG?</td><td>Multi-tenant inference — 7 isolated workloads on one GPU; maximize utilization</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECTION 9: CLOUD -->
+      <h3 style="font-family:var(--heading);margin:28px 0 12px;">9 — Cloud Consumption Models (quick exam points)</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Model</th><th>What you manage</th><th>Example</th><th>Exam hook</th></tr></thead>
+          <tbody>
+            <tr><td><strong>On-prem</strong></td><td>Everything</td><td>DGX BasePOD in your DC</td><td>Full control, full cost</td></tr>
+            <tr><td><strong>IaaS</strong></td><td>OS + software + data</td><td>EC2 with A100 instance</td><td>You manage the OS</td></tr>
+            <tr><td><strong>PaaS</strong></td><td>Data + applications</td><td>Managed Kubernetes</td><td>Managed Kubernetes = PaaS — exam answer</td></tr>
+            <tr><td><strong>SaaS</strong></td><td>Nothing (just use it)</td><td>DGX Cloud</td><td>Least management = SaaS — exam answer</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="concept-box" style="background:var(--accent-light);border-color:var(--accent);">
+        <div class="concept-label" style="color:var(--accent-dark);">4 Key Cloud AI Considerations (exam: select 4)</div>
+        <p>Data Locality &nbsp;|&nbsp; Data Sovereignty &nbsp;|&nbsp; Hybrid IT Strategies &nbsp;|&nbsp; Real-Time Performance</p>
+      </div>
+
+      <!-- SECTION 10: PRACTICE QUESTIONS -->
+      <h3 style="font-family:var(--heading);margin:28px 0 12px;">10 — High-Frequency Practice Questions</h3>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>#</th><th>Question</th><th>Answer</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>What are the 4 steps of the AI workflow?</td><td>Data Prep → Training → Optimization → Inference/Deployment</td></tr>
+            <tr><td>2</td><td>What tool maps to the Optimization step?</td><td>TensorRT (TRT)</td></tr>
+            <tr><td>3</td><td>What tool maps to the Deployment step?</td><td>Triton Inference Server</td></tr>
+            <tr><td>4</td><td>Key difference: Legacy vs AI network?</td><td>Legacy = TCP; AI = RDMA; Legacy = oversubscribed; AI = nonblocking</td></tr>
+            <tr><td>5</td><td>What does NVSwitch do (vs NVLink)?</td><td>NVLink = chip-to-chip GPU-to-GPU; NVSwitch = all-to-all fabric at full bandwidth for all GPUs simultaneously</td></tr>
+            <tr><td>6</td><td>What is RoCE?</td><td>RDMA over Converged Ethernet — InfiniBand packets in Ethernet frames for RDMA over Ethernet</td></tr>
+            <tr><td>7</td><td>Managed Kubernetes = which cloud model?</td><td>PaaS</td></tr>
+            <tr><td>8</td><td>Minimal management cloud model?</td><td>SaaS</td></tr>
+            <tr><td>9</td><td>DCGM function?</td><td>GPU health monitoring and management in clusters; simplifies admin; improves reliability</td></tr>
+            <tr><td>10</td><td>Ansible vs DCGM vs Slurm — what does each do?</td><td>Ansible = provisioning; DCGM = GPU monitoring; Slurm = workload scheduling</td></tr>
+            <tr><td>11</td><td>Max MIG instances per GPU?</td><td>7</td></tr>
+            <tr><td>12</td><td>Does MIG increase power?</td><td>No</td></tr>
+            <tr><td>13</td><td>Which GPUs support MIG?</td><td>H100 (Hopper) and B200 (Blackwell)</td></tr>
+            <tr><td>14</td><td>DGX H100 GPU count + key BW?</td><td>8x H100; 10x ConnectX-7 = 1TB/s peak network bandwidth</td></tr>
+            <tr><td>15</td><td>GB200 NVL72: how many GPUs?</td><td>72x Blackwell + 36x Grace CPUs; "exaflop supercomputer in a rack"</td></tr>
+            <tr><td>16</td><td>BasePOD compute switch model?</td><td>QM9700 (NDR InfiniBand 400Gbps)</td></tr>
+            <tr><td>17</td><td>Primary storage requirement for AI?</td><td>Large capacity with focus on READ IO performance (training = repeated reads of datasets)</td></tr>
+            <tr><td>18</td><td>DPU role (3 words)?</td><td>Offload + Accelerate + Isolate infrastructure tasks from CPU</td></tr>
+            <tr><td>19</td><td>Web interface for DGX Cloud?</td><td>Base Command Platform</td></tr>
+            <tr><td>20</td><td>What are NVIDIA AI Foundations?</td><td>NeMo (text/LLM) + Picasso (visual) + BioNeMo (biology) — managed services on DGX Cloud</td></tr>
+            <tr><td>21</td><td>vGPU: true statements (select 2)?</td><td>Multiple VMs share a single GPU AND a single VM can access multiple GPUs</td></tr>
+            <tr><td>22</td><td>Cooling options for GPUs (select 2)?</td><td>Water cooling + Air cooling</td></tr>
+            <tr><td>23</td><td>3 data center resources to consider?</td><td>Power + Cooling + Space</td></tr>
+            <tr><td>24</td><td>True about accelerated computing (select 3)?</td><td>GPUs use less energy over time; MIG boosts utilization without more power; GPUs handle compute-intensive functions</td></tr>
+            <tr><td>25</td><td>Blackwell: what generation NVLink? How many GPUs?</td><td>5th-gen NVLink; scales to 576 GPUs</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="story-box" style="margin-top:24px;">
+        <div class="story-label">Exam Strategy</div>
+        <p>Infrastructure is 40% — master GPU architectures, DGX specs, and networking first. Study the management tools mapping (Ansible/DCGM/Slurm) as a unit — it appears as a matching question. MIG questions are tricky: the exam tries to confuse MIG (partitioning) with NVSwitch (fabric) and GPU Operator (K8s software). Know RoCE definition exactly. Kubernetes = PaaS, DGX Cloud = SaaS are guaranteed questions.</p>
+      </div>
+    </div>
+
+    <!-- PRODUCT CHEAT SHEET -->
+    <div id="panel-products" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge">Reference</div>
+        <h2>NVIDIA Product Cheat Sheet</h2>
+        <div class="q-verbatim">Every product you might name — one line, when to use it.</div>
+      </div>
+      <div class="table-wrap">
+        <table class="cheat-table">
+          <thead><tr><th>Product</th><th>Category</th><th>One-Line</th><th>When to Recommend</th></tr></thead>
+          <tbody>
+            <tr><td><span class="term" data-term="nim">NIM</span></td><td>Inference</td><td>Any model as OpenAI-compatible API</td><td>Always — fastest time to inference</td></tr>
+            <tr><td><span class="term" data-term="nemo">NeMo Framework</span></td><td>Training</td><td>Train/fine-tune/customize LLMs end-to-end</td><td>Domain-specific models, SFT, LoRA</td></tr>
+            <tr><td><span class="term" data-term="guardrails">NeMo Guardrails</span></td><td>Safety</td><td>Safety/compliance rails at inference</td><td>Any production deployment</td></tr>
+            <tr><td><span class="term" data-term="nemoretriever">NeMo Retriever</span></td><td>RAG</td><td>Semantic search + vector DB integration</td><td>Knowledge-grounded RAG pipelines</td></tr>
+            <tr><td><span class="term" data-term="aiq">AIQ Toolkit</span></td><td>Agents</td><td>NVIDIA-native multi-agent orchestration (v1.3)</td><td>Agentic apps on NVIDIA stack</td></tr>
+            <tr><td><span class="term" data-term="triton">Triton Inference Server</span></td><td>Serving</td><td>Multi-framework model serving for production</td><td>High-throughput, multi-model environments</td></tr>
+            <tr><td><span class="term" data-term="trtllm">TensorRT / TRT-LLM</span></td><td>Optimization</td><td>GPU inference optimization (5× speedup)</td><td>Latency-sensitive production inference</td></tr>
+            <tr><td><span class="term" data-term="dgxcloud">DGX Cloud</span></td><td>Cloud</td><td>Multi-node AI training as a service</td><td>Training without capex; bursty workloads</td></tr>
+            <tr><td>AI Enterprise</td><td>Platform</td><td>Production-grade software platform with SLA</td><td>Any enterprise going to production</td></tr>
+            <tr><td>Base Command Manager</td><td>Ops</td><td>Cluster provisioning + Slurm/K8s orchestration</td><td>On-prem DGX cluster management</td></tr>
+            <tr><td><span class="term" data-term="dcgm">DCGM</span></td><td>Monitoring</td><td>GPU telemetry, health checks, diagnostics</td><td>Any managed GPU cluster</td></tr>
+            <tr><td>NGC Catalog</td><td>Registry</td><td>GPU-optimized containers, models, Helm charts</td><td>Starting point for any NVIDIA deployment</td></tr>
+            <tr><td>NVLink 5</td><td>Networking</td><td>1.8 TB/s GPU-to-GPU (within node)</td><td>Multi-GPU training, large model inference</td></tr>
+            <tr><td>InfiniBand NDR</td><td>Networking</td><td>400 Gb/s multi-node training fabric</td><td>Multi-node DGX training clusters</td></tr>
+            <tr><td>BlueField DPU</td><td>Infrastructure</td><td>Offload networking/storage from CPU</td><td>Large-scale inference, zero-trust security</td></tr>
+            <tr><td>GPU Operator</td><td>K8s</td><td>Automates NVIDIA software on Kubernetes</td><td>Any K8s cluster with NVIDIA GPUs</td></tr>
+            <tr><td><span class="term" data-term="mig">MIG</span></td><td>Virtualization</td><td>Partition one GPU into isolated instances</td><td>Multi-tenant inference, shared infrastructure</td></tr>
+            <tr><td><span class="term" data-term="synthetic">Omniverse / Replicator</span></td><td>Synthetic Data</td><td>Photorealistic synthetic data for computer vision</td><td>CV training, robotics, defect detection</td></tr>
+            <tr><td><span class="term" data-term="confidential">H100 Confidential Computing</span></td><td>Security</td><td>Encrypt data + model in-use (TEE)</td><td>Healthcare, finance, government regulated AI</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- MY PROJECTS -->
+    <div id="panel-projects" class="q-panel">
+      <div class="q-header">
+        <div class="q-badge" style="background:#1A1A2E;color:#76B900;">Portfolio</div>
+        <h2>My Live Projects</h2>
+        <div class="q-verbatim">All deployed sites, GitHub repos, and tools — the proof layer behind every claim in this interview.</div>
+      </div>
+
+      <div class="projects-section-title">Live Sites — qbitloop.com</div>
+      <div class="projects-grid">
+        <a class="project-card" href="https://w.qbitloop.com" target="_blank">
+          <div class="project-card-top"><span class="project-card-icon">&#127760;</span><span class="project-card-status status-live">Live</span></div>
+          <div class="project-card-domain">w.qbitloop.com</div>
+          <div class="project-card-desc">Personal portfolio &amp; brand site. Research reports, AI projects, contact. Main public face.</div>
+          <div class="project-card-tags"><span class="project-card-tag">Next.js 14</span><span class="project-card-tag">Vercel</span><span class="project-card-tag">Brand-WHFT</span></div>
+        </a>
+        <a class="project-card" href="https://ops.qbitloop.com" target="_blank">
+          <div class="project-card-top"><span class="project-card-icon">&#9881;</span><span class="project-card-status status-live">Live</span></div>
+          <div class="project-card-domain">ops.qbitloop.com</div>
+          <div class="project-card-desc">AI Operations dashboard — MLOps tooling, model monitoring, infrastructure ops views.</div>
+          <div class="project-card-tags"><span class="project-card-tag">React</span><span class="project-card-tag">Vercel</span><span class="project-card-tag">MLOps</span></div>
+        </a>
+        <a class="project-card" href="https://crow.qbitloop.com" target="_blank">
+          <div class="project-card-top"><span class="project-card-icon">&#129415;</span><span class="project-card-status status-live">Live</span></div>
+          <div class="project-card-domain">crow.qbitloop.com</div>
+          <div class="project-card-desc">The Crow Code — creative coding experiments, generative art, interactive demos.</div>
+          <div class="project-card-tags"><span class="project-card-tag">React</span><span class="project-card-tag">Vercel</span><span class="project-card-tag">Creative</span></div>
+        </a>
+        <div class="project-card" style="border-style:dashed;cursor:default;">
+          <div class="project-card-top"><span class="project-card-icon">&#127919;</span><span class="project-card-status status-planned">Planned</span></div>
+          <div class="project-card-domain">prep.qbitloop.com</div>
+          <div class="project-card-desc">This prep system — NVIDIA GSI interview toolkit, published as a standalone site.</div>
+          <div class="project-card-tags"><span class="project-card-tag">HTML</span><span class="project-card-tag">Vanilla JS</span><span class="project-card-tag">NVIDIA Stack</span></div>
+        </div>
+      </div>
+
+      <div class="projects-section-title">GitHub Repos — github.com/QbitLoop</div>
+      <div class="projects-grid">
+        <a class="project-card" href="https://github.com/QbitLoop/aiq-gsi-demo" target="_blank">
+          <div class="project-card-top"><span class="project-card-icon">&#127462;&#127470;</span><span class="project-card-status status-github">Demo</span></div>
+          <div class="project-card-domain">aiq-gsi-demo</div>
+          <div class="project-card-desc">AI-Q GSI Research Assistant. AIQ Toolkit blueprint customized for GSI partner enablement. Live on Brev L40S at $1.49/hr.</div>
+          <div class="project-card-tags"><span class="project-card-tag">AIQ Toolkit</span><span class="project-card-tag">Milvus</span><span class="project-card-tag">NIM</span><span class="project-card-tag">FastAPI</span></div>
+        </a>
+        <a class="project-card" href="https://github.com/QbitLoop/RealtimeVoice" target="_blank">
+          <div class="project-card-top"><span class="project-card-icon">&#127908;</span><span class="project-card-status status-github">Benchmark</span></div>
+          <div class="project-card-domain">RealtimeVoice</div>
+          <div class="project-card-desc">Nemotron ASR benchmark — 43ms TTFT (21x faster than Whisper). Proof point for ViQi ASSIST latency claims.</div>
+          <div class="project-card-tags"><span class="project-card-tag">Nemotron</span><span class="project-card-tag">ASR</span><span class="project-card-tag">NIM</span><span class="project-card-tag">Python</span></div>
+        </a>
+        <a class="project-card" href="https://github.com/QbitLoop/nvidia-nim-rag-demo" target="_blank">
+          <div class="project-card-top"><span class="project-card-icon">&#128218;</span><span class="project-card-status status-github">Demo</span></div>
+          <div class="project-card-domain">nvidia-nim-rag-demo</div>
+          <div class="project-card-desc">NVIDIA NIM RAG pipeline with Milvus vector DB + LangChain. Production RAG with citation tracking.</div>
+          <div class="project-card-tags"><span class="project-card-tag">NIM</span><span class="project-card-tag">Milvus</span><span class="project-card-tag">LangChain</span><span class="project-card-tag">RAG</span></div>
+        </a>
+        <a class="project-card" href="https://github.com/QbitLoop/ai-infra-advisor" target="_blank">
+          <div class="project-card-top"><span class="project-card-icon">&#128200;</span><span class="project-card-status status-github">Tool</span></div>
+          <div class="project-card-domain">ai-infra-advisor</div>
+          <div class="project-card-desc">AI Infrastructure TCO advisor — on-prem vs DGX Cloud decision framework. ROI calculator for GSI conversations.</div>
+          <div class="project-card-tags"><span class="project-card-tag">TCO</span><span class="project-card-tag">Next.js</span><span class="project-card-tag">DGX Cloud</span></div>
+        </a>
+        <a class="project-card" href="https://github.com/QbitLoop/RAG-Eval-Bench" target="_blank">
+          <div class="project-card-top"><span class="project-card-icon">&#128202;</span><span class="project-card-status status-github">Research</span></div>
+          <div class="project-card-domain">RAG-Eval-Bench</div>
+          <div class="project-card-desc">RAG approach comparison framework — RAGAS metrics (Faithfulness, Context Precision, Answer Relevancy) across architectures.</div>
+          <div class="project-card-tags"><span class="project-card-tag">RAGAS</span><span class="project-card-tag">Eval</span><span class="project-card-tag">Python</span></div>
+        </a>
+        <a class="project-card" href="https://github.com/QbitLoop/NemotronVoiceRAG" target="_blank">
+          <div class="project-card-top"><span class="project-card-icon">&#127483;</span><span class="project-card-status status-github">Demo</span></div>
+          <div class="project-card-domain">NemotronVoiceRAG</div>
+          <div class="project-card-desc">Voice-enabled RAG pipeline — Nemotron ASR → RAG retrieval → TTS. Full voice-first agentic demo.</div>
+          <div class="project-card-tags"><span class="project-card-tag">Nemotron</span><span class="project-card-tag">RAG</span><span class="project-card-tag">Voice</span><span class="project-card-tag">NIM</span></div>
+        </a>
+      </div>
+
+      <div class="projects-section-title">Key Numbers Across All Projects</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;">
+          <div style="font-family:var(--mono);font-size:22px;color:var(--accent);font-weight:700;">11</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:3px;">Public GitHub repos</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;">
+          <div style="font-family:var(--mono);font-size:22px;color:var(--accent);font-weight:700;">43ms</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:3px;">Nemotron ASR TTFT</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;">
+          <div style="font-family:var(--mono);font-size:22px;color:var(--accent);font-weight:700;">$1.49</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:3px;">Brev L40S / hr (demo cost)</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;">
+          <div style="font-family:var(--mono);font-size:22px;color:var(--accent);font-weight:700;">96</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:3px;">NVIDIA sources in AI-Q index</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Playing Card Popup -->
+<div id="term-card">
+  <div class="tc-header" id="tc-header">
+    <span class="material-icons" id="tc-icon" style="font-size:20px;vertical-align:middle;margin-right:6px;">widgets</span>
+    <span id="tc-title">Term</span>
+    <span id="tc-cat" style="font-size:11px;opacity:0.85;margin-left:auto;padding-left:10px;white-space:nowrap;"></span>
+  </div>
+  <div class="tc-body">
+    <div class="tc-def"><span class="tc-label">What it is: </span><span id="tc-def-val"></span></div>
+    <div class="tc-nvidia"><span class="tc-label">NVIDIA stack: </span><span id="tc-nvidia-val"></span></div>
+    <div class="tc-example"><span class="tc-label">My story: </span><span id="tc-example-val"></span></div>
+  </div>
+</div>
+
+<script>
+function showPanel(id) {
+  // Hide all panels
+  document.querySelectorAll('.q-panel, .overview-panel').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = 'none';
+  });
+
+  // Show selected
+  const target = document.getElementById('panel-' + id);
+  if (target) {
+    target.style.display = 'block';
+    target.classList.add('active');
+    target.scrollTop = 0;
+  }
+
+  // Update nav
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  // Find the nav item that matches
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + id + "'")) {
+      n.classList.add('active');
+    }
+  });
+
+  // Scroll main to top
+  document.querySelector('.main').scrollTo(0, 0);
+}
+
+/* ── ACCORDION ── */
+function toggleAccordion(header) {
+  const acc = header.parentElement;
+  const isOpen = acc.classList.contains('open');
+  acc.parentElement.querySelectorAll('.accordion').forEach(function(a) { a.classList.remove('open'); });
+  if (!isOpen) { acc.classList.add('open'); }
+}
+
+/* ── PLAYING CARD GLOSSARY ── */
+var GLOSSARY = {
+  nim: { title: 'NIM', cat: 'NVIDIA Product', color: 'green', icon: 'api',
+    def: 'NVIDIA Inference Microservices — pre-built containers that serve any AI model as an OpenAI-compatible REST API. One docker run command to deploy enterprise-grade inference.',
+    nvidia: 'build.nvidia.com (free testing) — self-hosted via AI Enterprise. 100+ models including Llama, Mistral, Nemotron, Stable Diffusion.',
+    example: 'I used NIM to serve Nemotron on Brev L40S at $1.49/hr for the AIQ GSI demo — zero config, OpenAI SDK compatible.' },
+  nemo: { title: 'NeMo Framework', cat: 'NVIDIA Product', color: 'green', icon: 'model_training',
+    def: 'End-to-end LLM training, fine-tuning, and customization framework. Handles data curation, SFT, LoRA, RLHF, and distillation at scale on NVIDIA GPUs.',
+    nvidia: 'NeMo Framework + NeMo Guardrails + NeMo Retriever + NeMo Data Curator — the full training and customization pipeline.',
+    example: 'Nemotron 4 340B was trained using 98% synthetic data generated via NeMo — proof the framework scales to frontier models.' },
+  guardrails: { title: 'NeMo Guardrails', cat: 'NVIDIA Product', color: 'green', icon: 'security',
+    def: 'Runtime safety and compliance layer for LLM applications. Applies topical rails, safety filters, and output validation before responses reach users.',
+    nvidia: 'Open-source (Colang spec) and enterprise-hardened in AI Enterprise. Works with any NIM endpoint at inference time.',
+    example: 'Critical for CJIS compliance — prevents models from hallucinating policy references or leaking sensitive case data.' },
+  triton: { title: 'Triton Inference Server', cat: 'NVIDIA Product', color: 'green', icon: 'dns',
+    def: 'Production-grade model serving engine supporting TensorFlow, PyTorch, ONNX, TensorRT. Handles batching, model versioning, and concurrent serving.',
+    nvidia: 'Part of AI Enterprise. Pairs with TRT-LLM for maximum LLM throughput. Exposes HTTP and gRPC endpoints.',
+    example: 'Under the hood of every NIM container — NIM is Triton + TRT-LLM packaged for one-command deployment.' },
+  trtllm: { title: 'TensorRT-LLM', cat: 'NVIDIA Product', color: 'green', icon: 'speed',
+    def: 'GPU kernel optimization library for LLM inference. Uses INT8/FP8 quantization, paged KV cache, and in-flight batching. Delivers up to 5x speedup vs baseline PyTorch.',
+    nvidia: 'Powers NIM containers. Open source on GitHub with pre-built engines for major LLMs including Llama and Mistral.',
+    example: 'B200 + TRT-LLM = 4x H100 throughput per GPU. Key data point for the tokenomics conversation with any GSI.' },
+  aiq: { title: 'AIQ Toolkit', cat: 'NVIDIA Product', color: 'green', icon: 'hub',
+    def: 'NVIDIA Agent Intelligence Toolkit — framework for building and orchestrating multi-agent AI systems on NVIDIA infrastructure. v1.3 released March 2025.',
+    nvidia: 'Open source on GitHub. LangGraph and CrewAI compatible. Designed to sit on top of NIMs for native NVIDIA agentic apps.',
+    example: 'I built the AIQ GSI Research Assistant using AIQ Toolkit + NeMo Retriever + Milvus on Brev L40S — the live panel demo.' },
+  dcgm: { title: 'DCGM', cat: 'NVIDIA Product', color: 'green', icon: 'monitor_heart',
+    def: 'Data Center GPU Manager — collects GPU telemetry (utilization, memory, temperature, PCIe bandwidth, errors) and exposes metrics for Prometheus and Grafana.',
+    nvidia: 'Included in AI Enterprise. Kubernetes-native via GPU Operator. Essential for Day 2 Operations and SLA monitoring.',
+    example: 'ViQi ASSIST ran on 8xA100s — DCGM caught a memory error on node 3 before it caused an inference outage in production.' },
+  dgxcloud: { title: 'DGX Cloud', cat: 'NVIDIA Product', color: 'green', icon: 'cloud',
+    def: 'Managed multi-node AI supercomputing as a service on H100/B200 clusters. Pay per use, no capex. Available across all major CSPs.',
+    nvidia: 'Available on AWS, Azure, GCP, Oracle. Includes full AI Enterprise software stack. Starts at $10/hr per H100 node.',
+    example: 'Recommend for bursty training workloads. Tokenomics crossover: on-prem wins at >60% GPU utilization, DGX Cloud wins below.' },
+  rag: { title: 'RAG', cat: 'Architecture Pattern', color: 'blue', icon: 'search',
+    def: 'Retrieval-Augmented Generation — retrieve relevant context from a vector database, inject it into the prompt, then generate a grounded answer. Reduces hallucinations 60-80%.',
+    nvidia: 'NeMo Retriever + Milvus + NIM embedding endpoints. Blueprint available at nvidia.com blueprints page.',
+    example: 'ASSIST AI: RAG over 400+ CJIS policy documents. Wrong chunking caused 98% failure rate. Fixed semantic chunking raised accuracy to 90%.' },
+  vectordb: { title: 'Vector Database', cat: 'Architecture Pattern', color: 'blue', icon: 'storage',
+    def: 'Stores high-dimensional embeddings and enables semantic similarity search via ANN (Approximate Nearest Neighbor). Documents become searchable by meaning, not keywords.',
+    nvidia: 'Milvus (NeMo Retriever integrated) and pgvector (PostgreSQL). NIM embedding endpoints generate the vectors.',
+    example: 'ASSIST AI used Milvus for policy search. The hardest engineering problem was chunking strategy — 500-char chunks, 100-char overlap.' },
+  kvcache: { title: 'KV Cache', cat: 'Technical Concept', color: 'blue', icon: 'memory',
+    def: 'Key-Value cache stores intermediate attention computations. Avoids recomputing attention for the prefix on each new token — critical for long-context, high-throughput inference.',
+    nvidia: 'TRT-LLM uses paged KV cache (like virtual memory). Doubles effective throughput for long-context RAG workloads.',
+    example: 'RAG pipelines are KV-cache-friendly — retrieved context is reused across queries in the same session, amortizing compute cost.' },
+  lora: { title: 'LoRA / PEFT', cat: 'Technical Concept', color: 'blue', icon: 'tune',
+    def: 'Low-Rank Adaptation: inject small trainable matrices into a frozen base model. Train only 0.1-1% of parameters. PEFT is the umbrella term for all efficient fine-tuning methods.',
+    nvidia: 'NeMo Framework supports LoRA, QLoRA, P-Tuning, Prompt Tuning. 100x cheaper than full fine-tuning.',
+    example: 'For a public safety LLM: LoRA adapt Llama to CJIS vocabulary in 2 hours on 1xA100 versus 3 weeks for full SFT.' },
+  mig: { title: 'MIG', cat: 'Technical Concept', color: 'blue', icon: 'view_comfy',
+    def: 'Multi-Instance GPU — partition one H100 or A100 GPU into up to 7 isolated, hardware-enforced instances, each with dedicated memory, compute, and bandwidth.',
+    nvidia: 'Available on H100, A100, A30. GPU Operator automates MIG configuration on Kubernetes clusters.',
+    example: 'Perfect for multi-tenant inference — 7 different GSI partner teams can share one H100 with full hardware isolation.' },
+  synthetic: { title: 'Synthetic Data', cat: 'Technical Concept', color: 'blue', icon: 'auto_awesome',
+    def: 'AI-generated training data that augments or replaces real data. Solves: rare edge cases, privacy constraints, class imbalance, and annotation cost.',
+    nvidia: 'NeMo Data Curator (text), Omniverse Replicator (3D/computer vision), Nemotron 4 340B (LLM teacher for text generation).',
+    example: 'DDaaS drone detection: real attack footage is rare — Omniverse synthetic scenes trained the model to 94% mAP on real-world data.' },
+  cjis: { title: 'CJIS v6.0', cat: 'Compliance', color: 'red', icon: 'gavel',
+    def: 'Criminal Justice Information Services — FBI security policy with 1,414 controls covering encryption, access controls, audit logging, and personnel screening for law enforcement AI.',
+    nvidia: 'H100 Confidential Computing (TEE) + NeMo Guardrails + DCGM audit logs = CJIS-compliant AI inference stack.',
+    example: 'ViQi ASSIST achieved CJIS compliance using H100 Confidential Computing for in-use encryption. My specific implementation story for Q10.' },
+  fedramp: { title: 'FedRAMP High', cat: 'Compliance', color: 'red', icon: 'verified_user',
+    def: 'Federal Risk and Authorization Management Program — cloud security certification for US government workloads. High impact covers the most sensitive unclassified government data.',
+    nvidia: 'AI Enterprise + DGX Cloud run on FedRAMP-authorized CSP regions (AWS GovCloud, Azure Government).',
+    example: 'My team achieved FedRAMP High ATO in 9 months for Motorola Solutions — half the typical 18-month timeline. My trust story for Q10.' },
+  confidential: { title: 'Confidential Computing', cat: 'Compliance', color: 'red', icon: 'lock',
+    def: 'Encrypts data, code, and model weights while IN USE inside a Trusted Execution Environment (TEE). Traditional encryption only protects data at rest and in transit.',
+    nvidia: 'H100 Confidential Computing (H100C) with Hopper GPU TEE. The only GPU that supports hardware-enforced in-use encryption.',
+    example: 'Healthcare use case: PHI never leaves the encrypted enclave. The model processes sensitive data without the infrastructure team having access.' },
+  orchestrator: { title: 'Orchestrator Agent', cat: 'Architecture Pattern', color: 'gold', icon: 'account_tree',
+    def: 'Top-level agent that receives user intent, decomposes it into subtasks, selects and dispatches specialized sub-agents, aggregates results, and synthesizes the final response.',
+    nvidia: 'AIQ Toolkit provides the orchestration runtime. LangGraph and CrewAI patterns are both supported natively.',
+    example: 'ASSIST AI orchestrator routes queries: policy search goes to RAG agent, case lookup to API agent, form generation to action agent.' },
+  nemoretriever: { title: 'NeMo Retriever', cat: 'NVIDIA Product', color: 'green', icon: 'find_in_page',
+    def: 'NVIDIA-optimized embedding and reranking microservices for RAG. Includes NV-EmbedQA (retrieval embeddings) and NV-RerankQA (cross-encoder reranking).',
+    nvidia: 'Deployed as NIM containers. Integrates with Milvus, Weaviate, pgvector. Core of the NVIDIA RAG Blueprint.',
+    example: 'Adding NV-RerankQA to ASSIST AI improved CJIS policy retrieval precision from 72% to 91% — one container, two lines of code.' },
+  blueprint: { title: 'NVIDIA Blueprint', cat: 'Architecture Pattern', color: 'gold', icon: 'architecture',
+    def: 'Reference architectures from NVIDIA for common AI use cases — RAG, agentic AI, computer vision, digital humans. Each Blueprint is a tested, deployable NIM stack.',
+    nvidia: 'Available at nvidia.com blueprints page. Cover healthcare, retail, manufacturing, and public safety verticals.',
+    example: 'I use the RAG Blueprint as the starting point for every GSI enablement — shortens a POC from 2 months to 2 weeks.' },
+  inferencing: { title: 'Inference vs Training', cat: 'Technical Concept', color: 'blue', icon: 'compare_arrows',
+    def: 'Training: adjust model weights using gradient descent on labeled data (GPU-intensive, done once or periodically). Inference: run the trained model on new inputs to generate outputs (latency-sensitive, constant load).',
+    nvidia: 'Training: DGX Cloud, NeMo Framework. Inference: NIM + Triton + TRT-LLM. Very different hardware and cost profiles.',
+    example: 'GSIs confuse these constantly. Training is a project cost; inference is an ongoing operational cost. Tokenomics applies to inference.' }
+};
+
+/* ── TERM CARD ENGINE ── */
+function initTermCards() {
+  var card = document.getElementById('term-card');
+  var activeEl = null;
+  var hideTimer = null;
+  var colorMap = { green: '#4CAF50', blue: '#0D7680', gold: '#C47D1A', red: '#CC4B2C' };
+
+  function showCard(el) {
+    clearTimeout(hideTimer);
+    var key = el.getAttribute('data-term');
+    var g = GLOSSARY[key];
+    if (!g) return;
+
+    var header = document.getElementById('tc-header');
+    header.style.background = colorMap[g.color] || '#333';
+    header.style.color = '#fff';
+    document.getElementById('tc-icon').textContent = g.icon;
+    document.getElementById('tc-title').textContent = g.title;
+    document.getElementById('tc-cat').textContent = g.cat;
+    document.getElementById('tc-def-val').textContent = g.def;
+    document.getElementById('tc-nvidia-val').textContent = g.nvidia;
+    document.getElementById('tc-example-val').textContent = g.example;
+
+    var rect = el.getBoundingClientRect();
+    var cardW = 300;
+    var cardH = 260;
+    var left = rect.left + window.scrollX;
+    var top = rect.bottom + window.scrollY + 8;
+    if (left + cardW > window.innerWidth - 16) { left = window.innerWidth - cardW - 16; }
+    if (left < 8) { left = 8; }
+    if (top + cardH > window.innerHeight + window.scrollY - 16) { top = rect.top + window.scrollY - cardH - 8; }
+    card.style.left = left + 'px';
+    card.style.top = top + 'px';
+    card.classList.add('visible');
+    activeEl = el;
+  }
+
+  function hideCard() {
+    hideTimer = setTimeout(function() {
+      card.classList.remove('visible');
+      activeEl = null;
+    }, 200);
+  }
+
+  document.body.addEventListener('mouseover', function(e) {
+    var t = e.target.closest ? e.target.closest('.term') : null;
+    if (t) { showCard(t); }
+  });
+  document.body.addEventListener('mouseout', function(e) {
+    var t = e.target.closest ? e.target.closest('.term') : null;
+    if (t) { hideCard(); }
+  });
+  document.body.addEventListener('click', function(e) {
+    var t = e.target.closest ? e.target.closest('.term') : null;
+    if (t) {
+      if (card.classList.contains('visible') && activeEl === t) {
+        card.classList.remove('visible'); activeEl = null;
+      } else { showCard(t); }
+    } else if (!card.contains(e.target)) {
+      card.classList.remove('visible'); activeEl = null;
+    }
+  });
+  card.addEventListener('mouseenter', function() { clearTimeout(hideTimer); });
+  card.addEventListener('mouseleave', hideCard);
+}
+
+/* ── ACCORDION INIT ── */
+function initAccordions() {
+  document.querySelectorAll('.accordion-header').forEach(function(h) {
+    h.addEventListener('click', function() { toggleAccordion(this); });
+  });
+}
+
+/* ── STACK LAYER BARS ── */
+function injectStackBars() {
+  var LAYER_MAP = {
+    'panel-q1':        { layers: ['L1','L2','L3','L4','L5','L6'], where: 'Full stack — Q1 covers all 6 layers' },
+    'panel-q2':        { layers: ['L4','L5'],                     where: 'L4 NeMo training · L5 NIM inference' },
+    'panel-q3':        { layers: ['L4','L5'],                     where: 'L4 LangGraph/NeMo · L5 AIQ Toolkit' },
+    'panel-q4':        { layers: ['L1','L2','L3','L6'],           where: 'L1 hardware TCO · L6 DGX Cloud vs on-prem' },
+    'panel-q5':        { layers: ['L1','L2','L3'],                where: 'L1 GPUs · L2 NVLink/InfiniBand · L3 GPU Operator' },
+    'panel-q6':        { layers: ['L5','L6'],                     where: 'L5 AIQ Toolkit/NIM · L6 NPN partner ecosystem' },
+    'panel-q7':        { layers: ['L5','L6'],                     where: 'L6 NPN sales motion · L5 demo = proof' },
+    'panel-q8':        { layers: ['L5'],                          where: 'L5 Omniverse Replicator synthetic data' },
+    'panel-q9':        { layers: ['L3','L6'],                     where: 'L3 GPU Operator on K8s · L6 enterprise platform' },
+    'panel-q10':       { layers: ['L3','L4','L5'],                where: 'L3 Confidential Computing · L4 Guardrails · L5 NIM' },
+    'panel-agent-eng': { layers: ['L4','L5'],                     where: 'L4 LangGraph · L5 AIQ Toolkit v1.3' },
+    'panel-context-eng':{ layers: ['L4','L5'],                    where: 'L4 NeMo Guardrails · L5 NIM prompting' },
+    'panel-memory':    { layers: ['L4','L5'],                     where: 'L4 NeMo Retriever · L5 Milvus / vector DB' },
+    'panel-loops':     { layers: ['L5'],                          where: 'L5 AIQ Toolkit ReAct loop' },
+    'panel-evals':     { layers: ['L4','L5'],                     where: 'L5 RAGAS + NIM APIs · L4 embedding models' },
+    'panel-voice':     { layers: ['L1','L4','L5'],                where: 'L1 H100/L40S · L4 Nemotron + TRT-LLM · L5 NIM ASR' },
+    'panel-aiio':      { layers: ['L1','L2','L3','L4','L5','L6'], where: 'Full stack — AIIO exam covers all layers' },
+    'panel-stories':   { layers: ['L1','L3','L4','L5'],           where: 'ViQi=L4/L5 · DDaaS=L1 · ASSIST=L4/L5 · CJIS=L3' },
+    'panel-products':  { layers: ['L1','L2','L3','L4','L5','L6'], where: 'Full product catalog spans all layers' }
+  };
+  var LAYER_LABELS  = { L1:'Hardware', L2:'Networking', L3:'System SW', L4:'Frameworks', L5:'Apps / NIMs', L6:'Platform' };
+  var LAYER_COLORS  = { L1:'#8B5CF6', L2:'#3B82F6', L3:'#0D7680', L4:'#10B981', L5:'#76B900', L6:'#F59E0B' };
+
+  Object.keys(LAYER_MAP).forEach(function(panelId) {
+    var panel = document.getElementById(panelId);
+    if (!panel) return;
+    var header = panel.querySelector('.q-header');
+    if (!header) return;
+    var info = LAYER_MAP[panelId];
+
+    var bar = document.createElement('div');
+    bar.className = 'stack-layer-bar';
+
+    var lbl = document.createElement('span');
+    lbl.className = 'slb-label';
+    lbl.textContent = 'NVIDIA Stack:';
+    bar.appendChild(lbl);
+
+    ['L1','L2','L3','L4','L5','L6'].forEach(function(layer) {
+      var active = info.layers.indexOf(layer) >= 0;
+      var chip = document.createElement('span');
+      chip.className = 'slb-chip' + (active ? ' active' : '');
+      if (active) {
+        chip.style.background = LAYER_COLORS[layer] + '22';
+        chip.style.borderColor = LAYER_COLORS[layer];
+        chip.style.color = LAYER_COLORS[layer];
+      }
+      var idSpan = document.createElement('span');
+      idSpan.className = 'slb-layer-id';
+      idSpan.textContent = layer;
+      var nameTxt = document.createTextNode(' ' + LAYER_LABELS[layer]);
+      chip.appendChild(idSpan);
+      chip.appendChild(nameTxt);
+      bar.appendChild(chip);
+    });
+
+    var where = document.createElement('span');
+    where.className = 'slb-where';
+    where.textContent = info.where;
+    bar.appendChild(where);
+
+    header.parentNode.insertBefore(bar, header.nextSibling);
+  });
+}
+
+// Init — hide all panels, show overview
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.q-panel').forEach(p => { p.style.display = 'none'; });
+  document.getElementById('panel-overview').style.display = 'block';
+  initTermCards();
+  initAccordions();
+  injectStackBars();
+});
+</script>
+
+</body>
+</html>
