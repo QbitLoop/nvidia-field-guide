@@ -592,6 +592,10 @@
     color: var(--blue);
   }
 
+  /* Answer map — full row tappable */
+  table tbody tr[onclick]:hover { background: var(--accent-light); }
+  table tbody tr[onclick]:active { background: var(--surface-alt); }
+
   /* ── Q10 SPECIAL ── */
   .q10-badge { background: var(--red); }
   .q10-header { border-bottom-color: var(--red); }
@@ -1073,16 +1077,16 @@
         <table>
           <thead><tr><th>Q</th><th>Topic</th><th>One-Line Answer</th></tr></thead>
           <tbody>
-            <tr><td onclick="showPanel('q1')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q1</td><td>5-Layer Cake</td><td>Energy → Chips → Infra → Models → Apps; NVIDIA plays all 5</td></tr>
-            <tr><td onclick="showPanel('q2')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q2</td><td>Model Building</td><td>Curate → Train → Customize → Deploy; RAG adds knowledge without retraining</td></tr>
-            <tr><td onclick="showPanel('q3')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q3</td><td>Agents</td><td>LLM + loop + tools; specialization + orchestration solves the reliability problem</td></tr>
-            <tr><td onclick="showPanel('q4')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q4</td><td>Tokenomics/Energy</td><td>Tokens/watt = new miles/gallon; B200 is 4x H100; on-prem wins &gt;60% utilization</td></tr>
-            <tr><td onclick="showPanel('q5')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q5</td><td>Infrastructure</td><td>GPU = parallel math at scale; InfiniBand for training; NVMe local cache</td></tr>
-            <tr><td onclick="showPanel('q6')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q6</td><td>Skills &amp; ISVs</td><td>The gap is the bridge between existing ISV systems and AI orchestration layers</td></tr>
-            <tr><td onclick="showPanel('q7')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q7</td><td>Influence to Buy</td><td>Pain → Proof → Path → Partner; never pitch features before finding the failure</td></tr>
-            <tr><td onclick="showPanel('q8')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q8</td><td>Synthetic Data</td><td>Rare events + privacy + bias — the flight simulator principle</td></tr>
-            <tr><td onclick="showPanel('q9')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q9</td><td>OpenClaw/OpenShift</td><td>VoIP displacement repeating; OpenShift + GPU Operator = NVIDIA's enterprise K8s play</td></tr>
-            <tr><td onclick="showPanel('q10')" style="cursor:pointer;color:var(--red);font-weight:600;">Q10</td><td>Trust &amp; Governance</td><td>Explainability + Audit + Compliance + Safety + Data Gov; HIPAA + SOC2 is the proof</td></tr>
+            <tr onclick="showPanel('q1')" style="cursor:pointer;"><td style="color:var(--accent);font-weight:600;">Q1</td><td>5-Layer Cake</td><td>Energy → Chips → Infra → Models → Apps; NVIDIA plays all 5</td></tr>
+            <tr onclick="showPanel('q2')" style="cursor:pointer;"><td style="color:var(--accent);font-weight:600;">Q2</td><td>Model Building</td><td>Curate → Train → Customize → Deploy; RAG adds knowledge without retraining</td></tr>
+            <tr onclick="showPanel('q3')" style="cursor:pointer;"><td style="color:var(--accent);font-weight:600;">Q3</td><td>Agents</td><td>LLM + loop + tools; specialization + orchestration solves the reliability problem</td></tr>
+            <tr onclick="showPanel('q4')" style="cursor:pointer;"><td style="color:var(--accent);font-weight:600;">Q4</td><td>Tokenomics/Energy</td><td>Tokens/watt = new miles/gallon; B200 is 4x H100; on-prem wins &gt;60% utilization</td></tr>
+            <tr onclick="showPanel('q5')" style="cursor:pointer;"><td style="color:var(--accent);font-weight:600;">Q5</td><td>Infrastructure</td><td>GPU = parallel math at scale; InfiniBand for training; NVMe local cache</td></tr>
+            <tr onclick="showPanel('q6')" style="cursor:pointer;"><td style="color:var(--accent);font-weight:600;">Q6</td><td>Skills &amp; ISVs</td><td>The gap is the bridge between existing ISV systems and AI orchestration layers</td></tr>
+            <tr onclick="showPanel('q7')" style="cursor:pointer;"><td style="color:var(--accent);font-weight:600;">Q7</td><td>Influence to Buy</td><td>Pain → Proof → Path → Partner; never pitch features before finding the failure</td></tr>
+            <tr onclick="showPanel('q8')" style="cursor:pointer;"><td style="color:var(--accent);font-weight:600;">Q8</td><td>Synthetic Data</td><td>Rare events + privacy + bias — the flight simulator principle</td></tr>
+            <tr onclick="showPanel('q9')" style="cursor:pointer;"><td style="color:var(--accent);font-weight:600;">Q9</td><td>OpenClaw/OpenShift</td><td>VoIP displacement repeating; OpenShift + GPU Operator = NVIDIA's enterprise K8s play</td></tr>
+            <tr onclick="showPanel('q10')" style="cursor:pointer;"><td style="color:var(--red);font-weight:600;">Q10</td><td>Trust &amp; Governance</td><td>Explainability + Audit + Compliance + Safety + Data Gov; HIPAA + SOC2 is the proof</td></tr>
           </tbody>
         </table>
       </div>
