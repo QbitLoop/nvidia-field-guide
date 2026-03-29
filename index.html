@@ -596,11 +596,45 @@
   .q10-badge { background: var(--red); }
   .q10-header { border-bottom-color: var(--red); }
 
+  /* ── HAMBURGER BUTTON (mobile only) ── */
+  .hamburger-btn {
+    display: none;
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    z-index: 1001;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 28px;
+    padding: 12px 22px; cursor: pointer;
+    font-family: var(--body); font-size: 13px; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    display: none; align-items: center; gap: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .hamburger-btn:hover { background: var(--accent-dark); }
+  .hamburger-btn .material-icons { font-size: 20px; }
+
+  /* ── SIDEBAR OVERLAY ── */
+  .sidebar-overlay {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(0,0,0,0.55); backdrop-filter: blur(2px);
+  }
+  .sidebar-overlay.active { display: block; }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .layout { grid-template-columns: 1fr; }
-    .sidebar { display: none; }
-    .q-panel, .overview-panel { padding: 24px 20px 48px; }
+    .hamburger-btn { display: flex !important; }
+    .sidebar {
+      display: block !important;
+      position: fixed; left: -300px; top: 0;
+      width: 280px; height: 100vh; z-index: 1000;
+      transition: left 0.25s cubic-bezier(0.4,0,0.2,1);
+      overflow-y: auto;
+    }
+    .sidebar.drawer-open { left: 0; }
+    .q-panel, .overview-panel { padding: 24px 20px 80px; }
+    .panel-controls { padding: 7px 16px; }
+    .theme-toggle { top: 12px; right: 12px; }
   }
 
   /* ── MATERIAL ICONS ── */
@@ -899,10 +933,19 @@
   <span id="theme-toggle-label">Dark</span>
 </button>
 
+<!-- Mobile hamburger -->
+<button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation">
+  <span class="material-icons">menu</span>
+  <span>Navigate</span>
+</button>
+
+<!-- Sidebar overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
 <div class="layout">
 
   <!-- ── SIDEBAR ── -->
-  <nav class="sidebar">
+  <nav class="sidebar" id="sidebar">
     <div class="sidebar-title">Navigation</div>
     <a class="nav-item active" onclick="showPanel('overview')">
       <span class="q-num">→</span>Overview & Cheat Sheet
@@ -2731,6 +2774,40 @@ function expandAllSections() {
   panel.querySelectorAll('.section').forEach(function(s) { s.classList.remove('collapsed'); });
 }
 
+/* ── MOBILE HAMBURGER ── */
+function initHamburger() {
+  var btn = document.getElementById('hamburger-btn');
+  var sidebar = document.getElementById('sidebar');
+  var overlay = document.getElementById('sidebar-overlay');
+  if (!btn || !sidebar || !overlay) return;
+
+  function openDrawer() {
+    sidebar.classList.add('drawer-open');
+    overlay.classList.add('active');
+    btn.querySelector('span:last-child').textContent = 'Close';
+    btn.querySelector('.material-icons').textContent = 'close';
+  }
+  function closeDrawer() {
+    sidebar.classList.remove('drawer-open');
+    overlay.classList.remove('active');
+    btn.querySelector('span:last-child').textContent = 'Navigate';
+    btn.querySelector('.material-icons').textContent = 'menu';
+  }
+
+  btn.addEventListener('click', function() {
+    if (sidebar.classList.contains('drawer-open')) closeDrawer();
+    else openDrawer();
+  });
+  overlay.addEventListener('click', closeDrawer);
+
+  // Auto-close on nav item click (mobile)
+  sidebar.querySelectorAll('.nav-item').forEach(function(item) {
+    item.addEventListener('click', function() {
+      if (window.innerWidth <= 900) closeDrawer();
+    });
+  });
+}
+
 function toggleAccordion(header) {
   const acc = header.parentElement;
   const isOpen = acc.classList.contains('open');
@@ -2999,6 +3076,7 @@ document.addEventListener('DOMContentLoaded', function() {
   injectStackBars();
   initThemeToggle();
   initSectionCollapse();
+  initHamburger();
 });
 </script>
 
