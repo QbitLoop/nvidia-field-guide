@@ -731,9 +731,23 @@
   }
 
   /* ── STACK MAP (overview) ── */
+  /* ── NEWS SECTION ── */
+  .landing-hero { background: linear-gradient(135deg, #0a0e17 0%, #1a2240 100%); border-radius: 12px; padding: 28px 32px; margin-bottom: 28px; }
+  .landing-hero-tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #76B900; margin-bottom: 8px; }
+  .landing-hero-title { font-family: var(--heading); font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.3; }
+  .landing-hero-sub { font-size: 13px; color: #999; line-height: 1.6; }
+  .news-section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-bottom: 32px; }
+  .news-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 5px; text-decoration: none; color: inherit; transition: border-color 0.2s, box-shadow 0.2s; }
+  .news-card:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(118,185,0,0.1); }
+  .news-card-meta { display: flex; align-items: center; gap: 8px; }
+  .news-card-date { font-family: var(--mono); font-size: 10px; color: var(--text-muted); }
+  .news-card-source { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); }
+  .news-card-title { font-size: 13px; font-weight: 600; color: var(--text-primary); line-height: 1.45; }
+
   .stack-map { margin-bottom: 32px; }
   .stack-map-row {
-    display: grid; grid-template-columns: 80px 1fr 200px;
+    display: grid; grid-template-columns: 90px 1fr 200px;
     gap: 0; border: 1px solid var(--border); border-bottom: none;
     transition: background 0.15s; cursor: default;
   }
@@ -871,17 +885,43 @@
 
     <!-- OVERVIEW -->
     <div id="panel-overview" class="overview-panel">
-      <h2 style="font-family:var(--heading);font-size:26px;font-weight:700;margin-bottom:8px;">Interview Prep System</h2>
-      <p style="color:var(--text-secondary);margin-bottom:24px;">Click any question card to open its full learning module — concept, analogy, NVIDIA stack, your story, key numbers, and likely follow-ups.</p>
+      <div class="landing-hero">
+        <div class="landing-hero-tag">NVIDIA GSI — Developer Relations Manager</div>
+        <div class="landing-hero-title">A complete learning system for the NVIDIA panel interview</div>
+        <div class="landing-hero-sub">19 modules covering Jensen's 5-layer cake, agent engineering, voice AI, infrastructure TCO, partner enablement, and trust. Built with Claude.</div>
+      </div>
 
-      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">NVIDIA FULL STACK — WHERE EVERY TOPIC LIVES</div>
+      <div class="news-section-label">Latest from NVIDIA — Updated Weekly</div>
+      <div class="news-grid">
+        <a class="news-card" href="https://blogs.nvidia.com/blog/gtc-2026-news/" target="_blank">
+          <div class="news-card-meta"><span class="news-card-date">Mar 18 2026</span><span class="news-card-source">NVIDIA Blog</span></div>
+          <div class="news-card-title">GTC 2026: Jensen Huang Unveils Vera Rubin GPU Platform and NemoClaw Agent Runtime</div>
+        </a>
+        <a class="news-card" href="https://www.digitalapplied.com/blog/nvidia-gtc-2026-nemoclaw-openclaw-enterprise-agentic-ai" target="_blank">
+          <div class="news-card-meta"><span class="news-card-date">Mar 17 2026</span><span class="news-card-source">Digital Applied</span></div>
+          <div class="news-card-title">NemoClaw and OpenClaw: NVIDIA Stakes Its Claim on Autonomous Agent Infrastructure</div>
+        </a>
+        <a class="news-card" href="https://blogs.nvidia.com/blog/ai-5-layer-cake/" target="_blank">
+          <div class="news-card-meta"><span class="news-card-date">Jan 2026</span><span class="news-card-source">NVIDIA Blog</span></div>
+          <div class="news-card-title">AI Is a 5-Layer Cake: Energy, Chips, Infrastructure, Models, Applications</div>
+        </a>
+        <a class="news-card" href="https://developer.nvidia.com/brev" target="_blank">
+          <div class="news-card-meta"><span class="news-card-date">Feb 2025</span><span class="news-card-source">NVIDIA Developer</span></div>
+          <div class="news-card-title">NVIDIA Acquires Brev.dev — One-Click GPU Cloud Deployment for Developers</div>
+        </a>
+        <a class="news-card" href="https://build.nvidia.com/blueprints" target="_blank">
+          <div class="news-card-meta"><span class="news-card-date">Ongoing</span><span class="news-card-source">build.nvidia.com</span></div>
+          <div class="news-card-title">NVIDIA AI Blueprints: AI-Q, Enterprise RAG, Virtual Assistant, PDF Extraction and more</div>
+        </a>
+      </div>
+
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">JENSEN'S 5-LAYER CAKE — WHERE EVERY TOPIC LIVES</div>
       <div class="stack-map">
-        <div class="stack-map-row"><div class="sm-layer" style="color:#F59E0B;">L6</div><div class="sm-name">Platform &amp; Cloud<span>DGX Cloud, NPN, Sovereign AI, NIM Operator on K8s</span></div><div class="sm-products"><span class="pill">DGX Cloud</span><span class="pill">NPN</span><span class="pill">Sovereign AI</span></div></div>
-        <div class="stack-map-row"><div class="sm-layer" style="color:#76B900;">L5</div><div class="sm-name">Apps &amp; Microservices<span>NIM, AIQ Toolkit, NVIDIA AI Enterprise, Omniverse Replicator</span></div><div class="sm-products"><span class="pill">NIM</span><span class="pill">AIQ Toolkit</span><span class="pill">Omniverse</span></div></div>
-        <div class="stack-map-row"><div class="sm-layer" style="color:#10B981;">L4</div><div class="sm-name">Frameworks &amp; Runtimes<span>TensorRT-LLM, Triton, NeMo, NeMo Guardrails, NeMo Retriever</span></div><div class="sm-products"><span class="pill">TRT-LLM</span><span class="pill">Triton</span><span class="pill">NeMo</span></div></div>
-        <div class="stack-map-row"><div class="sm-layer" style="color:#0D7680;">L3</div><div class="sm-name">System Software<span>GPU Operator, DCGM, MIG, Container Toolkit, Confidential Computing</span></div><div class="sm-products"><span class="pill">GPU Operator</span><span class="pill">DCGM</span><span class="pill">MIG</span></div></div>
-        <div class="stack-map-row"><div class="sm-layer" style="color:#3B82F6;">L2</div><div class="sm-name">Networking<span>NVLink, NVSwitch, InfiniBand NDR, RDMA, RoCE, BlueField DPU</span></div><div class="sm-products"><span class="pill">NVLink</span><span class="pill">InfiniBand</span><span class="pill">BlueField</span></div></div>
-        <div class="stack-map-row"><div class="sm-layer" style="color:#8B5CF6;">L1</div><div class="sm-name">Hardware<span>Blackwell B200/GB200, Hopper H100, Ada L40S/L4, Grace CPU, NVIDIA Certified Systems</span></div><div class="sm-products"><span class="pill">B200</span><span class="pill">H100</span><span class="pill">L40S</span></div></div>
+        <div class="stack-map-row"><div class="sm-layer" style="color:#76B900;">Apps</div><div class="sm-name">Applications<span>AIQ Toolkit, NIM microservices, Omniverse, Sovereign AI, NPN partner apps</span></div><div class="sm-products"><span class="pill">NIM</span><span class="pill">AIQ Toolkit</span><span class="pill">Sovereign AI</span></div></div>
+        <div class="stack-map-row"><div class="sm-layer" style="color:#10B981;">Models</div><div class="sm-name">Models<span>TensorRT-LLM, Triton, NeMo, NeMo Guardrails, Nemotron, NIM APIs</span></div><div class="sm-products"><span class="pill">TRT-LLM</span><span class="pill">NeMo</span><span class="pill">Nemotron</span></div></div>
+        <div class="stack-map-row"><div class="sm-layer" style="color:#3B82F6;">Infra</div><div class="sm-name">Infrastructure<span>NVLink, InfiniBand, BlueField DPU, GPU Operator, DCGM, MIG, DGX Systems</span></div><div class="sm-products"><span class="pill">NVLink</span><span class="pill">InfiniBand</span><span class="pill">GPU Operator</span></div></div>
+        <div class="stack-map-row"><div class="sm-layer" style="color:#8B5CF6;">Chips</div><div class="sm-name">Chips<span>Blackwell B200/GB200, Hopper H100, Ada L40S/L4, Vera Rubin, Grace CPU</span></div><div class="sm-products"><span class="pill">B200</span><span class="pill">H100</span><span class="pill">Vera Rubin</span></div></div>
+        <div class="stack-map-row"><div class="sm-layer" style="color:#F59E0B;">Energy</div><div class="sm-name">Energy<span>Power, data center capacity — the binding constraint on AI scale</span></div><div class="sm-products"><span class="pill">Data Centers</span><span class="pill">Power</span><span class="pill">Cooling</span></div></div>
       </div>
 
       <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">ONE-LINE ANSWER MAP</div>
@@ -2550,8 +2590,10 @@ function showPanel(id) {
     }
   });
 
-  // Scroll main to top
-  document.querySelector('.main').scrollTo(0, 0);
+  // Scroll main to top (handles both fixed-layout and mobile full-page scroll)
+  var mainEl = document.querySelector('.main');
+  if (mainEl) mainEl.scrollTo(0, 0);
+  window.scrollTo(0, 0);
 }
 
 /* ── ACCORDION ── */
@@ -2726,28 +2768,29 @@ function initAccordions() {
 /* ── STACK LAYER BARS ── */
 function injectStackBars() {
   var LAYER_MAP = {
-    'panel-q1':        { layers: ['L1','L2','L3','L4','L5','L6'], where: 'Full stack — Q1 covers all 6 layers' },
-    'panel-q2':        { layers: ['L4','L5'],                     where: 'L4 NeMo training · L5 NIM inference' },
-    'panel-q3':        { layers: ['L4','L5'],                     where: 'L4 LangGraph/NeMo · L5 AIQ Toolkit' },
-    'panel-q4':        { layers: ['L1','L2','L3','L6'],           where: 'L1 hardware TCO · L6 DGX Cloud vs on-prem' },
-    'panel-q5':        { layers: ['L1','L2','L3'],                where: 'L1 GPUs · L2 NVLink/InfiniBand · L3 GPU Operator' },
-    'panel-q6':        { layers: ['L5','L6'],                     where: 'L5 AIQ Toolkit/NIM · L6 NPN partner ecosystem' },
-    'panel-q7':        { layers: ['L5','L6'],                     where: 'L6 NPN sales motion · L5 demo = proof' },
-    'panel-q8':        { layers: ['L5'],                          where: 'L5 Omniverse Replicator synthetic data' },
-    'panel-q9':        { layers: ['L3','L6'],                     where: 'L3 GPU Operator on K8s · L6 enterprise platform' },
-    'panel-q10':       { layers: ['L3','L4','L5'],                where: 'L3 Confidential Computing · L4 Guardrails · L5 NIM' },
-    'panel-agent-eng': { layers: ['L4','L5'],                     where: 'L4 LangGraph · L5 AIQ Toolkit v1.3' },
-    'panel-context-eng':{ layers: ['L4','L5'],                    where: 'L4 NeMo Guardrails · L5 NIM prompting' },
-    'panel-memory':    { layers: ['L4','L5'],                     where: 'L4 NeMo Retriever · L5 Milvus / vector DB' },
-    'panel-loops':     { layers: ['L5'],                          where: 'L5 AIQ Toolkit ReAct loop' },
-    'panel-evals':     { layers: ['L4','L5'],                     where: 'L5 RAGAS + NIM APIs · L4 embedding models' },
-    'panel-voice':     { layers: ['L1','L4','L5'],                where: 'L1 H100/L40S · L4 Nemotron + TRT-LLM · L5 NIM ASR' },
-    'panel-aiio':      { layers: ['L1','L2','L3','L4','L5','L6'], where: 'Full stack — AIIO exam covers all layers' },
-    'panel-stories':   { layers: ['L1','L3','L4','L5'],           where: 'ViQi=L4/L5 · DDaaS=L1 · ASSIST=L4/L5 · CJIS=L3' },
-    'panel-products':  { layers: ['L1','L2','L3','L4','L5','L6'], where: 'Full product catalog spans all layers' }
+    'panel-q1':         { layers: ['Energy','Chips','Infrastructure','Models','Applications'], where: 'Full stack — Jensen\'s all 5 layers' },
+    'panel-q2':         { layers: ['Models','Applications'],                where: 'Models: NeMo training · Applications: NIM inference' },
+    'panel-q3':         { layers: ['Models','Applications'],                where: 'Models: LangGraph/NeMo · Applications: AIQ Toolkit' },
+    'panel-q4':         { layers: ['Chips','Infrastructure'],               where: 'Chips: GPU TCO · Infrastructure: DGX Cloud vs on-prem' },
+    'panel-q5':         { layers: ['Chips','Infrastructure'],               where: 'Chips: GPUs · Infrastructure: NVLink + GPU Operator' },
+    'panel-q6':         { layers: ['Models','Applications'],                where: 'Models: NIM microservices · Applications: AIQ Toolkit' },
+    'panel-q7':         { layers: ['Applications'],                         where: 'Applications: NPN sales motion + proof demos' },
+    'panel-q8':         { layers: ['Applications'],                         where: 'Applications: Omniverse Replicator synthetic data' },
+    'panel-q9':         { layers: ['Infrastructure','Applications'],        where: 'Infrastructure: GPU Operator on K8s · Applications: enterprise platform' },
+    'panel-q10':        { layers: ['Infrastructure','Models','Applications'],where: 'Infrastructure: Confidential Computing · Models: Guardrails · Applications: NIM' },
+    'panel-agent-eng':  { layers: ['Models','Applications'],                where: 'Models: LangGraph · Applications: AIQ Toolkit v1.3' },
+    'panel-context-eng':{ layers: ['Models','Applications'],                where: 'Models: NeMo Guardrails · Applications: NIM prompting' },
+    'panel-memory':     { layers: ['Models','Applications'],                where: 'Models: NeMo Retriever · Applications: Milvus vector DB' },
+    'panel-loops':      { layers: ['Applications'],                         where: 'Applications: AIQ Toolkit ReAct loop' },
+    'panel-evals':      { layers: ['Models','Applications'],                where: 'Models: embedding evals · Applications: RAGAS + NIM APIs' },
+    'panel-voice':      { layers: ['Chips','Models','Applications'],        where: 'Chips: H100/L40S · Models: Nemotron + TRT-LLM · Applications: NIM ASR' },
+    'panel-aiio':       { layers: ['Energy','Chips','Infrastructure','Models','Applications'], where: 'Full stack — AIIO exam covers all 5 layers' },
+    'panel-stories':    { layers: ['Chips','Infrastructure','Models','Applications'], where: 'ViQi=Models/Apps · DDaaS=Chips · ASSIST=Models/Apps · CJIS=Infra' },
+    'panel-products':   { layers: ['Energy','Chips','Infrastructure','Models','Applications'], where: 'Full product catalog spans Jensen\'s 5 layers' }
   };
-  var LAYER_LABELS  = { L1:'Hardware', L2:'Networking', L3:'System SW', L4:'Frameworks', L5:'Apps / NIMs', L6:'Platform' };
-  var LAYER_COLORS  = { L1:'#8B5CF6', L2:'#3B82F6', L3:'#0D7680', L4:'#10B981', L5:'#76B900', L6:'#F59E0B' };
+  var LAYER_LABELS = { Energy:'Energy', Chips:'Chips', Infrastructure:'Infra', Models:'Models', Applications:'Apps' };
+  var LAYER_COLORS = { Energy:'#F59E0B', Chips:'#8B5CF6', Infrastructure:'#3B82F6', Models:'#10B981', Applications:'#76B900' };
+  var LAYER_ORDER  = ['Energy','Chips','Infrastructure','Models','Applications'];
 
   Object.keys(LAYER_MAP).forEach(function(panelId) {
     var panel = document.getElementById(panelId);
@@ -2761,10 +2804,10 @@ function injectStackBars() {
 
     var lbl = document.createElement('span');
     lbl.className = 'slb-label';
-    lbl.textContent = 'NVIDIA Stack:';
+    lbl.textContent = '5-Layer Cake:';
     bar.appendChild(lbl);
 
-    ['L1','L2','L3','L4','L5','L6'].forEach(function(layer) {
+    LAYER_ORDER.forEach(function(layer) {
       var active = info.layers.indexOf(layer) >= 0;
       var chip = document.createElement('span');
       chip.className = 'slb-chip' + (active ? ' active' : '');
@@ -2775,10 +2818,8 @@ function injectStackBars() {
       }
       var idSpan = document.createElement('span');
       idSpan.className = 'slb-layer-id';
-      idSpan.textContent = layer;
-      var nameTxt = document.createTextNode(' ' + LAYER_LABELS[layer]);
+      idSpan.textContent = LAYER_LABELS[layer];
       chip.appendChild(idSpan);
-      chip.appendChild(nameTxt);
       bar.appendChild(chip);
     });
 
