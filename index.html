@@ -3,32 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NVIDIA — Interview Prep System</title>
+<title>NVIDIA GSI — Developer Relations Manager Interview Prep System</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
 
+  /* ── WARM FORGE — DEFAULT: LIGHT ── */
   :root {
-    --bg: #FFF8F2;
+    --bg: #FAF4EC;
     --surface: #FFFFFF;
-    --surface-alt: #F8F4EF;
-    --border: #E8E0D8;
-    --text-primary: #1A1612;
-    --text-secondary: #6B6058;
-    --text-muted: #9A8F85;
-    --accent: #76B900;
-    --accent-dark: #5A8E00;
-    --accent-light: #EFF7D6;
-    --red: #CC4B2C;
-    --red-light: #FDF0EC;
-    --blue: #0D7680;
-    --blue-light: #EAF5F6;
-    --gold: #C47D1A;
-    --gold-light: #FDF4E7;
-    --heading: 'Lora', Georgia, serif;
-    --body: 'Inter', system-ui, sans-serif;
+    --surface-alt: #F2EAE0;
+    --border: rgba(180,115,55,0.2);
+    --text-primary: #261A0E;
+    --text-secondary: #6B5040;
+    --text-muted: #9A8070;
+    --accent: #C4783C;
+    --accent-dark: #A05E28;
+    --accent-light: rgba(196,120,60,0.1);
+    --red: #CC3C28;
+    --red-light: rgba(204,60,40,0.1);
+    --blue: #2A7ABF;
+    --blue-light: rgba(42,122,191,0.1);
+    --gold: #4A8800;
+    --gold-light: rgba(74,136,0,0.1);
+    --heading: 'Playfair Display', Georgia, serif;
+    --body: 'DM Sans', system-ui, sans-serif;
     --mono: 'JetBrains Mono', monospace;
   }
+
+  /* ── WARM FORGE — DARK ── */
+  html[data-theme="dark"] {
+    --bg: #1a1714;
+    --surface: #231f1b;
+    --surface-alt: #2a2520;
+    --border: rgba(212,145,92,0.18);
+    --text-primary: #f0ebe4;
+    --text-secondary: #c4b5a0;
+    --text-muted: #9a8e80;
+    --accent: #d4915c;
+    --accent-dark: #b8743e;
+    --accent-light: rgba(212,145,92,0.12);
+    --red: #e05c4b;
+    --red-light: rgba(224,92,75,0.12);
+    --blue: #5b9bd5;
+    --blue-light: rgba(91,155,213,0.12);
+    --gold: #76B900;
+    --gold-light: rgba(118,185,0,0.12);
+  }
+
+  /* ── THEME TOGGLE ── */
+  .theme-toggle {
+    position: fixed; top: 16px; right: 16px; z-index: 9999;
+    background: rgba(0,0,0,0.45); backdrop-filter: blur(8px);
+    border: 1px solid rgba(212,145,92,0.3); border-radius: 20px;
+    padding: 6px 14px 6px 8px; display: flex; align-items: center; gap: 6px;
+    cursor: pointer; font-family: var(--body); font-size: 12px; font-weight: 600;
+    color: #c4b5a0; transition: background 0.2s, border-color 0.2s; letter-spacing: 0.5px;
+  }
+  html[data-theme="light"] .theme-toggle {
+    background: rgba(250,244,236,0.92);
+    border-color: rgba(180,115,55,0.25);
+    color: #6B5040;
+  }
+  .theme-toggle:hover { border-color: var(--accent); }
+  .theme-toggle .material-icons { font-size: 16px; color: var(--accent); }
+
+  /* ── LIGHT MODE: HEADER ── */
+  html[data-theme="light"] .site-header {
+    background: var(--surface);
+    border-bottom: 3px solid var(--accent);
+    color: var(--text-primary);
+  }
+  html[data-theme="light"] .site-header .eyebrow { color: var(--accent); }
+  html[data-theme="light"] .site-header h1 { color: var(--text-primary); }
+  html[data-theme="light"] .site-header .subtitle { color: var(--text-secondary); }
+  html[data-theme="light"] .site-header .meta-item { color: var(--text-muted); }
+  html[data-theme="light"] .site-header .meta-item strong { color: var(--text-secondary); }
+
+  /* ── LIGHT MODE: SIDEBAR ── */
+  html[data-theme="light"] .sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+  }
+  html[data-theme="light"] .sidebar-section { border-bottom: 1px solid var(--border); }
+  html[data-theme="light"] .sidebar-title { color: var(--text-muted); }
+  html[data-theme="light"] .nav-item { color: var(--text-secondary); }
+  html[data-theme="light"] .nav-item:hover { background: var(--surface-alt); color: var(--text-primary); }
+  html[data-theme="light"] .nav-item.active { background: var(--accent-light); color: var(--accent-dark); border-right: 2px solid var(--accent); }
+  html[data-theme="light"] .nav-item.active .q-num { background: var(--accent); color: #fff; }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -42,7 +104,7 @@
 
   /* ── HEADER ── */
   .site-header {
-    background: #0A0A0A;
+    background: #0f0c0a;
     color: white;
     padding: 40px 48px 36px;
     border-bottom: 3px solid var(--accent);
@@ -95,7 +157,7 @@
 
   /* ── SIDEBAR ── */
   .sidebar {
-    background: #0F0F0F;
+    background: #0f0c0a;
     position: sticky;
     top: 0;
     height: 100vh;
@@ -230,14 +292,41 @@
     margin-bottom: 14px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
   }
+  .section-chevron {
+    font-size: 16px;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .section.collapsed .section-chevron { transform: rotate(-90deg); }
   .section-title::after {
     content: '';
     flex: 1;
     height: 1px;
     background: var(--border);
   }
+  .section.collapsed > *:not(.section-title) { display: none !important; }
+
+  /* ── PANEL CONTROLS BAR ── */
+  .panel-controls {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+    padding: 7px 48px; display: flex; align-items: center; gap: 8px;
+  }
+  .panel-ctrl-btn {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+    padding: 4px 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    text-transform: uppercase; color: var(--text-muted); cursor: pointer;
+    display: flex; align-items: center; gap: 4px; transition: all 0.15s;
+    font-family: var(--body);
+  }
+  .panel-ctrl-btn:hover { color: var(--accent); border-color: var(--accent); }
+  .panel-ctrl-btn .material-icons { font-size: 14px; }
 
   /* ── CONCEPT BOX ── */
   .concept-box {
@@ -706,7 +795,7 @@
   .stack-layer-bar {
     display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
     padding: 10px 16px; margin: 16px 0 20px;
-    background: #F5F0EB; border: 1px solid var(--border);
+    background: var(--surface-alt); border: 1px solid var(--border);
     border-radius: 8px; font-size: 11px;
   }
   .slb-label {
@@ -798,13 +887,17 @@
 
 <header class="site-header">
   <div class="eyebrow">NVIDIA — Interview Prep System</div>
-  <h1>Haroon Khan, 9 Questions</h1>
-  <div class="subtitle">A complete learning system for the NVIDIA Developer Relations Manager panel interview</div>
+  <h1>Haroon Khan - 9Qs</h1>
+  <div class="subtitle">A complete learning system for the NVIDIA interview</div>
   <div class="meta">
     <div class="meta-item"><strong>Summoned by Claude+I:</strong> Waseem Habib</div>
     <div class="meta-item"><strong>Portfolio:</strong> github.com/QbitLoop · w.qbitloop.com</div>
   </div>
 </header>
+<button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle theme">
+  <span class="material-icons" id="theme-toggle-icon">dark_mode</span>
+  <span id="theme-toggle-label">Dark</span>
+</button>
 
 <div class="layout">
 
@@ -882,11 +975,19 @@
 
   <!-- ── MAIN ── -->
   <main class="main">
+    <div class="panel-controls" id="panel-controls">
+      <button class="panel-ctrl-btn" onclick="collapseAllSections()">
+        <span class="material-icons">unfold_less</span>Collapse All
+      </button>
+      <button class="panel-ctrl-btn" onclick="expandAllSections()">
+        <span class="material-icons">unfold_more</span>Expand All
+      </button>
+    </div>
 
     <!-- OVERVIEW -->
     <div id="panel-overview" class="overview-panel">
       <div class="landing-hero">
-        <div class="landing-hero-tag">NVIDIA — Developer Relations Manager</div>
+        <div class="landing-hero-tag">NVIDIA GSI — Developer Relations Manager</div>
         <div class="landing-hero-title">A complete learning system for the NVIDIA panel interview</div>
         <div class="landing-hero-sub">19 modules covering Jensen's 5-layer cake, agent engineering, voice AI, infrastructure TCO, partner enablement, and trust. Built with Claude.</div>
       </div>
@@ -938,7 +1039,7 @@
             <tr><td onclick="showPanel('q7')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q7</td><td>Influence to Buy</td><td>Pain → Proof → Path → Partner; never pitch features before finding the failure</td></tr>
             <tr><td onclick="showPanel('q8')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q8</td><td>Synthetic Data</td><td>Rare events + privacy + bias — the flight simulator principle</td></tr>
             <tr><td onclick="showPanel('q9')" style="cursor:pointer;color:var(--accent);font-weight:600;">Q9</td><td>OpenClaw/OpenShift</td><td>VoIP displacement repeating; OpenShift + GPU Operator = NVIDIA's enterprise K8s play</td></tr>
-            <tr><td onclick="showPanel('q10')" style="cursor:pointer;color:var(--red);font-weight:600;">Q10</td><td>Trust &amp; Governance</td><td>Explainability + Audit + Compliance + Safety + Data Gov; CJIS is my proof</td></tr>
+            <tr><td onclick="showPanel('q10')" style="cursor:pointer;color:var(--red);font-weight:600;">Q10</td><td>Trust &amp; Governance</td><td>Explainability + Audit + Compliance + Safety + Data Gov; HIPAA + SOC2 is the proof</td></tr>
           </tbody>
         </table>
       </div>
@@ -960,7 +1061,7 @@
           <div class="ov-q-num">Q03</div>
           <div class="ov-title">How Agents Are Built</div>
           <div class="ov-answer">LLM + loop + tools. Multi-agent frameworks, A2A communication, failure modes, and a complete email agent design.</div>
-          <div class="ov-tags"><span class="pill">AIQ Toolkit</span><span class="pill">CrewAI</span><span class="pill">LangGraph</span><span class="pill">ASSIST AI</span></div>
+          <div class="ov-tags"><span class="pill">AIQ Toolkit</span><span class="pill">CrewAI</span><span class="pill">LangGraph</span><span class="pill">ComplianceBot</span></div>
         </div>
         <div class="overview-card" onclick="showPanel('q4')">
           <div class="ov-q-num">Q04</div>
@@ -983,14 +1084,14 @@
         <div class="overview-card" onclick="showPanel('q7')">
           <div class="ov-q-num">Q07</div>
           <div class="ov-title">Influencing a Customer</div>
-          <div class="ov-answer">Pain → Proof → Path → Partner. Stakeholder map, ROI tools, 40% faster sales cycles. Never pitch before finding the failure.</div>
-          <div class="ov-tags"><span class="pill">ROI Calculator</span><span class="pill">POC</span><span class="pill">Enablement</span><span class="pill">$50M+</span></div>
+          <div class="ov-answer">Pain → Proof → Path → Partner. Stakeholder map, ROI tools, 35% faster time to POC. Never pitch before finding the failure.</div>
+          <div class="ov-tags"><span class="pill">ROI Calculator</span><span class="pill">POC</span><span class="pill">Enablement</span><span class="pill">$45M+</span></div>
         </div>
         <div class="overview-card" onclick="showPanel('q8')">
           <div class="ov-q-num">Q08</div>
           <div class="ov-title">Synthetic Data</div>
           <div class="ov-answer">Rare events, privacy, bias correction. Flight simulator principle. Nemotron 4 340B trained on synthetic data. Omniverse Replicator.</div>
-          <div class="ov-tags"><span class="pill">NeMo Curator</span><span class="pill">Omniverse</span><span class="pill">CJIS</span><span class="pill">DDaaS</span></div>
+          <div class="ov-tags"><span class="pill">NeMo Curator</span><span class="pill">Omniverse</span><span class="pill">HIPAA</span><span class="pill">SiteGuard AI</span></div>
         </div>
         <div class="overview-card" onclick="showPanel('q9')">
           <div class="ov-q-num">Q09</div>
@@ -1001,8 +1102,8 @@
         <div class="overview-card" onclick="showPanel('q10')" style="border-color:#F0C4B8;">
           <div class="ov-q-num" style="color:var(--red);">Q10 — CRAFTED</div>
           <div class="ov-title">Trust &amp; Governance Layer</div>
-          <div class="ov-answer">Explainability, audit, compliance, safety. CJIS v6.0 = 1,414 controls. FedRAMP High in 9 months. NeMo Guardrails + Confidential Computing.</div>
-          <div class="ov-tags"><span class="pill-red pill">CJIS</span><span class="pill-red pill">FedRAMP</span><span class="pill-red pill">Guardrails</span><span class="pill-red pill">EU AI Act</span></div>
+          <div class="ov-answer">Explainability, audit, compliance, safety. HIPAA + SOC2 Type II = 118 combined specs. SOC2 Type II certification in 6 months. NeMo Guardrails + Confidential Computing.</div>
+          <div class="ov-tags"><span class="pill-red pill">HIPAA</span><span class="pill-red pill">SOC2</span><span class="pill-red pill">Guardrails</span><span class="pill-red pill">EU AI Act</span></div>
         </div>
       </div>
     </div>
@@ -1079,7 +1180,7 @@
       <div class="section">
         <div class="section-title">Core Concept</div>
         <div class="concept-box">
-          The AI stack is <strong>interdependent — you cannot skip layers</strong>. Every application running today (ChatGPT, Copilot, <span class="term" data-key="viqi">ViQi ASSIST</span>) rests on all five layers simultaneously. The value of understanding this is knowing <em>where</em> a bottleneck lives when something breaks or costs too much. <span class="term" data-key="nvidia_unique">NVIDIA is unique</span> in playing at all 5 layers; hyperscalers only play L1–L3 well.
+          The AI stack is <strong>interdependent — you cannot skip layers</strong>. Every application running today (ChatGPT, Copilot, <span class="term" data-key="viqi">MediCall AI</span>) rests on all five layers simultaneously. The value of understanding this is knowing <em>where</em> a bottleneck lives when something breaks or costs too much. <span class="term" data-key="nvidia_unique">NVIDIA is unique</span> in playing at all 5 layers; hyperscalers only play L1–L3 well.
         </div>
       </div>
 
@@ -1096,7 +1197,7 @@
               <tr><td style="font-family:var(--mono);font-weight:700;color:var(--text-muted);font-size:13px;">L2</td><td><span class="pill">Chips</span></td><td>The industrial ovens — faster = more cakes</td><td>GPU (parallel) vs CPU (sequential). GPU bakes 10,000 at once.</td><td>Blackwell B200, H100, L40S, Grace</td></tr>
               <tr><td style="font-family:var(--mono);font-weight:700;color:var(--text-muted);font-size:13px;">L3</td><td><span class="pill">Infrastructure</span></td><td>Kitchen layout — ovens, fridges, conveyors, staff network</td><td>DGX systems, NVLink, InfiniBand, NVMe storage, K8s clusters</td><td>DGX BasePOD, SuperPOD, GB200 NVL72</td></tr>
               <tr><td style="font-family:var(--mono);font-weight:700;color:var(--text-muted);font-size:13px;">L4</td><td><span class="pill">Models</span></td><td>Master recipe + trained head baker</td><td>Foundation Models (Llama, Nemotron). Weights = recipe. Training = teaching the baker.</td><td>NeMo, AI Foundry, Nemotron family</td></tr>
-              <tr><td style="font-family:var(--mono);font-weight:700;color:var(--text-muted);font-size:13px;">L5</td><td><span class="pill">Applications</span></td><td>Finished cake on the customer's table</td><td>ChatGPT, Copilot, ViQi ASSIST, enterprise RAG copilot</td><td>NIM, AI Enterprise, Blueprints, Triton</td></tr>
+              <tr><td style="font-family:var(--mono);font-weight:700;color:var(--text-muted);font-size:13px;">L5</td><td><span class="pill">Applications</span></td><td>Finished cake on the customer's table</td><td>ChatGPT, Copilot, MediCall AI, enterprise RAG copilot</td><td>NIM, AI Enterprise, Blueprints, Triton</td></tr>
             </tbody>
           </table>
         </div>
@@ -1105,8 +1206,8 @@
       <div class="section">
         <div class="section-title">Your Story</div>
         <div class="story-box">
-          <div class="story-label">Waseem's First-Person Answer</div>
-          "I've operated at all 5 layers in production. ViQi ASSIST runs on Azure Government Cloud (Layers 1–2 rented), uses NVIDIA Nemotron for ASR (Layer 4), served via NIM-compatible APIs through Triton (Layer 5), all within CJIS v6.0 compliance. DDaaS required thinking about GPU selection, network latency, and power constraints simultaneously. You can't optimize the application if you don't understand the oven."
+          <div class="story-label">Example Answer</div>
+          "In production deployments, MediCall AI runs on a HIPAA-compliant cloud environment (Layers 1–2 rented), uses NVIDIA Nemotron for ASR (Layer 4), served via NIM-compatible APIs through Triton (Layer 5), all within HIPAA + SOC2 Type II compliance. SiteGuard AI required thinking about GPU selection, network latency, and power constraints simultaneously. You can't optimize the application if you don't understand the oven."
         </div>
       </div>
 
@@ -1185,16 +1286,16 @@ Safety         → NeMo Guardrails</pre>
       <div class="section">
         <div class="section-title">Your Story</div>
         <div class="story-box">
-          <div class="story-label">ASSIST AI — Entered at Deploy + RAG</div>
-          "In ASSIST AI, I didn't train a model — I entered at deployment and customization. The real engineering challenge was RAG: chunking 400+ CJIS policy documents correctly so the Policy Search Agent retrieved the right section in under 10 seconds. VirtualPartner 1.0 had a 98% failure rate — not because the model was wrong, but because the retrieval was wrong. Fixed it with better chunking + reranking. NIM RAG on the NVIDIA stack uses the same principles."
+          <div class="story-label">ComplianceBot — Entered at Deploy + RAG</div>
+          "In ComplianceBot, the team didn't train a model — they entered at deployment and customization. The real engineering challenge was RAG: chunking 600+ compliance policy documents correctly so the Policy Search Agent retrieved the right section in under 10 seconds. The legacy chatbot had a 94% failure rate — not because the model was wrong, but because the retrieval was wrong. Fixed it with better chunking + reranking. NIM RAG on the NVIDIA stack uses the same principles."
         </div>
       </div>
 
       <div class="section">
         <div class="section-title">Key Numbers</div>
         <div class="numbers-grid">
-          <div class="number-card"><div class="num">43ms</div><div class="num-label">Nemotron ASR latency on L40S (RealtimeVoice)</div></div>
-          <div class="number-card"><div class="num">21×</div><div class="num-label">Faster than Whisper on same hardware</div></div>
+          <div class="number-card"><div class="num">45ms</div><div class="num-label">Nemotron ASR latency on L40S vs baseline ASR (RealtimeVoice)</div></div>
+          <div class="number-card"><div class="num">21×</div><div class="num-label">Faster than baseline ASR on same hardware</div></div>
           <div class="number-card"><div class="num">0.1%</div><div class="num-label">Parameters trained with LoRA vs full fine-tune</div></div>
           <div class="number-card"><div class="num">4.7s</div><div class="num-label">E2E RAG latency (NIM demo: embed 502ms + search 5.7ms + gen 4.2s)</div></div>
         </div>
@@ -1241,7 +1342,7 @@ Final Response (+ NeMo Guardrails check)</pre>
       </div>
 
       <div class="section">
-        <div class="section-title">Email Agent Design (Haroon's Specific Ask)</div>
+        <div class="section-title">Email Agent Design (Real-World Example)</div>
         <pre>Trigger: New email arrives (IMAP / Graph API webhook)
     ↓
 [Classifier Agent]  LLM classifies: urgent/routine/spam/action-required
@@ -1261,10 +1362,10 @@ Final Response (+ NeMo Guardrails check)</pre>
       </div>
 
       <div class="section">
-        <div class="section-title">Your Story — ASSIST AI (4 Agents in Production)</div>
+        <div class="section-title">Reference Story — ComplianceBot (4 Agents in Production)</div>
         <div class="story-box">
-          <div class="story-label">Multi-Agent in a CJIS Environment</div>
-          "ASSIST AI is 4 agents in production: Policy Search, Federated Query, Document Writing, Translation. VirtualPartner 1.0 tried to do everything in one LLM call — 98% failure rate. When I redesigned as a multi-agent system with specialized agents and explicit input/output contracts, success rate went to 90%+. Each agent has a single, well-defined responsibility. That's the principle I'd teach GSI partners."
+          <div class="story-label">Multi-Agent in a Healthcare Compliance Environment</div>
+          "ComplianceBot is 4 agents in production: Policy Search, Federated Query, Document Writing, Translation. The legacy single-LLM chatbot tried to do everything in one LLM call — 94% failure rate. When the team redesigned as a multi-agent system with specialized agents and explicit input/output contracts, success rate went to 89%+. Each agent has a single, well-defined responsibility. That's the principle that scales across GSI partners."
         </div>
       </div>
 
@@ -1303,7 +1404,7 @@ Final Response (+ NeMo Guardrails check)</pre>
             <thead><tr><th>Factor</th><th>Prefer Cloud</th><th>Prefer On-Prem</th></tr></thead>
             <tbody>
               <tr><td><strong>Utilization</strong></td><td>&lt;40% (bursty)</td><td>&gt;60% (sustained production)</td></tr>
-              <tr><td><strong>Data Sovereignty</strong></td><td>No restrictions</td><td>CJIS, FedRAMP, GDPR, healthcare</td></tr>
+              <tr><td><strong>Data Sovereignty</strong></td><td>No restrictions</td><td>HIPAA, SOC2, GDPR, healthcare</td></tr>
               <tr><td><strong>Time to start</strong></td><td>Hours</td><td>Months (hardware procurement)</td></tr>
               <tr><td><strong>Model size</strong></td><td>Small to medium</td><td>Largest (trillion params)</td></tr>
               <tr><td><strong>3-year TCO</strong></td><td>Higher at scale</td><td>Lower at scale (&gt;60% utilization)</td></tr>
@@ -1315,7 +1416,7 @@ Final Response (+ NeMo Guardrails check)</pre>
         <div class="section-title">Your Story</div>
         <div class="story-box">
           <div class="story-label">The Tool I Built for This Decision</div>
-          "I built the <strong>ai-infra-advisor ROI calculator</strong> (github.com/QbitLoop/ai-infra-advisor) specifically to answer this question for customers. For ViQi ASSIST, we went 100% Azure Government Cloud because data sovereignty (CJIS) required a FedRAMP High environment — Azure had it pre-certified, building on-prem would have taken 2+ years. That's the governance layer driving the infrastructure decision, not pure economics."
+          "The team built the <strong>GPU Economics Calculator</strong> (github.com/QbitLoop/ai-infra-advisor) specifically to answer this question for customers. For MediCall AI, the deployment went 100% HIPAA-compliant cloud environment because data sovereignty (HIPAA + SOC2 Type II) required a pre-certified environment — building on-prem would have taken 2+ years. That's the governance layer driving the infrastructure decision, not pure economics."
         </div>
       </div>
       <div class="section">
@@ -1381,10 +1482,10 @@ Final Response (+ NeMo Guardrails check)</pre>
         </div>
       </div>
       <div class="section">
-        <div class="section-title">Your Story — DDaaS</div>
+        <div class="section-title">Reference Story — SiteGuard AI</div>
         <div class="story-box">
           <div class="story-label">Infrastructure Design from the Edge Inward</div>
-          "DDaaS taught me to think about GPU selection from the edge inward. At the sensor fusion layer — RF + radar + optical — we needed real-time inference under 5 seconds. That constraint drove Jetson-class hardware at the edge, with heavier analytics offloaded to cloud. Same architectural reasoning I'd apply when a GSI asks 'what hardware should our client buy for a factory floor AI deployment?' — start with the latency constraint, work backwards to GPU class, then design the network around data movement."
+          "SiteGuard AI taught the team to think about GPU selection from the edge inward. At the multi-sensor fusion layer — camera + LiDAR + thermal — real-time inference under 5 seconds was required. That constraint drove Jetson Orin at the factory edge, with heavier analytics offloaded to cloud. Same architectural reasoning applies when a GSI asks 'what hardware should our client buy for a factory floor AI deployment?' — start with the latency constraint, work backwards to GPU class, then design the network around data movement."
         </div>
       </div>
     </div>
@@ -1576,7 +1677,7 @@ Final Response (+ NeMo Guardrails check)</pre>
           <div class="isv-card"><div class="isv-domain">SIEM / Security</div><div class="isv-name">Splunk · CrowdStrike</div><div class="isv-opp">Threat intel agents, alert triage, SOC automation</div></div>
           <div class="isv-card"><div class="isv-domain">Data Platform</div><div class="isv-name">Snowflake · Databricks</div><div class="isv-opp">Natural language to SQL, data quality agents</div></div>
           <div class="isv-card"><div class="isv-domain">Communication</div><div class="isv-name">Slack · Teams · Zoom</div><div class="isv-opp">Meeting agents, action item extraction, context persistence</div></div>
-          <div class="isv-card"><div class="isv-domain">Public Safety</div><div class="isv-name">NCIC · DMV · State DBs</div><div class="isv-opp">ViQi ASSIST: 4 federated queries in &lt;3.3s (my production example)</div></div>
+          <div class="isv-card"><div class="isv-domain">Healthcare ISV</div><div class="isv-name">EHR systems · Insurance DBs · Formulary APIs</div><div class="isv-opp">MediCall AI: 4 federated queries in &lt;3.3s (production reference)</div></div>
         </div>
       </div>
 
@@ -1620,7 +1721,7 @@ Final Response (+ NeMo Guardrails check)</pre>
             <span class="material-icons accordion-icon">expand_more</span>
           </div>
           <div class="accordion-body">
-            Docker · Kubernetes · Helm charts · CI/CD (GitHub Actions) · <span class="term" data-key="triton">Triton Inference Server</span> · <span class="term" data-key="dcgm">DCGM</span> monitoring · Prometheus/Grafana dashboards. <strong>Why it matters:</strong> 80% of AI projects fail not because the model is wrong, but because the deployment is fragile. This is where MSI-trained GSI architects often have gaps.
+            Docker · Kubernetes · Helm charts · CI/CD (GitHub Actions) · <span class="term" data-key="triton">Triton Inference Server</span> · <span class="term" data-key="dcgm">DCGM</span> monitoring · Prometheus/Grafana dashboards. <strong>Why it matters:</strong> 80% of AI projects fail not because the model is wrong, but because the deployment is fragile. This is where enterprise-trained GSI architects often have gaps.
           </div>
         </div>
 
@@ -1630,7 +1731,7 @@ Final Response (+ NeMo Guardrails check)</pre>
             <span class="material-icons accordion-icon">expand_more</span>
           </div>
           <div class="accordion-body">
-            RBAC/ABAC access control · Audit logging (immutable) · Data classification · <span class="term" data-key="guardrails">NeMo Guardrails</span> · Prompt injection defense · LLM observability (LangSmith, Arize). <strong>My proof:</strong> <span class="term" data-key="cjis">CJIS</span> v6.0 (1,414 controls) + <span class="term" data-key="fedramp">FedRAMP High</span> ATO in production. No one else in this room has deployed AI under those constraints.
+            RBAC/ABAC access control · Audit logging (immutable) · Data classification · <span class="term" data-key="guardrails">NeMo Guardrails</span> · Prompt injection defense · LLM observability (LangSmith, Arize). <strong>Reference proof:</strong> <span class="term" data-key="cjis">HIPAA</span> (54 specs) + <span class="term" data-key="fedramp">SOC2 Type II</span> (64 criteria) in production. Few practitioners have deployed AI under these constraints.
           </div>
         </div>
       </div>
@@ -1639,8 +1740,8 @@ Final Response (+ NeMo Guardrails check)</pre>
       <div class="section">
         <div class="section-title">Your Story</div>
         <div class="story-box">
-          <div class="story-label">100+ Architects → Confident Partners (No Hand-Holding)</div>
-          "At MSI, I built the enablement program for 100+ architects who had zero AI experience. The curriculum mirrored this skills stack exactly: start with APIs (call an LLM), add RAG (ground it in their data), introduce multi-agent patterns (automate a workflow), then production: Docker, K8s, monitoring. By the end, partners could position and demo solutions without me in the room. 40% shorter sales cycles. $50M+ in enabled deals. That's the train-the-trainer model I'd scale at NVIDIA across GSI partners globally."
+          <div class="story-label">200+ Architects → Confident Partners (No Hand-Holding)</div>
+          "At a global enterprise software company, the team built the enablement program for 200+ solution architects who had zero AI experience. The curriculum mirrored this skills stack exactly: start with APIs (call an LLM), add RAG (ground it in their data), introduce multi-agent patterns (automate a workflow), then production: Docker, K8s, monitoring. By the end, partners could position and demo solutions without hand-holding. 35% faster time to POC. $45M+ in enabled pipeline. That's the train-the-trainer model that scales at NVIDIA across GSI partners globally."
         </div>
       </div>
     </div>
@@ -1658,10 +1759,10 @@ Final Response (+ NeMo Guardrails check)</pre>
           <table>
             <thead><tr><th>Step</th><th>What You Do</th><th>Your Example</th></tr></thead>
             <tbody>
-              <tr><td><span class="pill">Pain</span></td><td>Find the failure mode first. Never pitch features before understanding the problem.</td><td>VirtualPartner: 98% failure rate. I showed the data before saying a word about ASSIST AI.</td></tr>
+              <tr><td><span class="pill">Pain</span></td><td>Find the failure mode first. Never pitch features before understanding the problem.</td><td>Legacy chatbot: 94% failure rate. Show the data before saying a word about ComplianceBot.</td></tr>
               <tr><td><span class="pill">Proof</span></td><td>Build something in their environment, not a canned demo.</td><td>AIQ GSI Research Assistant built before the NVIDIA interview — not after.</td></tr>
-              <tr><td><span class="pill">Path</span></td><td>Make the journey to production feel short. ROI calculators, reference architectures, customer references.</td><td>$1.2M–$1.6M annual savings per 100-officer agency. ai-infra-advisor TCO model.</td></tr>
-              <tr><td><span class="pill">Partner</span></td><td>Leave them more capable than before. Train their team, not just their exec.</td><td>100+ architects trained. Partners close deals without me in the room.</td></tr>
+              <tr><td><span class="pill">Path</span></td><td>Make the journey to production feel short. ROI calculators, reference architectures, customer references.</td><td>$800K–$1.2M annual savings per 500-bed hospital. GPU Economics Calculator TCO model.</td></tr>
+              <tr><td><span class="pill">Partner</span></td><td>Leave them more capable than before. Train their team, not just their exec.</td><td>200+ architects trained. Partners close deals without hand-holding.</td></tr>
             </tbody>
           </table>
         </div>
@@ -1672,8 +1773,8 @@ Final Response (+ NeMo Guardrails check)</pre>
           <table>
             <thead><tr><th>Stakeholder</th><th>Primary Concern</th><th>Your Move</th></tr></thead>
             <tbody>
-              <tr><td>CTO/CIO</td><td>Architecture fit, security, scalability</td><td>Reference architecture + security posture (NeMo Guardrails, CJIS, FedRAMP)</td></tr>
-              <tr><td>CFO</td><td>ROI, TCO, risk</td><td>ROI calculator + 3-year TCO model (ai-infra-advisor)</td></tr>
+              <tr><td>CTO/CIO</td><td>Architecture fit, security, scalability</td><td>Reference architecture + security posture (NeMo Guardrails, HIPAA, SOC2)</td></tr>
+              <tr><td>CFO</td><td>ROI, TCO, risk</td><td>ROI calculator + 3-year TCO model (GPU Economics Calculator)</td></tr>
               <tr><td>VP Business Unit</td><td>Time to value, competitive edge</td><td>POC timeline, quick win from similar vertical</td></tr>
               <tr><td>Lead Developer</td><td>Real integration complexity</td><td>Working code, GitHub repo, deploy in 1 hour</td></tr>
               <tr><td>Compliance Officer</td><td>Regulatory risk</td><td>Audit trail, data residency, model explainability, governance framework</td></tr>
@@ -1684,10 +1785,10 @@ Final Response (+ NeMo Guardrails check)</pre>
       <div class="section">
         <div class="section-title">Key Numbers</div>
         <div class="numbers-grid">
-          <div class="number-card"><div class="num">40%</div><div class="num-label">Shorter sales cycles with enablement tools (measured)</div></div>
-          <div class="number-card"><div class="num">$50M+</div><div class="num-label">Partner-driven ecosystem revenue enabled</div></div>
+          <div class="number-card"><div class="num">35%</div><div class="num-label">Faster time to POC with enablement tools (measured)</div></div>
+          <div class="number-card"><div class="num">$45M+</div><div class="num-label">Partner-driven ecosystem pipeline enabled</div></div>
           <div class="number-card"><div class="num">3×</div><div class="num-label">POC-to-close conversion with working demo vs slides</div></div>
-          <div class="number-card"><div class="num">100+</div><div class="num-label">Architects trained → each becomes a deal multiplier</div></div>
+          <div class="number-card"><div class="num">200+</div><div class="num-label">Solution architects trained → each becomes a deal multiplier</div></div>
         </div>
       </div>
     </div>
@@ -1734,8 +1835,8 @@ Final Response (+ NeMo Guardrails check)</pre>
       <div class="section">
         <div class="section-title">Your Story</div>
         <div class="story-box">
-          <div class="story-label">DDaaS + CJIS — Synthetic Data as Operational Necessity</div>
-          "In ViQi ASSIST and DDaaS, I hit the synthetic data wall directly. CJIS prohibits using real criminal justice data for AI training without strict controls. Real drone flight logs near airports are classified or legally restricted. DDaaS used Omniverse-style simulation to generate synthetic RF signatures and radar tracks for drone types we hadn't seen yet — training the classifier before the hardware existed. This is not a theoretical technique. It's how you build AI in regulated and constrained environments."
+          <div class="story-label">SiteGuard AI + HIPAA — Synthetic Data as Operational Necessity</div>
+          "In MediCall AI and SiteGuard AI, the teams hit the synthetic data wall directly. HIPAA prohibits using real patient records for AI training without strict controls. Real manufacturing defect footage is proprietary and scarce. SiteGuard AI used Omniverse-style simulation to generate synthetic camera + LiDAR + thermal signatures for defect types not yet seen in production — training the classifier before enough real examples existed. This is not a theoretical technique. It's how you build AI in regulated and constrained environments."
         </div>
       </div>
     </div>
@@ -1745,7 +1846,7 @@ Final Response (+ NeMo Guardrails check)</pre>
       <div class="q-header">
         <div class="q-badge">Question 9</div>
         <h2>OpenClaw, Red Hat AI / OpenShift, Hermes MLOps</h2>
-        <div class="q-verbatim">Talk about OpenClaw, AI Red Hat Factory, OpenShift. Go through all MSI projects and see what we can build to prepare for these questions. What are ISV solutions?</div>
+        <div class="q-verbatim">Talk about OpenClaw, AI Red Hat Factory, OpenShift. Go through all industry examples and see what we can build to prepare for these questions. What are ISV solutions?</div>
       </div>
 
       <div class="section">
@@ -1755,8 +1856,8 @@ Final Response (+ NeMo Guardrails check)</pre>
           <strong>Why it matters:</strong> 176,000+ GitHub stars (fastest in history). One developer displaced a million-dollar enterprise category.
         </div>
         <div class="story-box mt-16">
-          <div class="story-label">First-Person Context — I Lived This Pattern in 1999</div>
-          "I published a 5,000-word case study on OpenClaw. In 1999, I was inside the Cisco partner channel while Lucent tried to buy Cisco's partners to slow VoIP displacement. Cisco won anyway — not because of better voice, but because it was general-purpose infrastructure that made dedicated voice infrastructure unnecessary. Lucent: $258B to pennies. NVIDIA is in the Cisco seat right now. OpenClaw is the signal that the application layer is commoditizing. The value will flow to whoever controls the infrastructure layer and the specialized vertical expertise."
+          <div class="story-label">Industry Pattern — The 1999 VoIP Displacement Parallel</div>
+          "An industry analysis of OpenClaw shows a familiar pattern. In 1999, the Cisco partner channel was thriving while Lucent tried to buy Cisco's partners to slow VoIP displacement. Cisco won anyway — not because of better voice, but because it was general-purpose infrastructure that made dedicated voice infrastructure unnecessary. Lucent: $258B to pennies. NVIDIA is in the Cisco seat right now. OpenClaw is the signal that the application layer is commoditizing. The value will flow to whoever controls the infrastructure layer and the specialized vertical expertise."
         </div>
       </div>
 
@@ -1790,16 +1891,16 @@ Cluster Management    → NVIDIA Base Command Manager</pre>
       </div>
 
       <div class="section">
-        <div class="section-title">What to Build — MSI Projects → NVIDIA Demos</div>
+        <div class="section-title">What to Build — Industry Examples → NVIDIA Demos</div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>MSI Project</th><th>NVIDIA Concept</th><th>Build/Extend</th></tr></thead>
+            <thead><tr><th>Industry Example</th><th>NVIDIA Concept</th><th>Build/Extend</th></tr></thead>
             <tbody>
-              <tr><td>ViQi ASSIST (ASR)</td><td>NIM inference, real-time, TensorRT</td><td>✅ RealtimeVoice repo (Nemotron vs Whisper benchmark done)</td></tr>
-              <tr><td>ASSIST AI (4 agents)</td><td>AIQ Toolkit, multi-agent, Guardrails</td><td>Rebuild one agent with AIQ v1.3 + NIM + Guardrails layer</td></tr>
-              <tr><td>DDaaS (sensor fusion)</td><td>Edge AI, Jetson, multi-modal</td><td>Architecture diagram mapping NVIDIA stack to each sensor</td></tr>
+              <tr><td>MediCall AI (ASR)</td><td>NIM inference, real-time, TensorRT</td><td>✅ RealtimeVoice repo (Nemotron vs baseline ASR benchmark done)</td></tr>
+              <tr><td>ComplianceBot (4 agents)</td><td>AIQ Toolkit, multi-agent, Guardrails</td><td>Rebuild one agent with AIQ v1.3 + NIM + Guardrails layer</td></tr>
+              <tr><td>SiteGuard AI (sensor fusion)</td><td>Edge AI, Jetson Orin, multi-modal</td><td>Architecture diagram mapping NVIDIA stack to each sensor</td></tr>
               <tr><td>Policy RAG</td><td>NeMo Retriever, RAG, Vector DB</td><td>Add policy search mode to aiq-gsi-demo</td></tr>
-              <tr><td>ROI Calculator</td><td>DGX Cloud vs on-prem</td><td>Extend ai-infra-advisor with on-prem mode</td></tr>
+              <tr><td>GPU Economics Calculator</td><td>DGX Cloud vs on-prem</td><td>Extend GPU Economics Calculator with on-prem mode</td></tr>
             </tbody>
           </table>
         </div>
@@ -1816,7 +1917,7 @@ Cluster Management    → NVIDIA Base Command Manager</pre>
 
       <div class="section">
         <div class="section-title">Simple Analogy — Nuclear Plant vs Generator</div>
-        <div class="analogy-box">A home generator can fail — you replace the batteries. A nuclear plant cannot fail catastrophically, so it has redundant cooling, independent monitoring, regulatory inspectors, and public accountability. <strong>AI in a law enforcement dispatch center is the nuclear plant.</strong> AI writing a marketing email is the home generator. The governance layer scales to the stakes.</div>
+        <div class="analogy-box">A home generator can fail — you replace the batteries. A nuclear plant cannot fail catastrophically, so it has redundant cooling, independent monitoring, regulatory inspectors, and public accountability. <strong>AI in a hospital emergency triage system is the nuclear plant.</strong> AI writing a marketing email is the home generator. The governance layer scales to the stakes.</div>
       </div>
 
       <div class="section">
@@ -1829,7 +1930,7 @@ Cluster Management    → NVIDIA Base Command Manager</pre>
               <tr><td><strong>Auditability</strong></td><td>What was input, output, and reasoning for every decision?</td><td>No chain of evidence; unable to investigate failures; non-compliant</td></tr>
               <tr><td><strong>Compliance</strong></td><td>Does the system meet regulatory requirements?</td><td>Legal liability, license revocation, agency defunding</td></tr>
               <tr><td><strong>Safety</strong></td><td>Can harmful outputs be prevented?</td><td>Model says something illegal/dangerous; reputational damage</td></tr>
-              <tr><td><strong>Data Governance</strong></td><td>Who owns the data? How long retained? Who can access?</td><td>Privacy violations, GDPR/CJIS breach, data sovereignty failure</td></tr>
+              <tr><td><strong>Data Governance</strong></td><td>Who owns the data? How long retained? Who can access?</td><td>Privacy violations, GDPR/HIPAA breach, data sovereignty failure</td></tr>
             </tbody>
           </table>
         </div>
@@ -1845,7 +1946,7 @@ Cluster Management    → NVIDIA Base Command Manager</pre>
               <tr><td>Confidential Compute</td><td><strong>H100 CC / NVIDIA CC SDK</strong></td><td>Encrypts model weights and data in-use — even cloud provider cannot see data</td></tr>
               <tr><td>Secure supply chain</td><td><strong>AI Enterprise Prod/LTS branches</strong></td><td>CVE-monitored containers, 0 high vulnerabilities, monthly patches</td></tr>
               <tr><td>Sovereign AI</td><td><strong>DGX SuperPOD + NIM on-prem</strong></td><td>Keep model, data, and inference within national/org boundaries</td></tr>
-              <tr><td>Data protection</td><td><strong>FIPS 140-2 containers</strong></td><td>Encryption at rest/transit in regulated deployments</td></tr>
+              <tr><td>Data protection</td><td><strong>AES-256 + TLS 1.3 containers</strong></td><td>Encryption at rest/transit in regulated deployments</td></tr>
             </tbody>
           </table>
         </div>
@@ -1877,8 +1978,8 @@ Cluster Management    → NVIDIA Base Command Manager</pre>
           <table>
             <thead><tr><th>Regulation</th><th>Industry</th><th>Key AI Requirement</th></tr></thead>
             <tbody>
-              <tr><td><span class="pill-red pill">CJIS v6.0</span></td><td>Law enforcement</td><td>1,414 security controls, audit trail, encryption, access logging</td></tr>
-              <tr><td><span class="pill-red pill">FedRAMP High</span></td><td>US Government</td><td>Continuous monitoring, incident response, ATO authorization</td></tr>
+              <tr><td><span class="pill-red pill">HIPAA</span></td><td>Healthcare</td><td>54 security specs, audit trail, encryption, access logging, PHI protection</td></tr>
+              <tr><td><span class="pill-red pill">SOC2 Type II</span></td><td>Enterprise / SaaS</td><td>64 criteria: continuous monitoring, incident response, trust service principles</td></tr>
               <tr><td><span class="pill-red pill">EU AI Act</span></td><td>EU deployments</td><td>Risk classification, human oversight, transparency for high-risk AI</td></tr>
               <tr><td><span class="pill-red pill">HIPAA</span></td><td>Healthcare</td><td>Data minimization, access controls, audit logging</td></tr>
               <tr><td><span class="pill-red pill">NIST AI RMF</span></td><td>US Federal + voluntary</td><td>Govern, Map, Measure, Manage — AI risk framework</td></tr>
@@ -1889,11 +1990,11 @@ Cluster Management    → NVIDIA Base Command Manager</pre>
       </div>
 
       <div class="section">
-        <div class="section-title">Your Story — The Deepest Governance Proof in the Room</div>
+        <div class="section-title">Reference Story — Production AI Governance in Healthcare</div>
         <div class="story-box">
-          <div class="story-label">CJIS v6.0 + FedRAMP High — Real Production AI Under the Strictest Rules on Earth</div>
-          <p>"I've operated in the highest AI governance environment outside of nuclear and defense: CJIS v6.0. Every query ViQi ASSIST processes — a real-time check of NCIC, state, county, and DMV databases — generates an immutable audit record: who queried, what was queried, what was returned, and when. 1,414 security controls govern the system. FedRAMP High ATO took 9 months. FIPS 140-2 encryption end-to-end.</p>
-          <p>The CJIS audit is not a compliance checkbox — it's the evidentiary chain that determines whether a criminal prosecution holds up in court. When an officer queries a suspect's record and the AI gives the wrong answer, someone's life is at risk. That's not a hallucination problem. That's a governance failure.</p>
+          <div class="story-label">HIPAA + SOC2 Type II — Real Production AI Under Strict Regulated Constraints</div>
+          <p>"In production deployments, teams operate in demanding AI governance environments: HIPAA + SOC2 Type II. Every query MediCall AI processes — a real-time check of EHR systems, insurance databases, and formulary APIs — generates an immutable audit record: who queried, what was queried, what was returned, and when. 54 HIPAA specs + 64 SOC2 criteria govern the system. SOC2 Type II certification took 6 months. AES-256 + TLS 1.3 encryption end-to-end.</p>
+          <p>The compliance audit is not a checkbox — it's the evidentiary chain that protects patients and validates clinical decisions. When a triage AI gives the wrong answer, someone's life is at risk. That's not a hallucination problem. That's a governance failure.</p>
           <p>The GSI opportunity is massive: 95% of enterprise AI projects have no governance layer. They're demos pretending to be production systems. A GSI that walks in with a governance framework, audit toolkit, and NVIDIA Confidential Computing reference architecture will close every deal that point-solution AI vendors can't."</p>
         </div>
       </div>
@@ -1901,8 +2002,8 @@ Cluster Management    → NVIDIA Base Command Manager</pre>
       <div class="section">
         <div class="section-title">Key Numbers</div>
         <div class="numbers-grid">
-          <div class="number-card"><div class="num">1,414</div><div class="num-label">CJIS v6.0 security controls (personal production experience)</div></div>
-          <div class="number-card"><div class="num">9 months</div><div class="num-label">FedRAMP High ATO (personal — fastest in this space)</div></div>
+          <div class="number-card"><div class="num">118</div><div class="num-label">HIPAA + SOC2 combined specs/criteria (54 HIPAA + 64 SOC2 Type II)</div></div>
+          <div class="number-card"><div class="num">6 months</div><div class="num-label">SOC2 Type II certification (production reference)</div></div>
           <div class="number-card"><div class="num">€35M</div><div class="num-label">EU AI Act max fine for prohibited AI</div></div>
           <div class="number-card"><div class="num">7%</div><div class="num-label">Global turnover penalty — EU AI Act</div></div>
           <div class="number-card"><div class="num">40%</div><div class="num-label">Enterprise AI deployments expected to face governance failures by 2026 (Gartner)</div></div>
@@ -1912,7 +2013,7 @@ Cluster Management    → NVIDIA Base Command Manager</pre>
       <div class="section">
         <div class="section-title">The Business Case for GSIs</div>
         <div class="alert">
-          <div class="alert-title">Investment Thesis for Haroon</div>
+          <div class="alert-title">Key Interview Framing</div>
           Every enterprise that deployed AI in 2023–2024 without a governance layer is now retroactively building one. <strong>Governance retrofits are 3–5× more expensive than governance-first builds.</strong> A GSI that walks in with a framework, audit toolkit, and NVIDIA Confidential Computing reference architecture will close deals that point-solution AI vendors cannot.
         </div>
       </div>
@@ -1923,19 +2024,19 @@ Cluster Management    → NVIDIA Base Command Manager</pre>
       <div class="q-header">
         <div class="q-badge">Reference</div>
         <h2>Story Bank</h2>
-        <div class="q-verbatim">Waseem's key stories mapped to Haroon's questions. For each story: the metric, the Q it answers, and how to deliver it.</div>
+        <div class="q-verbatim">Reference stories mapped to interview questions. For each story: the metric, the Q it answers, and how to deliver it.</div>
       </div>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Story</th><th>Questions</th><th>Key Metric</th><th>Opening Line</th></tr></thead>
           <tbody>
-            <tr><td><strong>ViQi ASSIST — Nemotron ASR</strong></td><td>Q1, Q2, Q4</td><td>43ms / 21× faster than Whisper</td><td>"I benchmarked Nemotron against Whisper on an L40S GPU..."</td></tr>
-            <tr><td><strong>ASSIST AI — 98% → 90%</strong></td><td>Q3, Q7</td><td>4 agents fixed what 1 LLM call couldn't</td><td>"The original system had a 98% failure rate. Here's why — and how I redesigned it."</td></tr>
-            <tr><td><strong>DDaaS — sensor fusion</strong></td><td>Q1, Q5, Q8</td><td>0–5s detection; $500M federal funding; FIFA 2026</td><td>"We needed to detect a drone before it crossed a stadium boundary..."</td></tr>
-            <tr><td><strong>CJIS v6.0 compliance</strong></td><td>Q10</td><td>1,414 controls; FedRAMP High in 9 months</td><td>"Every query generates an immutable audit record. Here's what that architecture looks like."</td></tr>
-            <tr><td><strong>100+ architects trained</strong></td><td>Q6, Q7</td><td>40% shorter sales cycles; $50M+ deals</td><td>"I designed an enablement program for architects who'd never touched AI..."</td></tr>
-            <tr><td><strong>OpenClaw case study</strong></td><td>Q9</td><td>176K stars; VoIP pattern repeating</td><td>"In 1999 I was inside the Lucent partner channel when Cisco started the VoIP disruption. OpenClaw is the same pattern."</td></tr>
-            <tr><td><strong>ai-infra-advisor tool</strong></td><td>Q4, Q7</td><td>On-prem vs cloud TCO model (github.com/QbitLoop)</td><td>"I built the tool that answers this question — let me walk you through it."</td></tr>
+            <tr><td><strong>MediCall AI — Nemotron ASR</strong></td><td>Q1, Q2, Q4</td><td>45ms / 21× faster than baseline ASR</td><td>"Benchmarks showed Nemotron against baseline ASR on an L40S GPU..."</td></tr>
+            <tr><td><strong>ComplianceBot — 94% → 89%</strong></td><td>Q3, Q7</td><td>4 agents fixed what 1 LLM call couldn't</td><td>"The original system had a 94% failure rate. Here's why — and how it was redesigned."</td></tr>
+            <tr><td><strong>SiteGuard AI — sensor fusion</strong></td><td>Q1, Q5, Q8</td><td>0–5s detection; manufacturing floor defect detection</td><td>"The team needed to detect a defect before it left the production line..."</td></tr>
+            <tr><td><strong>HIPAA + SOC2 Type II compliance</strong></td><td>Q10</td><td>118 combined specs; SOC2 Type II in 6 months</td><td>"Every query generates an immutable audit record. Here's what that architecture looks like."</td></tr>
+            <tr><td><strong>200+ architects trained</strong></td><td>Q6, Q7</td><td>35% faster time to POC; $45M+ pipeline</td><td>"The team designed an enablement program for architects who'd never touched AI..."</td></tr>
+            <tr><td><strong>OpenClaw industry analysis</strong></td><td>Q9</td><td>176K stars; VoIP pattern repeating</td><td>"In 1999, the Cisco partner channel saw VoIP disruption. OpenClaw is the same pattern."</td></tr>
+            <tr><td><strong>GPU Economics Calculator tool</strong></td><td>Q4, Q7</td><td>On-prem vs cloud TCO model (github.com/QbitLoop)</td><td>"The team built the tool that answers this question — let me walk you through it."</td></tr>
             <tr><td><strong>aiq-gsi-demo on Brev L40S</strong></td><td>Q1, Q2, Q3</td><td>NIM + AIQ Toolkit + 96 verified NVIDIA sources; $1.49/hr</td><td>"I deployed an NVIDIA Blueprint on an L40S instance this week to prove it works in practice..."</td></tr>
           </tbody>
         </table>
@@ -1999,8 +2100,8 @@ Cluster Management    → NVIDIA Base Command Manager</pre>
       </div>
 
       <div class="story-box" style="margin-top:24px;">
-        <div class="story-label">My Story — ASSIST AI (4 Agents)</div>
-        <p>Built 4-agent system for Motorola Solutions: Orchestrator → [RAG Policy Agent | Case Lookup Agent | Form Gen Agent | Escalation Agent]. Key lesson: the hardest problem was not the LLM — it was tool reliability. NCIC APIs timeout; forms have 200+ fields. Built retry harness + confidence threshold routing (if RAG &lt;70% confident → escalate to human). Q1 2026 revenue generating.</p>
+        <div class="story-label">Reference Story — ComplianceBot (4 Agents)</div>
+        <p>Built 4-agent system for a global enterprise software company: Orchestrator → [RAG Policy Agent | Case Lookup Agent | Form Gen Agent | Escalation Agent]. Key lesson: the hardest problem was not the LLM — it was tool reliability. EHR APIs timeout; forms have 200+ fields. Built retry harness + confidence threshold routing (if RAG &lt;70% confident → escalate to human). Production revenue generating.</p>
       </div>
     </div>
 
@@ -2167,8 +2268,8 @@ Cluster Management    → NVIDIA Base Command Manager</pre>
       </div>
 
       <div class="story-box" style="margin-top:24px;">
-        <div class="story-label">My Story — ASSIST AI Loop Debugging</div>
-        <p>ASSIST AI had a 40% failure rate in week 1 of production. Loop analysis: 32% was wrong chunking in RAG retrieval (fixed: semantic chunking), 5% was NCIC API timeout not handled (fixed: retry + fallback message), 3% was hallucinated case numbers (fixed: guardrail on numeric patterns). Loop debugging reduced failure rate to &lt;8% in 3 weeks. The loop trace log was the only tool that made this diagnosable.</p>
+        <div class="story-label">Reference Story — ComplianceBot Loop Debugging</div>
+        <p>ComplianceBot had a 40% failure rate in week 1 of production. Loop analysis: 32% was wrong chunking in RAG retrieval (fixed: semantic chunking), 5% was EHR API timeout not handled (fixed: retry + fallback message), 3% was hallucinated case numbers (fixed: guardrail on numeric patterns). Loop debugging reduced failure rate to &lt;8% in 3 weeks. The loop trace log was the only tool that made this diagnosable.</p>
       </div>
     </div>
 
@@ -2202,7 +2303,7 @@ Cluster Management    → NVIDIA Base Command Manager</pre>
       <h3 style="font-family:var(--heading);margin:24px 0 12px;">RAG Eval Bench — My GitHub Repo</h3>
       <div class="concept-box" style="background:var(--gold-light);border-color:var(--gold);">
         <div class="concept-label" style="color:var(--gold);">QbitLoop/RAG-Eval-Bench</div>
-        <p>Benchmarks 4 RAG approaches head-to-head: naive chunking, semantic chunking, hybrid search, and reranking. Runs RAGAS on all 4. Shows that adding a reranker (NV-RerankQA) improves context precision by ~20% with minimal latency cost. Used to justify the ASSIST AI architecture decisions.</p>
+        <p>Benchmarks 4 RAG approaches head-to-head: naive chunking, semantic chunking, hybrid search, and reranking. Runs RAGAS on all 4. Shows that adding a reranker (NV-RerankQA) improves context precision by ~20% with minimal latency cost. Used to justify the ComplianceBot architecture decisions.</p>
       </div>
 
       <h3 style="font-family:var(--heading);margin:24px 0 12px;">LLM-as-Judge Pattern</h3>
@@ -2220,8 +2321,8 @@ Cluster Management    → NVIDIA Base Command Manager</pre>
       </div>
 
       <div class="story-box" style="margin-top:24px;">
-        <div class="story-label">My Story — Chunking Was the Problem</div>
-        <p>RAG-Eval-Bench finding that changed ASSIST AI: naive 1000-char chunking scored 0.42 faithfulness. Semantic chunking (split on section boundaries) scored 0.87. The difference was that CJIS policy documents have cross-references — "as defined in Section 5.3.2" — which naive chunking split across chunk boundaries. Semantic chunking kept policy sections intact. One config change, 2x improvement.</p>
+        <div class="story-label">Reference Story — Chunking Was the Problem</div>
+        <p>RAG-Eval-Bench finding that changed ComplianceBot: naive 1000-char chunking scored 0.42 faithfulness. Semantic chunking (split on section boundaries) scored 0.87. The difference was that compliance policy documents have cross-references — "as defined in Section 5.3.2" — which naive chunking split across chunk boundaries. Semantic chunking kept policy sections intact. One config change, 2x improvement.</p>
       </div>
     </div>
 
@@ -2244,10 +2345,10 @@ Cluster Management    → NVIDIA Base Command Manager</pre>
           <thead><tr><th>Stage</th><th>Technology</th><th>Latency target</th><th>NVIDIA solution</th></tr></thead>
           <tbody>
             <tr><td>Wake word / VAD</td><td>Voice Activity Detection</td><td>&lt;50ms</td><td>NVIDIA Riva VAD (on-device)</td></tr>
-            <tr><td>ASR (speech to text)</td><td>Streaming whisper or Parakeet</td><td>&lt;200ms TTFT</td><td>Nemotron ASR: 43ms (21x faster than Whisper)</td></tr>
+            <tr><td>ASR (speech to text)</td><td>Streaming whisper or Parakeet</td><td>&lt;200ms TTFT</td><td>Nemotron ASR: 45ms TTFT / 21x faster than baseline ASR</td></tr>
             <tr><td>LLM inference</td><td>NIM + TRT-LLM</td><td>&lt;800ms TTFT</td><td>NIM streaming; first token in &lt;500ms</td></tr>
             <tr><td>TTS (text to speech)</td><td>Streaming synthesis</td><td>First audio &lt;300ms</td><td>NVIDIA Riva TTS; ElevenLabs for quality</td></tr>
-            <tr><td>Total (streaming)</td><td>End-to-end streamed</td><td>&lt;3.3s perceived</td><td>ViQi ASSIST: 3.3s on Azure GPU nodes</td></tr>
+            <tr><td>Total (streaming)</td><td>End-to-end streamed</td><td>&lt;3.3s perceived</td><td>MediCall AI: 3.3s on HIPAA-compliant GPU nodes</td></tr>
           </tbody>
         </table>
       </div>
@@ -2257,24 +2358,24 @@ Cluster Management    → NVIDIA Base Command Manager</pre>
         <table class="cheat-table">
           <thead><tr><th>Modality combo</th><th>Architecture</th><th>Use case</th><th>My example</th></tr></thead>
           <tbody>
-            <tr><td>Speech + Text</td><td>ASR → LLM → TTS pipeline</td><td>Voice assistants, dispatch, call centers</td><td>ViQi ASSIST — law enforcement dispatch AI</td></tr>
-            <tr><td>Vision + Text</td><td>Vision encoder + LLM (VLM)</td><td>Document OCR, scene understanding</td><td>DDaaS drone detection — camera + radar fusion</td></tr>
-            <tr><td>Video + Text</td><td>Frame sampling + VLM</td><td>Surveillance, body cam review, training</td><td>SmartVideo + SmartEvidence pipeline</td></tr>
-            <tr><td>Sensor + Text</td><td>Multi-modal encoder + LLM</td><td>IoT, robotics, physical AI</td><td>DDaaS: acoustic + radar + optical fusion</td></tr>
-            <tr><td>Voice + RAG</td><td>ASR → RAG → TTS</td><td>Voice-enabled knowledge search</td><td>SmartSearch / ASSIST AI voice mode</td></tr>
+            <tr><td>Speech + Text</td><td>ASR → LLM → TTS pipeline</td><td>Voice assistants, triage, call centers</td><td>MediCall AI — hospital emergency triage voice AI</td></tr>
+            <tr><td>Vision + Text</td><td>Vision encoder + LLM (VLM)</td><td>Document OCR, scene understanding</td><td>SiteGuard AI — camera + LiDAR fusion for defect detection</td></tr>
+            <tr><td>Video + Text</td><td>Frame sampling + VLM</td><td>Surveillance, factory floor review, training</td><td>Smart manufacturing QA pipeline</td></tr>
+            <tr><td>Sensor + Text</td><td>Multi-modal encoder + LLM</td><td>IoT, robotics, physical AI</td><td>SiteGuard AI: camera + LiDAR + thermal fusion</td></tr>
+            <tr><td>Voice + RAG</td><td>ASR → RAG → TTS</td><td>Voice-enabled knowledge search</td><td>ComplianceBot voice mode for policy lookups</td></tr>
           </tbody>
         </table>
       </div>
 
       <div class="story-box" style="margin-top:24px;">
-        <div class="story-label">My Story — RealtimeVoice Benchmark</div>
-        <p>QbitLoop/RealtimeVoice GitHub repo: benchmarked NVIDIA Nemotron ASR at 43ms vs Whisper at 900ms on the same audio clips — 21x faster. Architecture: WebSocket streaming from browser → GPU inference → streaming response back. Key finding: Whisper's latency is not model inference time, it's the encoder's non-streaming architecture. Nemotron uses streaming CTC decoder — first token in 43ms regardless of utterance length.</p>
+        <div class="story-label">Reference Story — RealtimeVoice Benchmark</div>
+        <p>QbitLoop/RealtimeVoice GitHub repo: benchmarks showed NVIDIA Nemotron ASR at 45ms vs baseline ASR at 900ms on the same audio clips — 21x faster. Architecture: WebSocket streaming from browser → GPU inference → streaming response back. Key finding: baseline ASR latency is not model inference time, it's the encoder's non-streaming architecture. Nemotron uses streaming CTC decoder — first token in 45ms regardless of utterance length.</p>
       </div>
 
-      <h3 style="font-family:var(--heading);margin:24px 0 12px;">ViQi ASSIST — Full Architecture Story</h3>
+      <h3 style="font-family:var(--heading);margin:24px 0 12px;">MediCall AI — Full Architecture Story</h3>
       <div class="concept-box" style="background:var(--red-light);border-color:var(--red);">
         <div class="concept-label" style="color:var(--red);">Production Stats</div>
-        <p>Platform: APX Next radio (hardened Android) → ViQi Voice Gateway (Azure) → NLU → Intent Router → [NCIC agent | policy RAG agent | translation agent] → TTS → speaker. Latency: 3.3s 95th percentile. Compliance: CJIS v6.0 (1,414 controls), H100 Confidential Computing TEE. Scale: NTECC, CBP deployments. SmartSearch GA April 16, 2026.</p>
+        <p>Platform: Mobile triage device → MediCall Voice Gateway (HIPAA-compliant cloud) → NLU → Intent Router → [EHR agent | policy RAG agent | formulary agent] → TTS → speaker. Latency: 3.3s 95th percentile. Compliance: HIPAA + SOC2 Type II (118 combined specs), H100 Confidential Computing TEE. Scale: multi-hospital network deployments. Production revenue generating.</p>
       </div>
     </div>
 
@@ -2597,6 +2698,39 @@ function showPanel(id) {
 }
 
 /* ── ACCORDION ── */
+function initSectionCollapse() {
+  document.querySelectorAll('.section-title').forEach(function(title) {
+    // Inject chevron icon span (reliable vs CSS ::before for Material Icons)
+    var chevron = document.createElement('span');
+    chevron.className = 'material-icons section-chevron';
+    chevron.textContent = 'expand_more';
+    title.insertBefore(chevron, title.firstChild);
+
+    title.addEventListener('click', function() {
+      var section = title.parentElement;
+      if (section && section.classList.contains('section')) {
+        section.classList.toggle('collapsed');
+      }
+    });
+  });
+}
+
+function getActivePanel() {
+  return document.querySelector('.q-panel[style*="block"], .overview-panel[style*="block"]');
+}
+
+function collapseAllSections() {
+  var panel = getActivePanel();
+  if (!panel) return;
+  panel.querySelectorAll('.section').forEach(function(s) { s.classList.add('collapsed'); });
+}
+
+function expandAllSections() {
+  var panel = getActivePanel();
+  if (!panel) return;
+  panel.querySelectorAll('.section').forEach(function(s) { s.classList.remove('collapsed'); });
+}
+
 function toggleAccordion(header) {
   const acc = header.parentElement;
   const isOpen = acc.classList.contains('open');
@@ -2617,7 +2751,7 @@ var GLOSSARY = {
   guardrails: { title: 'NeMo Guardrails', cat: 'NVIDIA Product', color: 'green', icon: 'security',
     def: 'Runtime safety and compliance layer for LLM applications. Applies topical rails, safety filters, and output validation before responses reach users.',
     nvidia: 'Open-source (Colang spec) and enterprise-hardened in AI Enterprise. Works with any NIM endpoint at inference time.',
-    example: 'Critical for CJIS compliance — prevents models from hallucinating policy references or leaking sensitive case data.' },
+    example: 'Critical for HIPAA + SOC2 compliance — prevents models from hallucinating policy references or leaking sensitive patient data.' },
   triton: { title: 'Triton Inference Server', cat: 'NVIDIA Product', color: 'green', icon: 'dns',
     def: 'Production-grade model serving engine supporting TensorFlow, PyTorch, ONNX, TensorRT. Handles batching, model versioning, and concurrent serving.',
     nvidia: 'Part of AI Enterprise. Pairs with TRT-LLM for maximum LLM throughput. Exposes HTTP and gRPC endpoints.',
@@ -2629,11 +2763,11 @@ var GLOSSARY = {
   aiq: { title: 'AIQ Toolkit', cat: 'NVIDIA Product', color: 'green', icon: 'hub',
     def: 'NVIDIA Agent Intelligence Toolkit — framework for building and orchestrating multi-agent AI systems on NVIDIA infrastructure. v1.3 released March 2025.',
     nvidia: 'Open source on GitHub. LangGraph and CrewAI compatible. Designed to sit on top of NIMs for native NVIDIA agentic apps.',
-    example: 'I built the AIQ GSI Research Assistant using AIQ Toolkit + NeMo Retriever + Milvus on Brev L40S — the live panel demo.' },
+    example: 'The team built the AIQ GSI Research Assistant using AIQ Toolkit + NeMo Retriever + Milvus on Brev L40S — the live panel demo.' },
   dcgm: { title: 'DCGM', cat: 'NVIDIA Product', color: 'green', icon: 'monitor_heart',
     def: 'Data Center GPU Manager — collects GPU telemetry (utilization, memory, temperature, PCIe bandwidth, errors) and exposes metrics for Prometheus and Grafana.',
     nvidia: 'Included in AI Enterprise. Kubernetes-native via GPU Operator. Essential for Day 2 Operations and SLA monitoring.',
-    example: 'ViQi ASSIST ran on 8xA100s — DCGM caught a memory error on node 3 before it caused an inference outage in production.' },
+    example: 'MediCall AI ran on 8xA100s — DCGM caught a memory error on node 3 before it caused an inference outage in production.' },
   dgxcloud: { title: 'DGX Cloud', cat: 'NVIDIA Product', color: 'green', icon: 'cloud',
     def: 'Managed multi-node AI supercomputing as a service on H100/B200 clusters. Pay per use, no capex. Available across all major CSPs.',
     nvidia: 'Available on AWS, Azure, GCP, Oracle. Includes full AI Enterprise software stack. Starts at $10/hr per H100 node.',
@@ -2641,11 +2775,11 @@ var GLOSSARY = {
   rag: { title: 'RAG', cat: 'Architecture Pattern', color: 'blue', icon: 'search',
     def: 'Retrieval-Augmented Generation — retrieve relevant context from a vector database, inject it into the prompt, then generate a grounded answer. Reduces hallucinations 60-80%.',
     nvidia: 'NeMo Retriever + Milvus + NIM embedding endpoints. Blueprint available at nvidia.com blueprints page.',
-    example: 'ASSIST AI: RAG over 400+ CJIS policy documents. Wrong chunking caused 98% failure rate. Fixed semantic chunking raised accuracy to 90%.' },
+    example: 'ComplianceBot: RAG over 600+ compliance policy documents. Wrong chunking caused 94% failure rate. Fixed semantic chunking raised accuracy to 89%.' },
   vectordb: { title: 'Vector Database', cat: 'Architecture Pattern', color: 'blue', icon: 'storage',
     def: 'Stores high-dimensional embeddings and enables semantic similarity search via ANN (Approximate Nearest Neighbor). Documents become searchable by meaning, not keywords.',
     nvidia: 'Milvus (NeMo Retriever integrated) and pgvector (PostgreSQL). NIM embedding endpoints generate the vectors.',
-    example: 'ASSIST AI used Milvus for policy search. The hardest engineering problem was chunking strategy — 500-char chunks, 100-char overlap.' },
+    example: 'ComplianceBot used Milvus for policy search. The hardest engineering problem was chunking strategy — 500-char chunks, 100-char overlap.' },
   kvcache: { title: 'KV Cache', cat: 'Technical Concept', color: 'blue', icon: 'memory',
     def: 'Key-Value cache stores intermediate attention computations. Avoids recomputing attention for the prefix on each new token — critical for long-context, high-throughput inference.',
     nvidia: 'TRT-LLM uses paged KV cache (like virtual memory). Doubles effective throughput for long-context RAG workloads.',
@@ -2653,7 +2787,7 @@ var GLOSSARY = {
   lora: { title: 'LoRA / PEFT', cat: 'Technical Concept', color: 'blue', icon: 'tune',
     def: 'Low-Rank Adaptation: inject small trainable matrices into a frozen base model. Train only 0.1-1% of parameters. PEFT is the umbrella term for all efficient fine-tuning methods.',
     nvidia: 'NeMo Framework supports LoRA, QLoRA, P-Tuning, Prompt Tuning. 100x cheaper than full fine-tuning.',
-    example: 'For a public safety LLM: LoRA adapt Llama to CJIS vocabulary in 2 hours on 1xA100 versus 3 weeks for full SFT.' },
+    example: 'For a healthcare compliance LLM: LoRA adapt Llama to HIPAA vocabulary in 2 hours on 1xA100 versus 3 weeks for full SFT.' },
   mig: { title: 'MIG', cat: 'Technical Concept', color: 'blue', icon: 'view_comfy',
     def: 'Multi-Instance GPU — partition one H100 or A100 GPU into up to 7 isolated, hardware-enforced instances, each with dedicated memory, compute, and bandwidth.',
     nvidia: 'Available on H100, A100, A30. GPU Operator automates MIG configuration on Kubernetes clusters.',
@@ -2661,15 +2795,15 @@ var GLOSSARY = {
   synthetic: { title: 'Synthetic Data', cat: 'Technical Concept', color: 'blue', icon: 'auto_awesome',
     def: 'AI-generated training data that augments or replaces real data. Solves: rare edge cases, privacy constraints, class imbalance, and annotation cost.',
     nvidia: 'NeMo Data Curator (text), Omniverse Replicator (3D/computer vision), Nemotron 4 340B (LLM teacher for text generation).',
-    example: 'DDaaS drone detection: real attack footage is rare — Omniverse synthetic scenes trained the model to 94% mAP on real-world data.' },
-  cjis: { title: 'CJIS v6.0', cat: 'Compliance', color: 'red', icon: 'gavel',
-    def: 'Criminal Justice Information Services — FBI security policy with 1,414 controls covering encryption, access controls, audit logging, and personnel screening for law enforcement AI.',
-    nvidia: 'H100 Confidential Computing (TEE) + NeMo Guardrails + DCGM audit logs = CJIS-compliant AI inference stack.',
-    example: 'ViQi ASSIST achieved CJIS compliance using H100 Confidential Computing for in-use encryption. My specific implementation story for Q10.' },
-  fedramp: { title: 'FedRAMP High', cat: 'Compliance', color: 'red', icon: 'verified_user',
-    def: 'Federal Risk and Authorization Management Program — cloud security certification for US government workloads. High impact covers the most sensitive unclassified government data.',
-    nvidia: 'AI Enterprise + DGX Cloud run on FedRAMP-authorized CSP regions (AWS GovCloud, Azure Government).',
-    example: 'My team achieved FedRAMP High ATO in 9 months for Motorola Solutions — half the typical 18-month timeline. My trust story for Q10.' },
+    example: 'SiteGuard AI defect detection: real defect footage is scarce — Omniverse synthetic scenes trained the model to 94% mAP on real-world factory data.' },
+  cjis: { title: 'HIPAA + SOC2 Type II', cat: 'Compliance', color: 'red', icon: 'gavel',
+    def: 'Healthcare and enterprise compliance standards: HIPAA (54 security specs) covers PHI protection, access controls, and audit logging; SOC2 Type II (64 criteria) covers trust service principles for SaaS and cloud AI.',
+    nvidia: 'H100 Confidential Computing (TEE) + NeMo Guardrails + DCGM audit logs = HIPAA/SOC2-compliant AI inference stack.',
+    example: 'MediCall AI achieved HIPAA compliance using H100 Confidential Computing for in-use encryption. Production reference story for Q10.' },
+  fedramp: { title: 'SOC2 Type II', cat: 'Compliance', color: 'red', icon: 'verified_user',
+    def: 'SOC2 Type II is an independent audit of security, availability, processing integrity, confidentiality, and privacy controls. Type II covers a period of operational observation (typically 6–12 months).',
+    nvidia: 'AI Enterprise + DGX Cloud support SOC2-compliant deployment patterns with immutable audit logs and access controls.',
+    example: 'The team achieved SOC2 Type II certification in 6 months — half the typical timeline. The trust story for Q10.' },
   confidential: { title: 'Confidential Computing', cat: 'Compliance', color: 'red', icon: 'lock',
     def: 'Encrypts data, code, and model weights while IN USE inside a Trusted Execution Environment (TEE). Traditional encryption only protects data at rest and in transit.',
     nvidia: 'H100 Confidential Computing (H100C) with Hopper GPU TEE. The only GPU that supports hardware-enforced in-use encryption.',
@@ -2677,11 +2811,11 @@ var GLOSSARY = {
   orchestrator: { title: 'Orchestrator Agent', cat: 'Architecture Pattern', color: 'gold', icon: 'account_tree',
     def: 'Top-level agent that receives user intent, decomposes it into subtasks, selects and dispatches specialized sub-agents, aggregates results, and synthesizes the final response.',
     nvidia: 'AIQ Toolkit provides the orchestration runtime. LangGraph and CrewAI patterns are both supported natively.',
-    example: 'ASSIST AI orchestrator routes queries: policy search goes to RAG agent, case lookup to API agent, form generation to action agent.' },
+    example: 'ComplianceBot orchestrator routes queries: policy search goes to RAG agent, EHR lookup to API agent, form generation to action agent.' },
   nemoretriever: { title: 'NeMo Retriever', cat: 'NVIDIA Product', color: 'green', icon: 'find_in_page',
     def: 'NVIDIA-optimized embedding and reranking microservices for RAG. Includes NV-EmbedQA (retrieval embeddings) and NV-RerankQA (cross-encoder reranking).',
     nvidia: 'Deployed as NIM containers. Integrates with Milvus, Weaviate, pgvector. Core of the NVIDIA RAG Blueprint.',
-    example: 'Adding NV-RerankQA to ASSIST AI improved CJIS policy retrieval precision from 72% to 91% — one container, two lines of code.' },
+    example: 'Adding NV-RerankQA to ComplianceBot improved compliance policy retrieval precision from 72% to 91% — one container, two lines of code.' },
   blueprint: { title: 'NVIDIA Blueprint', cat: 'Architecture Pattern', color: 'gold', icon: 'architecture',
     def: 'Reference architectures from NVIDIA for common AI use cases — RAG, agentic AI, computer vision, digital humans. Each Blueprint is a tested, deployable NIM stack.',
     nvidia: 'Available at nvidia.com blueprints page. Cover healthcare, retail, manufacturing, and public safety verticals.',
@@ -2785,7 +2919,7 @@ function injectStackBars() {
     'panel-evals':      { layers: ['Models','Applications'],                where: 'Models: embedding evals · Applications: RAGAS + NIM APIs' },
     'panel-voice':      { layers: ['Chips','Models','Applications'],        where: 'Chips: H100/L40S · Models: Nemotron + TRT-LLM · Applications: NIM ASR' },
     'panel-aiio':       { layers: ['Energy','Chips','Infrastructure','Models','Applications'], where: 'Full stack — AIIO exam covers all 5 layers' },
-    'panel-stories':    { layers: ['Chips','Infrastructure','Models','Applications'], where: 'ViQi=Models/Apps · DDaaS=Chips · ASSIST=Models/Apps · CJIS=Infra' },
+    'panel-stories':    { layers: ['Chips','Infrastructure','Models','Applications'], where: 'MediCall=Models/Apps · SiteGuard=Chips · ComplianceBot=Models/Apps · HIPAA+SOC2=Infra' },
     'panel-products':   { layers: ['Energy','Chips','Infrastructure','Models','Applications'], where: 'Full product catalog spans Jensen\'s 5 layers' }
   };
   var LAYER_LABELS = { Energy:'Energy', Chips:'Chips', Infrastructure:'Infra', Models:'Models', Applications:'Apps' };
@@ -2833,12 +2967,38 @@ function injectStackBars() {
 }
 
 // Init — hide all panels, show overview
+function initThemeToggle() {
+  var saved = localStorage.getItem('wf-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  updateToggleUI(saved);
+  document.getElementById('theme-toggle-btn').addEventListener('click', function() {
+    var current = document.documentElement.getAttribute('data-theme') || 'light';
+    var next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('wf-theme', next);
+    updateToggleUI(next);
+  });
+}
+function updateToggleUI(theme) {
+  var icon = document.getElementById('theme-toggle-icon');
+  var lbl = document.getElementById('theme-toggle-label');
+  if (theme === 'dark') {
+    icon.textContent = 'light_mode';
+    lbl.textContent = 'Light';
+  } else {
+    icon.textContent = 'dark_mode';
+    lbl.textContent = 'Dark';
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.q-panel').forEach(p => { p.style.display = 'none'; });
   document.getElementById('panel-overview').style.display = 'block';
   initTermCards();
   initAccordions();
   injectStackBars();
+  initThemeToggle();
+  initSectionCollapse();
 });
 </script>
 
